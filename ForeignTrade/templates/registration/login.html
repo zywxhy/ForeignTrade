@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>login</title>
+    <link href="../../static/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="../../static/css/login.css" rel="stylesheet" type="text/css" />
+ <script src="../../static/js/jquery-2.1.1.js"></script>
+     <script src="../../static/js/bootstrap.min.js"></script>
+</head>
+
+<body bgcolor="aqua">
+<div class="login_box">
+      <div class="login_l_img"><img src="../../static/images/login-img.png" /></div>
+      <div class="login">
+          <div class="login_logo"><a href="#"><img src="../../static/images/login_logo.png" /></a></div>
+          <div class="login_name">
+
+          </div>
+          <form method="post" action="{% url 'login' %}">
+               {% csrf_token %}
+              <input name="username" placeholder="username" type="text">
+              <input name="password" type="password" placeholder="password" id="password"/>
+              <div class="form-inline">
+              <input type="text" style="width:65%;" id="id_reg_captcha_1" name="captcha_1" class="form-control form-control-captcha fl" placeholder="请输入验证码">
+              <span class="v5-yzm fr"><a href="#" style="width:35%;"  class="next-captcha"><img src="{{ imgage_url }}"  class="captcha" alt="captcha"></a></span>
+              <input id="id_reg_captcha_0" name="captcha_0" type="hidden" value="{{ hashkey }}">
+              </div>
+              <input value="login" style="width:100%;" type="submit">
+          </form>
+          <p style="color: red">{% if form.captcha.errors %}verification code error{% else %}{{ error }}{% endif %}</p>
+
+
+      </div>
+
+</div>
+<div style="text-align:center;">
+</div>
+<script>
+
+  $(".next-captcha").click(function(){
+
+         $.getJSON("{% url 'refresh_captcha' %}", function(json) {        // This should update your captcha image src and captcha hidden input
+          // debugger;
+          console.info(JSON.stringify(json));
+          //let status = json['status'];
+          let new_hashkey = json['new_hashkeys'];
+          let new_imgage_url = json['new_imgage_url'];
+          let id_captcha_0 = $("#id_reg_captcha_0");
+          let img = $(".captcha");
+          id_captcha_0.attr("value", new_hashkey);
+          img.attr("src", new_imgage_url);
+      });
+  });
+
+
+</script>
+</body>
+</html>

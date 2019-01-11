@@ -1,0 +1,652 @@
+{% extends 'base/AdminLTE_base.html' %}
+{% block title %}添加合同{% endblock %}
+
+{% block style %}
+    <style>
+        table {
+            table-layout: fixed;
+            word-break: break-all;
+        }
+        p {
+            width: 100%;
+            overflow: hidden;
+        }
+        input,select{
+            border:0;
+	        width: 100%;
+        }
+	    .datepicker-days td, .datepicker-days th {
+            width:35px;
+        }
+        select option{
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+        tr th,
+        tr td{
+            text-align: center;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+        .padmar{
+            margin:10px;
+        }
+        .layui-table-tips-c:before {
+            right: 1px;
+            top: -3px;
+        }
+    </style>
+{% endblock %}
+
+{% block path %}
+    <ol class="breadcrumb">
+        <li><a href="{% url 'home' %}"><i class="fa fa-dashboard"></i> 主页</a></li>
+        <li class="active">采购管理</li>
+        <li class="active">采购合同</li>
+    </ol>
+{% endblock %}
+{% block main_title %}
+    销售合同添加
+{% endblock %}
+
+
+{% block main_content %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="box box-info box-solid">
+            <div class="box-header with-border">
+                <h6 class="box-title">
+                    销售合同
+                </h6>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                    <button type="button" class="btn btn-box-tool" id="deleteproduct"><i class="fa fa-times"></i></button>
+                </div>
+            </div>
+            <div class="box-body">
+                <table class="table" id="sales_order_add">
+                    <tr>
+                        <td>
+                        <input type="text" name="csrfmiddlewaretoken" value="{{ csrf_token }}" hidden="hidden">
+                            <div class="input-group input-group-sm form-inline {% if form.sales_num.errors %}has-error{% endif %}">
+                                <span class="input-group-addon">合同编号</span>
+                                {{ form.sales_num }}
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input-group input-group-sm form-inline {% if form.sales_num.errors %}has-error{% endif %}">
+                                <span class="input-group-addon">业务员</span>
+                                {{ form.salesman }}
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input-group input-group-sm form-inline {% if form.sales_num.errors %}has-error{% endif %}">
+                                <span class="input-group-addon">采购员</span>
+                                {{ form.buyer }}
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input-group input-group-sm form-inline {% if form.sales_num.errors %}has-error{% endif %}">
+                                <span class="input-group-addon">客户</span>
+                                {{ form.client }}
+
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="input-group input-group-sm form-inline {% if form.sales_num.errors %}has-error{% endif %}">
+                                <span class="input-group-addon">签约日期</span>
+                                {{ form.date }}
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input-group input-group-sm form-inline {% if form.sales_num.errors %}has-error{% endif %}">
+                                <span class="input-group-addon">装运口岸</span>
+                                {{ form.shipment_port }}
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input-group input-group-sm form-inline {% if form.sales_num.errors %}has-error{% endif %}">
+                                <span class="input-group-addon">目的口岸</span>
+                                {{ form.destination_port }}
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input-group input-group-sm form-inline {% if form.sales_num.errors %}has-error{% endif %}">
+                                <span class="input-group-addon">币种</span>
+                                {{ form.currency }}
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="input-group input-group-sm form-inline {% if form.sales_num.errors %}has-error{% endif %}">
+                                <span class="input-group-addon">价格条款</span>
+                                {{ form.price_clause }}
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input-group input-group-sm form-inline {% if form.sales_num.errors %}has-error{% endif %}">
+                                <span class="input-group-addon">出口公司</span>
+                                {{ form.export_company }}
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input-group input-group-sm form-inline {% if form.sales_num.errors %}has-error{% endif %}">
+                                <span class="input-group-addon">运输方式</span>
+                                {{ form.mode_of_transport }}
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input-group input-group-sm form-inline {% if form.sales_num.errors %}has-error{% endif %}">
+                                <span class="input-group-addon">汇率</span>
+                                {{ form.exrate }}
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="input-group input-group-sm form-inline {% if form.sales_num.errors %}has-error{% endif %}">
+                                <span class="input-group-addon">运费</span>
+                                {{ form.shipping_fee }}
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input-group input-group-sm form-inline {% if form.sales_num.errors %}has-error{% endif %}">
+                                <span class="input-group-addon">保险费</span>
+                                {{ form.insurance }}
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input-group input-group-sm form-inline {% if form.sales_num.errors %}has-error{% endif %}">
+                                <span class="input-group-addon">其他费用</span>
+                                {{ form.other_fee }}
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input-group input-group-sm form-inline {% if form.sales_num.errors %}has-error{% endif %}">
+                                <span class="input-group-addon">总金额</span>
+                                {{ form.total_amount }}
+                            </div>
+                        </td>
+                    </tr>
+                    
+                </table>
+            </div>
+            <!-- /.box-body -->
+            <div class="box-footer"></div>
+            <!-- box-footer -->
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-primary box-solid">
+                    <div class="box-header with-border">
+                        <div class="pull-left">
+                            <h3 class="box-title">产品列表</h3>
+                        </div>
+                        <div class="box-tools pull-right">
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            <button type="button" class="btn btn-box-tool" id="delete_product"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <table class="layui-hide" id="layuiDemo" lay-filter="test"></table>
+                    </div>
+                    <div class="box-footer">
+                
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row"> 
+            <div class="col-md-12">
+                <div class="box box-default box-solid">
+                    <div class="box-header with-border">
+                        <div class="pull-left">
+                            <h6 class="box-title">收款计划</h6>
+                        </div>
+                        <div class="box-tools pull-right">
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            <button type="button" class="btn btn-box-tool" id="delete_product"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <table class="layui-hide" id="thirdDemo" lay-filter="filter"></table>
+                    </div>
+                    <div class="box-footer"></div>
+                </div>
+            </div>
+        </div>
+        <div class="pull-right">
+            <button class="layui-btn layui-btn-normal" data-method="submit"><i class="fa fa-save"></i> Save</button>
+        </div>
+                
+    </div>
+</div>
+<script type="text/html" id="toolbarDemo">
+    <div class="layui-btn-container">
+        <a type="button" data-method="setTop" href="javascript:void(0)" class="layui-btn layui-btn-sm" lay-event="add">添加</a>
+        <a type="button" data-method="delete" href="javascript:void(0)" class="layui-btn layui-btn-sm" lay-event="delete">删除</a>
+    </div>
+</script>
+<script type="text/html" id="thirdTool">
+    <div class="layui-btn-container">
+        <a type="button" data-method="reload" href="javascript:void(0)" class="layui-btn layui-btn-sm" lay-event="add">添加</a>
+        <a type="button" data-method="reloadchild" href="javascript:void(0)" class="layui-btn layui-btn-sm" lay-event="delete">删除</a>
+    </div>
+</script>
+<div style="display:none" id="infoDemo">
+    <div class="infoDemo padmar">
+        搜索：
+        <div class="layui-inline">
+            <input class="layui-input" name="id" id="demoReload" autocomplete="off">
+        </div>
+        <button class="layui-btn" data-method="reloadchild">搜索</button>
+    </div>
+    <table class="layui-hide"  id="firstBlood" lay-filter="demo"></table>
+</div>
+<script type="text/html" id="titleTpl">
+    <a class="layui-btn layui-btn-xs" data-id="{{d.product_id}}"  data-method="reload" lay-event="add">添加</a>
+</script>
+{% endblock %}
+
+{% block script %}
+<script>
+    var obj = {
+        init: function (data) {
+            var data = data;
+            this.bind(data);
+        },
+        subdact:function(){ //     判断是否有减数
+            var amount = $("#id_total_amount").val();
+            var subtraction = $('#id_bill_amount').val();
+            var remain = parseInt(amount - subtraction);
+            if(subtraction===undefined){
+                
+            }else if(remain >= 0){
+                $("#id_not_bill_amount").val(remain);
+            }else{
+                alert("请注意！");
+                $('#id_bill_amount').val(0);
+                $("#id_not_bill_amount").val(amount);
+            }
+        },
+        callback: function (data) {
+            var list = {};
+            var map = new Map();
+            $.each(data, function (index, item) {
+                var key = $(item).prop("name");
+                var value = $(item).val();
+                list[key] = value;
+            });
+            return list;
+        },
+        get_exrate:function(){
+            var currency = $("#id_currency").val();
+            $.getJSON("/finance/get_exchange_rate/", {'currency': currency}, function (index, status) {
+                $('#id_exrate').val(index);
+            })
+        },
+        bind: function (data) {
+            var self = this;
+            var formdata;
+            layui.use(['table','laydate','layer'], function () {
+                var table = layui.table,
+                laydate = layui.laydate,
+                layer = layui.layer,
+                $ = layui.$;
+                table.render({              //父页面的table
+                    elem: '#layuiDemo'
+                    , data: data
+                    , toolbar: '#toolbarDemo'
+                    , page: true
+                    , defaultToolbar:[]
+                    , id: 'testReload'
+                    , cols: [[
+                        {type: 'checkbox', align: "center"}
+                        , {field: "product__product_id", title: "产品代码", align: "center"}
+                        , {field: "product__name", title: "名字", align: "center"}
+                        , {field: "product__spec", title: "规格", align: "center"}
+                        , {field: "remark", title: "备注", align: "center", edit: 'text'}
+                        , {field: "product__mesu_unit", title: "单位", align: "center"}
+                        , {field: "volume", title: "体积", align: "center"}
+                        , {field: "unit_price", title: "单价", align: "center", edit: 'text'}
+                        , {field: "sales_count", title: "数量", align: "center", edit: 'text'}
+                        , {field: "amount", title: "金额", align: "center"}
+                    ]]
+                });
+                table.render({             //子页面的table
+                    elem: '#firstBlood'
+                    , url: '/product/product_select'
+                    , page: true
+                    , id: 'testchange'
+                    , cols: [[
+                        {field: "product_id", title: "产品id", align: "center", width: 100}
+                        , {field: "name", title: "产品名称", align: "center", width: 100}
+                        , {field: "spec", title: "产品规格", align: "center", width: 200}
+                        , {field: "mesu", title: "计量单位", align: "center", width: 200}
+                        , {field: "volume", title: "体积", align: "center", width: 100}
+                        , {title: "操作", toolbar: '#titleTpl', align: "center", width: 100}
+                    ]]
+                    , parseData: function (res) { //res 即为原始返回的数据
+                        return {
+                            "code": res.status, //解析接口状态
+                            "msg": res.message, //解析提示文本
+                            "count": res.total, //解析数据长度
+                            "data": res.data //解析数据列表
+                        };
+                    },
+                });
+
+                table.render({      //第三个表
+                    elem:"#thirdDemo"
+                    ,data:[]
+                    ,id:'init'
+                    ,toolbar: '#thirdTool'
+                    ,cols:[[
+                        {type:'checkbox',align:"center"}
+                        ,{field:"receipt_type",title:"收款类型",align:"center",edit: 'text'}
+                        ,{field:"receipt_date",title:"预计收款日期",edit: 'text',event: 'setSign',align:"center",templet:function(d){return '<div><div class="myDate" style="width: 100%;height: 100%;">'+d.receipt_date+'</div></div>'}}
+                        ,{field:"receipt",title:"金额",align:"center",edit: 'text'}
+                        ,{field:"remark",title:"备注",align:"center",edit: 'text'}
+                    ]]
+                    ,done:function(res,curr,count){
+                        var tableView =this.elem.next();
+                        var mydate = tableView.find('.myDate');
+                        layui.each(mydate,function(index,elem){
+                            laydate.render({
+                                elem:elem
+                                ,trigger: 'click'
+                                ,lang: 'en'
+                                ,done:function(value,date,endDate){
+                                    var elemTemp = $(this)[0].elem[0].innerHTML;
+                                    table.cache.init[index].receipt_date = elemTemp;
+                                    console.log(table.cache.init[index].receipt_date);
+                                    table.reload('init', {
+                                        page: {
+                                            curr: 1 //重新从第 1 页开始
+                                        }
+                                        ,data:table.cache.init
+                                    });
+                                }
+                                ,
+                            });
+                        });
+                    }
+                });
+                table.on('tool(filter)',function(obj){
+                    var line = obj.data;
+                    if(obj.event === 'setSign'){
+                        table.reload('init', {
+                            page: {
+                                curr: 1 //重新从第 1 页开始
+                            }
+                            ,data:table.cache.init
+                        });
+                    }
+                    
+                });
+                table.on('toolbar(filter)', function(obj){
+                    var checkStatus = table.checkStatus(obj.config.id);
+                    switch(obj.event){
+                        case 'add':
+                            var data = table.cache.init;
+                            var count = data.length;
+                            var _now = new Date();
+                            var day = _now.getFullYear() + '-' + (_now.getMonth()+1) + '-' + _now.getDate();
+                            data.push({'pid':count,'receipt_type':'Please fill in the collection type','receipt_date':day,'receipt':0,'remark':0})
+                            //执行重载
+                            table.reload('init', {
+                                page: {
+                                    curr: 1 //重新从第 1 页开始
+                                }
+                                ,data:data
+                            });
+                            break;
+                        case 'delete':
+                            var arr = [];
+                            var id_arr = [];
+                            var getdata = table.cache.init;
+                            console.log(getdata);
+                            $.each(checkStatus.data,function(index,item){
+                                id_arr.push(item.pid);
+                            });
+                            for(var value of getdata){
+                                if(id_arr.indexOf(value.pid) == -1){
+                                    arr.push(value);
+                                }
+                            }
+                            table.reload('init', {
+                                page: {
+                                    curr: 1 //重新从第 1 页开始
+                                }
+                                ,data:arr
+                            });
+                            break;
+                    }
+                });
+                table.on('edit(test)', function (obj) {        //  监听开启编辑，计算金额和总金额
+                    var data = obj.data;
+                    active.calculat(data);
+                });
+                table.on('tool(demo)', function (obj) {            //  监听子页面的tool操作
+                    var data = obj.data;
+                    var arr = [];
+                    var self = this;
+                    layEvent = obj.event; //获得 lay-event 对应的值
+                    var getdata = table.cache.testReload;
+
+                    $.each(getdata, function (index, item) {
+                        arr.push(item.product__product_id);
+                    });
+                    var number = arr.findIndex(function (value) {
+                        return value == data.product_id
+                    });
+                    console.log(number);
+                    if (number === -1) {
+                        var othis = $(this), method = othis.data('method');
+                        active[method] ? active[method].call(this, getdata) : '';
+
+                        if (layEvent === 'add') {
+                            $.ajax({
+                                type: 'get',
+                                data: {'product_id': data.product_id},
+                                url: '/product/get_product',
+                                success: function (res) {
+                                    console.log(res);
+                                    getdata.push({
+                                        'product__product_id': res.data[0].product_id,
+                                        'product__name': res.data[0].name,
+                                        'product__spec': res.data[0].spec,
+                                        'unit_price': 0,
+                                        'sales_count': 0,
+                                        'amount':0
+                                    });
+                                    table.reload('testReload', {
+                                        page: {
+                                            curr: 1 //重新从第 1 页开始
+                                        }
+                                        , data: getdata
+                                    });
+                                }
+                            })
+                        }
+                    }
+                });
+
+                table.on('toolbar(test)', function (obj) {         //table头部事件监听
+                    var checkStatus = table.checkStatus(obj.config.id);
+                    switch (obj.event) {
+                        case 'add':
+                            var othis = $(this), method = othis.data('method');
+                            active[method] ? active[method].call(this, othis) : '';
+                            break;
+                        case 'delete':
+                            var arr = [];
+                            var id_arr = [];
+                            var getdata = table.cache.testReload;
+
+                            $.each(checkStatus.data, function (index, item) {
+                                id_arr.push(item.product__product_id);
+                            });
+                            for (var value of getdata) {
+                                if (id_arr.indexOf(value.product__product_id) === -1) {
+                                    arr.push(value);
+                                }
+                            };
+                            var count_num = 0;
+                            $.each(arr, function (index, item) {
+                                count_num += parseInt(item.amount);
+                            });
+                            //input框
+                            var data1 = $("#sales_order_add input.changeable");
+                            $.each(data1, function (index, item) {
+                                count_num = count_num + parseInt($(item).val());
+                            });
+                            $("#id_total_amount").val(count_num);
+                            // self.subdact();
+
+                            table.reload('testReload', {
+                                page: {
+                                    curr: 1 //重新从第 1 页开始
+                                }
+                                , data: arr
+                            });
+                            break;
+                    };
+                });
+                var active = {
+                    setTop: function () {            //  监听按钮add 开启弹出层
+                        var that = this;
+                        layer.open({
+                            type: 1
+                            , content: $('#infoDemo')
+                            , title: '添加产品'
+                            , area: ['auto','auto']
+                            , shadeClose: true
+                            , shade: .3
+                            , zIndex: layer.zIndex //重点1
+                            , success: function (layero) {
+                                $('#demoReload').val("");
+                                active.reloadchild();
+                            }
+                            , btn: ['全部关闭'] //只是为了演示
+                            , yes: function () {
+                                layer.closeAll();
+                                $('#demoReload').val("");
+                            }
+                        })
+                    },
+                    reload: function (data) {             //重载
+                        //执行重载
+                        table.reload('testReload', {
+                            page: {
+                                curr: 1 //重新从第 1 页开始
+                            }
+                            , data: data
+                        });
+                    },
+                    reloadchild: function () {               //子页面搜索
+                        var demoReload = $('#demoReload');
+                        //执行重载
+                        table.reload('testchange', {
+                            // page: {
+                            //     curr: 1 //重新从第 1 页开始
+                            // }
+                            request: {
+                                page: 'curr' //页码的参数名称，默认：page
+                                , limit: 'nums' //每页数据量的参数名，默认：limit
+                            }
+                            , where: {
+                                search: demoReload.val()
+                            }
+                        });
+                    },
+                    calculat: function (data) {            //计算金额，重载页面
+                        var count_num = 0;
+                        var total = table.cache.testReload;
+                        $.each(total, function (index, item) {
+                            if (item.product__product_id === data.product__product_id) {
+                                item.amount = data.unit_price * data.sales_count;
+                            };
+                            count_num += Number(item.amount);
+                        })
+                        var data1 = $("#sales_order_add input.changeable");
+                        $.each(data1, function (index, item) {
+                            count_num = count_num + Number($(item).val());
+                        });
+
+                        $("#id_total_amount").val(count_num.toFixed(2));
+                        // self.subdact();
+                        active["reload"].call(this, total);
+                    },
+                    submit: function () {                  //提交按钮
+                        //first table
+                        var inputAll = $("#sales_order_add").find("input");
+                        var selectAll = $("#sales_order_add").find("select");
+                        var obj1 = self.callback(inputAll);
+                        var obj2 = self.callback(selectAll);
+                        var data = $.extend({}, obj1, obj2);
+
+                        var tableData = table.cache.testReload;
+                        //third table
+                        var tableData_third = table.cache.init;
+                        
+                        data.sales_collection = JSON.stringify(tableData_third);
+                        //data.csrfmiddlewaretoken = '{{ csrf_token }}';
+                        data.sales_product = JSON.stringify(tableData);
+                        console.log(JSON.stringify(data));
+                        $.post("/sales/add/", data, function (a, b) {
+                            alert(a);
+                        });
+                    },
+                };
+                $(document).on('change', 'input.changeable', function () {            //产品列表中的金额计算
+                    var count_num = 0;
+                    var total = table.cache.testReload;
+                    $.each(total, function (index, item) {
+                        count_num += parseInt(item.amount);
+                    })
+                    var data1 = $("#sales_order_add input.changeable");
+                    $.each(data1, function (index, item) {
+                        count_num = count_num + parseInt($(item).val());
+                    });
+
+                    $("#id_total_amount").val(count_num);
+                    // self.subdact();
+                    active.calculat(total);
+                });
+                $('#infoDemo .layui-btn').on('click', function () {               //子页面的搜索按钮
+                    var othis = $(this), method = othis.data('method');
+                    active[method] ? active[method].call(this) : '';
+                });
+                $('.pull-right .layui-btn').on('click', function () {             //提交监听
+                    var othis = $(this), method = othis.data('method');
+                    active[method] ? active[method].call(this) : '';
+                });
+            });
+            self.get_exrate();
+            $("#id_currency").change(function () {
+                self.get_exrate();
+            });
+        }
+    };
+
+
+    $(function(){
+        obj.init([]);
+        layui.use('laydate',function(){
+                var laydate = layui.laydate,
+                $ = layui.$;
+                laydate.render({
+                    elem:'#id_date'
+                    ,lang:'en'
+                })
+            });
+        $(".select2_sample").select2();
+    })
+</script>
+{% endblock %}

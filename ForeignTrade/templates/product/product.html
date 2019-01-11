@@ -1,0 +1,142 @@
+{% extends 'base/AdminLTE_base.html' %}
+{% block title %}product{% endblock %}
+{% block link_script %}
+<link type="text/css" rel="stylesheet" href="../../static/ztree/zTreeStyle/zTreeStyle.css" />
+<script src="../../static/ztree/jquery.ztree.all.js"></script>
+{% endblock %}
+{% block style %}
+<style type="text/css">
+    
+</style>
+{% endblock %}
+
+{% block path %}
+<ol class="breadcrumb">
+    <li><a href="#"><i class="fa fa-dashboard"></i> 主页</a></li>
+    <li class="active">销售管理</li>
+    <li class="active">销售合同</li>
+    <li class="active">销售添加</li>
+</ol>
+{% endblock %}
+{% block main_title %}
+111
+{% endblock %}
+
+{% block main_content %}
+
+<div>
+    <div class="col-lg-3 col-md-4 col-sm-5">
+        <div class="box box-primary box-solid">
+            <div class="box-header with-border">
+                <h3 class="box-title">产品类别</h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                    <button type="button" class="btn btn-box-tool" id="delete_product"><i class="fa fa-times"></i></button>
+                </div>
+            </div>
+            <div class="box-body">
+                <div class="col-sm-12">
+                    <ul id="demo"></ul>
+                </div>
+            </div>
+            <div class="box-footer">
+
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-9 col-md-8 col-sm-7">
+        <div class="box box-primary box-solid">
+            <div class="box-header with-border">
+                <h3 class="box-title">产品列表</h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                    <button type="button" class="btn btn-box-tool" id="delete_product"><i class="fa fa-times"></i></button>
+                </div>
+            </div>
+            <div class="box-body">
+                <div class="col-sm-12">
+                    <div class="infoDemo">
+                        搜索ID：
+                        <div class="layui-inline">
+                            <input class="layui-input" name="id" id="demoReload" autocomplete="off">
+                        </div>
+                        <button class="layui-btn">搜索</button>
+                    </div>
+                    <table id="test" lay-filter="demo"></table>
+                </div>
+            </div>
+            <div class="box-footer">
+
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/html" id="titleTpl">
+    <a class="layui-btn layui-btn-danger layui-btn-xs" data-id="{{d.product_id}}"  data-method="reload" lay-event="add">详情</a>
+</script>
+{% endblock %}
+
+{% block script %}
+
+
+<script>
+   $(function(){
+        layui.use(['table','tree'],function(){
+            var table = layui.table,
+            tree = layui.tree,
+            $ = layui.$;
+            table.render({             //子页面的table
+                elem:'#test'
+                ,url:'/product/product_select'
+                ,page:true
+                ,id:'testchange'
+                ,cols:[[
+                    
+                     {field:"product_id",title:"产品id",align:"center"}
+                    , {field:"model",title:"产品型号",align:"center"}
+                    ,{field:"name",title:"产品名称",align:"center"}
+                    ,{field:"spec",title:"产品规格",align:"center"}
+                    ,{field:"mesu",title:"计量单位",align:"center"}
+                    ,{field:"volume",title:"体积",align:"center"}
+                    ,{title:"操作",toolbar:'#titleTpl',align:"center"}
+                ]]
+                ,parseData: function(res){ //res 即为原始返回的数据
+                    return {
+                    "code": res.status, //解析接口状态
+                    "msg": res.message, //解析提示文本
+                    "count": res.total, //解析数据长度
+                    "data": res.data //解析数据列表
+                    };
+                },
+            });
+            $('.infoDemo .layui-btn').on('click', function(){               //子页面的搜索按钮
+                var demoReload = $('#demoReload');
+                    //执行重载
+                table.reload('testchange', {
+                    where: {
+                        search: demoReload.val()
+                    }
+                });
+            });
+            
+            tree({
+                elem: '#demo' //传入元素选择器
+                ,nodes:{{ product_type|safe }}
+                ,click: function(node){
+                    table.reload('testchange',{
+                        page: {
+                            curr: 1 //重新从第 1 页开始
+                        },
+                        where:{
+                            search:node.id
+                        }
+                    })
+                    console.log(node.id) //node即为当前点击的节点数据
+                    ///product/get_product where:{search:node.id}
+                }  
+            });
+        })
+        
+   })
+</script>
+{% endblock %}

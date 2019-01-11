@@ -1,0 +1,202 @@
+﻿{% extends 'base/AdminLTE_base.html' %}
+{% block title %}product{% endblock %}
+{% block link_script %}
+<link type="text/css" rel="stylesheet" href="../../static/ztree/zTreeStyle/zTreeStyle.css" />
+<script src="../../static/ztree/jquery.ztree.all.js"></script>
+{% endblock %}
+{% block style %}
+<style type="text/css">
+    .searchdiv {
+        margin: 0;
+        border: 0 #337ab7;
+        width: 100%;
+        float: left;
+    }
+
+    .ztreediv {
+        margin: 0;
+        border: solid 1px #0C0C0C;
+        width: 12%;
+        height: 520px;
+        float: left;
+        overflow-y: auto;
+    }
+
+    .pagediv {
+        margin: 0;
+        border: solid 1px #31b0d5;
+        width: 80%;
+        height: 80px;
+        float: left;
+    }
+
+    .goodsdiv {
+        margin: 0;
+        border: solid 1px #31b0d5;
+        width: 88%;
+        height: 520px;
+        float: left;
+        overflow-y: auto;
+    }
+
+    .blo{
+    	text-align: right; 
+    }
+
+    .blo p {
+        display: inline-block;
+        margin: 5px;
+    }
+
+    .wid {
+        width: 5%;
+    }
+    tr th,
+    tr td{
+        text-align: center;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+</style>
+{% endblock %}
+
+{% block path %}
+<ol class="breadcrumb">
+    <li><a href="#"><i class="fa fa-dashboard"></i> 主页</a></li>
+    <li class="active">销售管理</li>
+    <li class="active">销售合同</li>
+    <li class="active">销售添加</li>
+</ol>
+{% endblock %}
+{% block main_title %}
+111
+{% endblock %}
+
+{% block main_content %}
+
+<div>
+    <div class="col-lg-3 col-md-4 col-sm-5">
+        <div class="box box-primary box-solid">
+            <div class="box-header with-border">
+                <h3 class="box-title">产品类别</h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                    <button type="button" class="btn btn-box-tool" id="delete_product"><i class="fa fa-times"></i></button>
+                </div>
+            </div>
+            <div class="box-body">
+                <div class="col-sm-12">
+                    <div id="treeview1" class=""></div>
+                </div>
+            </div>
+            <div class="box-footer">
+
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-9 col-md-8 col-sm-7">
+        <div class="box box-primary box-solid">
+            <div class="box-header with-border">
+                <h3 class="box-title">产品列表</h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                    <button type="button" class="btn btn-box-tool" id="delete_product"><i class="fa fa-times"></i></button>
+                </div>
+            </div>
+            <div class="box-body">
+                <div class="col-sm-12">
+                    <table class="table table-striped table-bordered table-hover table-condensed" style="table-layout:fixed;word-break:break-all;">
+                        <thead>
+                            <tr>                               
+                                <th>产品id</th>
+                                <th>产品名称</th>
+                                <th>产品规格</th>
+                                <th>计量单位</th>
+                                <th>体积</th>
+                                <th>修改</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for p in product %}
+                            <tr>                                
+                                <td title="{{ p.product_id }}">{{ p.product_id }}</td>
+                                <td title="{{ p.name }}">{{ p.name }}</td>
+                                <td title="{{ p.spec }}">{{ p.spec }}</td>
+                                <td title="{{ p.mesu }}">{{ p.mesu }}</td>
+                                <td title="{{ p.volume }}">{{ p.volume }}</td>
+                                <td><button class="btn btn-danger" name="{{ p.product_id }}" style="height:1.6em;line-height:0.6em">添加</button></td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="box-footer">
+                <div class="blo">
+                    <p id="product_count">共有{{ page.count }}个产品</p>
+                    {% if product.has_previous %}
+                    <a id='previous_page' href='?page={{ product.previous_page_number }}'>上一页</a>
+                    {% endif %}
+                    <p>{{ product.number }} / {{ page.num_pages }}页</p>
+                    <p id="page"></p>
+                    {% if product.has_next %}
+                    <a id='next_page' href='?page={{ product.next_page_number }}'>下一页</a>
+                    {% endif %}
+                    <input type="text" id="input_page" style="width: 60px;" />
+                    <button id='to_page' class="btn btn-xs btn-success">跳页</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block script %}
+
+<script src="../../static/bootstrap-treeview/js/bootstrap-treeview.min.js"></script>
+
+<script>
+    let treeview1 = $('#treeview1');
+    treeview1.treeview({
+        data: {{ product_type|safe }},
+        onNodeSelected: function (event, data) {
+            /*console.log(event.currentTarget);*/
+	    console.log(data.href);
+	    $(location).attr('href','/product/product_select/' + data.href);
+        }
+    });
+    treeview1.treeview('collapseAll', { silent: true });
+    //跳页
+    $('#to_page').click(function () {
+        let page = $('#input_page').val();
+	$(location).attr('href',window.location.pathname + '?page=' + page);
+    });
+       //添加产品到销售表页面,遍历产品添加列表的产品，通过window.opener方法向父页面写入数据。
+    var num_cou = window.opener.$("#product_list").attr("data-number");
+    $(".btn-danger").click(function () {
+        let content= '';
+        let result = confirm('确认添加？');
+        if(result===true) {
+            let row = $(this).parent().parent();
+            content +='<tr><td><input  type="checkbox" /></td>'+
+                 '<td><input name="product_id'+num_cou+'" value="'+row.children().eq(0).html()+'" disabled></td>' +
+                  '<td><input name="'+num_cou+'" value="'+row.children().eq(1).html()+'" disabled></td> '+
+                    '<td><input name="'+num_cou+'" value="'+row.children().eq(2).html()+'" disabled></td>'+
+                    '<td><input name="remark'+num_cou+'" value="No"></td>'+
+                     '<td><input name="'+num_cou+'" value="'+row.children().eq(3).html()+'" disabled></td>'+
+                     '<td><input name="volume'+num_cou+'" value="'+row.children().eq(4).html()+'" disabled></td>'+
+                 '<td><input name="count'+num_cou+'" value="0" class=\'changeable\'></td>' +
+                 '<td><input name="unit_price'+num_cou+'" value="0" class=\'changeable\'></td>' +
+                 '<td><input name="amount'+num_cou+'" value="0"></td></tr>';
+       window.opener.$("#product_list").append(content);
+        // window.open("about:blank","_self").close();
+	num_cou++;
+    window.opener.$("#product_list").attr("data-number",num_cou);
+    }
+    });
+
+
+</script>
+{% endblock %}
