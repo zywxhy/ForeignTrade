@@ -9,25 +9,20 @@ class BranchSalesProductModelSerializer(ModelSerializer):
     class Meta:
         model = BranchSalesProduct
         fields = '__all__'
-
-    @property
-    def data(self):
-        ret = super(serializers.Serializer, self).data
-        my_dict = ReturnDict(ret, serializer=self)
-        id = my_dict['product']
-        product_data = ProductModelSerializer(instance=self.instance.product).data
-        product_data.pop('id')
-        my_dict.update(product_data)
-        return my_dict
+        pass
 
 
 class BranchSalesCollectionsModelSerializer(ModelSerializer):
     class Meta:
         model = BranchSalesCollections
         fields = '__all__'
+        pass
+
 
 
 class BranchSalesContractModelSerializer(ModelSerializer):
+    pass
+
     class Meta:
         model =  BranchSalesContract
         fields = '__all__'
