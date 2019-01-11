@@ -9,7 +9,7 @@ class BranchSalesProductModelSerializer(ModelSerializer):
     class Meta:
         model = BranchSalesProduct
         fields = '__all__'
-        pass
+        
 
 
 class BranchSalesCollectionsModelSerializer(ModelSerializer):
