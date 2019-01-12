@@ -14,7 +14,7 @@ class BranchSalesContract(models.Model):
     sales_date = models.DateField(verbose_name='签约日期')
     client = models.ForeignKey(BranchClient,on_delete=models.PROTECT,verbose_name='海外分公司客户')
     currency = models.CharField(max_length=20,verbose_name='币种')
-    price_clause = models.CharField(max_length=10,verbose_name='价格条款')   #外键获取价格条款from财务系统
+    shipping_fee = models.FloatField(default=0,verbose_name='运费')
     status = models.IntegerField(default=0,choices=sales_status,verbose_name='合同状态')
     total_amount = models.FloatField(default=0,verbose_name='总金额')
     remark = models.CharField(max_length=300,default='',verbose_name='备注')   #销售合同备注
@@ -40,6 +40,14 @@ class BranchSalesProduct(models.Model):
     discount = models.FloatField(verbose_name='折扣',default=0)
     receivable_amount = models.FloatField(verbose_name='应收金额',default=0)
     status = models.IntegerField(default=0,verbose_name='预留字段')  # 预留字段
+
+
+    def __str__(self):
+        return self.branch_sales.sales_num +":" +self.product.product_id
+
+    class Meta:
+        verbose_name = '分公司销售合同产品'
+        verbose_name_plural = verbose_name
 
 
 class BranchSalesCollections(models.Model):
