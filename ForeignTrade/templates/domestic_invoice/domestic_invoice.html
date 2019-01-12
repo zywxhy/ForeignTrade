@@ -188,8 +188,8 @@
                 var val = self.getQueryString("id")||'';
                 table.render({
                     elem:'#invoice_add'
-                    ,url:'/domestic_invoice/'+ val //应该是选中的某一个第一张表附带的数据domestic_invoice_product
-                    // ,data:[]
+                   // ,url:'/domestic_invoice/'+ val //应该是选中的某一个第一张表附带的数据domestic_invoice_product
+                    ,data:{{ products_data|safe }}
                     ,page:true
                     ,toolbar:'#toolbar'
                     ,defaultToolbar:[]
