@@ -204,7 +204,7 @@
                         ,{field:"volume",title:"体积",align:"center"}
                         ,{field:"count",title:"数量",align:"center",edit: 'text'}
                         ,{field:"unit_price",title:"单价",align:"center",edit: 'text'}
-                        ,{field:"sales_count",title:"总金额",align:"center"}              // 字段名对不上,url无法连接
+                        ,{field:"sales_count",title:"总金额",templet:function (d) {return d.count*d.unit_price},align:"center"}              // 字段名对不上,url无法连接
                     ]]
                     ,parseData:function(res){
                         console.log(res)
