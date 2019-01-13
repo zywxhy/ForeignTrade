@@ -21,9 +21,9 @@ from django.conf.urls.static import static
 from ForeignTrade import settings
 from django.conf.urls import url
 import xadmin
-#from branch_client.urls import router as branch_client_url
+from branch_client.urls import router as branch_client_url
 from domestic_invoice.views import router as domestic_invoice_url
-#from sales.views import router as sales_url
+from sales.views import router as sales_url
 from rest_framework.documentation import include_docs_urls
 from branch_warehousing.views import router as bran_ware_url
 from branch_sales.views import router as bran_sales_url
@@ -57,10 +57,11 @@ urlpatterns = [
 
     path('' , include('domestic_invoice.urls')),
     path('', include('overseas_invoice.urls')),
+    path('', include('branch_sales.urls')),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 urlpatterns += domestic_invoice_url.urls
-#urlpatterns += branch_client_url.urls
-#urlpatterns += sales_url.urls
+urlpatterns += branch_client_url.urls
+urlpatterns += sales_url.urls
 urlpatterns += bran_ware_url.urls
 urlpatterns += bran_sales_url.urls
