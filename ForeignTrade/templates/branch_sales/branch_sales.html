@@ -385,8 +385,9 @@
                                         'product__product_id': res.data[0].product_id,
                                         'product__name': res.data[0].name,
                                         'product__spec': res.data[0].spec,
-                                        'product__mesu': res.data[0].mesu_unit,
-                                        'product__volume': res.data[0].volume
+                                        'unit_price': 0,
+                                        'sales_count': 0,
+                                        'amount':0
                                     });
                                     table.reload('testReload', {
                                         page: {
