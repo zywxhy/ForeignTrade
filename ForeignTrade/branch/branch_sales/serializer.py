@@ -6,10 +6,11 @@ from .models import BranchSalesProduct,BranchSalesContract,BranchSalesCollection
 
 
 class BranchSalesProductModelSerializer(ModelSerializer):
+    product = ProductModelSerializer(allow_null=True)
     class Meta:
         model = BranchSalesProduct
         fields = '__all__'
-        
+        pass
 
 
 class BranchSalesCollectionsModelSerializer(ModelSerializer):
@@ -21,25 +22,11 @@ class BranchSalesCollectionsModelSerializer(ModelSerializer):
 
 
 class BranchSalesContractModelSerializer(ModelSerializer):
-    pass
+    domestic_invoice_product = BranchSalesProductModelSerializer(many=True)
 
     class Meta:
         model =  BranchSalesContract
         fields = '__all__'
 
-    @property
-    def data(self):
-        ret = super(serializers.Serializer, self).data
-        my_dict = ReturnDict(ret, serializer=self)
-        branch_sales_product = []
-        try:
-            branch_sales_product_Q = self.instance.branch_sales_product.all()
-        except:
-            return my_dict
-        for product in branch_sales_product_Q:
-            branch_sales_product.append(BranchSalesProductModelSerializer(instance=product).data)
 
-        my_dict.__setitem__('domestic_invoice_product', branch_sales_product)
-        my_dict.__setitem__('status', 0)
-        return my_dict
 
