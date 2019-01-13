@@ -182,7 +182,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <ul class="dropdown-menu">
               <!-- The user image in the menu -->
               <li class="user-header">
+
                 <img src="../../static/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+
                 <p>
                   Alexander Pierce - Web Developer
                   <small>Member since Nov. 2012</small>
@@ -261,7 +263,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <!-- Optionally, you can add icons to the links -->
         <li class="treeview">
           <a href="#"><i class="fa fa-money"></i>
-              <span>销售管理</span>
+              <span>备货处理</span>
               <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
           </a>
             <ul class="treeview-menu">
@@ -271,66 +273,45 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
                 </a>
                 <ul class="treeview-menu">
-                  <li><a href="{% url 'sales_view' %}"><i class="fa fa-circle-thin"></i>合同查看</a></li>
-                  <li><a href="{% url 'domestic_invoice' %}"><i class="fa fa-circle-thin"></i>添加</a></li>
-                  <li><a href="{% url 'sales_list' %}"><i class="fa fa-circle-thin"></i>合同汇总表</a></li>
+                  <li><a href="{% url 'sales_view' %}"><i class="fa fa-circle-thin"></i>发货单查看</a></li>
+                  <li><a href="{% url 'sales_add' %}"><i class="fa fa-circle-thin"></i>发货单添加</a></li>
+                  <li><a href="{% url 'sales_list' %}"><i class="fa fa-circle-thin"></i>发货汇总</a></li>
                 </ul>
               </li>
               <li class="treeview">
                 <a href="#"><i class="fa fa-money"></i>
-                <span>销售合同</span>
+                <span>清关处理</span>
                 <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
                 </a>
                 <ul class="treeview-menu">
-                  <li><a href="{% url 'sales_view' %}"><i class="fa fa-circle-thin"></i>合同查看</a></li>
-                  <li><a href="{% url 'sales_add' %}"><i class="fa fa-circle-thin"></i>合同添加</a></li>
-                  <li><a href="{% url 'sales_list' %}"><i class="fa fa-circle-thin"></i>合同汇总表</a></li>
-                </ul>
-              </li>
-              <li class="treeview">
-                <a href="#"><i class="fa fa-money"></i>
-                <span>销售出库</span>
-                <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
-                </a>
-                <ul class="treeview-menu">
-                  <li><a href="{% url 'invoice_view' %}"><i class="fa fa-circle-thin"></i>出库查看</a></li>
-                  <li><a href="{% url 'invoice_add' %}"><i class="fa fa-circle-thin"></i>出库单添加</a></li>
+                  <li><a href="{% url 'invoice_view' %}"><i class="fa fa-circle-thin"></i>清关处理</a></li>
+                  <li><a href="{% url 'invoice_add' %}"><i class="fa fa-circle-thin"></i>清关记录</a></li>
+                    <li><a href="#"><i class="fa fa-circle-thin"></i>审批</a></li>
                 </ul>
               </li>
 
-              <li><a href="#"><i class="fa fa-circle-thin"></i>销售退货</a></li>
-              <li><a href="#"><i class="fa fa-circle-thin"></i>审批</a></li>
+
             </ul>
         </li>
         <li class="treeview">
           <a href="#"><i class="fa fa-link"></i>
-              <span>采购管理</span>
+              <span>销售管理</span>
               <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
           </a>
             <ul class="treeview-menu">
               <li class="treeview">
                 <a href="#"><i class="fa fa-money"></i>
-                <span>采购订单</span>
+                <span>销售流程</span>
                 <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
                 </a>
                 <ul class="treeview-menu">
-                  <li><a href="{% url 'purchase_view' %}"><i class="fa fa-circle-thin"></i>采购查看</a></li>
-                  <li><a href="{% url 'purchase_add' %}"><i class="fa fa-circle-thin"></i>采购单添加</a></li>
+                  <li><a href="{% url 'purchase_view' %}"><i class="fa fa-circle-thin"></i>销售合同管理</a></li>
+                  <li><a href="{% url 'purchase_add' %}"><i class="fa fa-circle-thin"></i>报价单添加</a></li>
+                    <li><a href="{% url 'purchase_add' %}"><i class="fa fa-circle-thin"></i>销售合同汇总</a></li>
                 </ul>
               </li>
-              <li class="treeview">
-                <a href="#"><i class="fa fa-money"></i>
-                <span>采购入库</span>
-                <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
-                </a>
-                <ul class="treeview-menu">
-                  <li><a href="{% url 'storage_view' %}"><i class="fa fa-circle-thin"></i>入库查看</a></li>
 
-                </ul>
-              </li>
-              <li><a href="#"><i class="fa fa-circle-thin"></i>采购入库</a></li>
-              <li><a href="#"><i class="fa fa-circle-thin"></i>采购订单查询</a></li>
-              <li><a href="#"><i class="fa fa-circle-thin"></i>审批</a></li>
+
             </ul>
         </li>
         <li class="treeview">
@@ -356,7 +337,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
           </a>
             <ul class="treeview-menu">
               <li><a href="/product/product/all"><i class="fa fa-circle-thin"></i>产品</a></li>
-              <li><a href="#"><i class="fa fa-circle-thin"></i>供应商</a></li>
               <li><a href="#"><i class="fa fa-circle-thin"></i>客户</a></li>
             </ul>
         </li>
@@ -390,8 +370,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <!-------------- ------------
         | Your Page Content Here |
         -------------------------->
-      <!-- /主内容body -->
-      {% endblock %}
+
+    <!-- /主内容body -->
+        {% endblock %}
     </section>
   <!-- /主内容包装器 -->
   </div>
@@ -425,12 +406,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
               <div class="menu-info">
                 <h4 class="control-sidebar-subheading">Langdon's Birthday</h4>
+
                 <p>Will be 23 on April 24th</p>
               </div>
             </a>
           </li>
         </ul>
         <!-- /.control-sidebar-menu -->
+
         <h3 class="control-sidebar-heading">Tasks Progress</h3>
         <ul class="control-sidebar-menu">
           <li>
@@ -441,6 +424,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <span class="label label-danger pull-right">70%</span>
                   </span>
               </h4>
+
               <div class="progress progress-xxs">
                 <div class="progress-bar progress-bar-danger" style="width: 70%"></div>
               </div>
@@ -448,6 +432,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           </li>
         </ul>
         <!-- /.control-sidebar-menu -->
+
       </div>
       <!-- /.tab-pane -->
       <!-- Stats tab content -->
@@ -457,11 +442,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <div class="tab-pane" id="control-sidebar-settings-tab">
         <form method="post">
           <h3 class="control-sidebar-heading">General Settings</h3>
+
           <div class="form-group">
             <label class="control-sidebar-subheading">
               Report panel usage
               <input type="checkbox" class="pull-right" checked>
             </label>
+
             <p>
               Some information about this general settings option
             </p>
@@ -496,6 +483,74 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="../../static/chosen_v1.8.7/chosen.jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
 <!-- Page script -->
+<script>
+{#    #}
+{#  $(function () {#}
+{#    //Initialize Select2 Elements#}
+{#    $('.select2').select2();#}
+{##}
+{#    //Datemask dd/mm/yyyy#}
+{#    $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' });#}
+{#    //Datemask2 mm/dd/yyyy#}
+{#    $('#datemask2').inputmask('mm/dd/yyyy', { 'placeholder': 'mm/dd/yyyy' });#}
+{#    //Money Euro#}
+{#    $('[data-mask]').inputmask();#}
+{##}
+{#    //Date range picker#}
+{#    $('#reservation').daterangepicker();#}
+{#    //Date range picker with time picker#}
+{#    $('#reservationtime').daterangepicker({ timePicker: true, timePickerIncrement: 30, format: 'MM/DD/YYYY h:mm A' });#}
+{#    //Date range as a button#}
+{#    $('#daterange-btn').daterangepicker(#}
+{#      {#}
+{#        ranges:{#}
+{#          'Today'       : [moment(), moment()],#}
+{#          'Yesterday'   : [moment().subtract(1, 'days'), moment().subtract(1, 'days')],#}
+{#          'Last 7 Days' : [moment().subtract(6, 'days'), moment()],#}
+{#          'Last 30 Days': [moment().subtract(29, 'days'), moment()],#}
+{#          'This Month'  : [moment().startOf('month'), moment().endOf('month')],#}
+{#          'Last Month'  : [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]#}
+{#        },#}
+{#        startDate: moment().subtract(29, 'days'),#}
+{#        endDate  : moment()#}
+{#      },#}
+{#      function (start, end) {#}
+{#        $('#daterange-btn span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'))#}
+{#      }#}
+{#    );#}
+{#/*#}
+{#    //Date picker#}
+{#    $('#datepicker').datepicker({#}
+{#      autoclose: true#}
+{#    });#}
+{#*/#}
+{#    //iCheck for checkbox and radio inputs#}
+{#    $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({#}
+{#      checkboxClass: 'icheckbox_minimal-blue',#}
+{#      radioClass   : 'iradio_minimal-blue'#}
+{#    });#}
+{#    //Red color scheme for iCheck#}
+{#    $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({#}
+{#      checkboxClass: 'icheckbox_minimal-red',#}
+{#      radioClass   : 'iradio_minimal-red'#}
+{#    });#}
+{#    //Flat red color scheme for iCheck#}
+{#    $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({#}
+{#      checkboxClass: 'icheckbox_flat-green',#}
+{#      radioClass   : 'iradio_flat-green'#}
+{#    });#}
+{##}
+{#    //Colorpicker#}
+{#    $('.my-colorpicker1').colorpicker();#}
+{#    //color picker with addon#}
+{#    $('.my-colorpicker2').colorpicker();#}
+{##}
+{#    //Timepicker#}
+{#    $('.timepicker').timepicker({#}
+{#      showInputs: false#}
+{#    })#}
+{#  })#}
+</script>
 
 <!-- Optionally, you can add Slimscroll and FastClick plugins.
      Both of these plugins are recommended to enhance the
@@ -503,5 +558,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
 {% block script %}
     <!-- 插入JS文件 -->
 {% endblock %}
+
 </body>
 </html>
