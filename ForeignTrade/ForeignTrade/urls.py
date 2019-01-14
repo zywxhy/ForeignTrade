@@ -58,6 +58,7 @@ urlpatterns = [
     path('' , include('domestic_invoice.urls')),
     path('', include('overseas_invoice.urls')),
     path('', include('branch_sales.urls')),
+    path('' , include('branch_warehousing.urls')),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 urlpatterns += domestic_invoice_url.urls
