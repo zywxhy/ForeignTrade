@@ -1118,7 +1118,7 @@ throw new Error('AdminLTE requires jQuery')
     var that = this
 
     $(this.element).on('click', this.options.trigger, function (event) {
-        if($($(this)[0].firstChild).hasClass("fa-circle-o")){
+        if($($(this)[0].firstChild).hasClass("fa-circle-thin")){
             mainMenuClickFunc.call(this);
         }else {
             that.toggle($(this), event)
