@@ -28,6 +28,10 @@ class BranchClient(models.Model):
         client.save()
         return True
 
+    def __str__(self):
+        return self.company_name
+
+
     class Meta:
         verbose_name = '海外客户'
         verbose_name_plural = verbose_name
