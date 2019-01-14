@@ -32,6 +32,17 @@ class DomesticInvoiceView(View):
         return render(request,'domestic_invoice/domestic_invoice.html',{'form':form,'products_data':products_data})
 
 
+
+class DomesticInvoiceListView(View):
+    def get(self,request):
+        domestic_invoice = DomesticInvoice.objects.all()
+        return render(request,'domestic_invoice/domestic_invoice_list.html',locals())
+
+
+
+
+
+
 class DomesticInvoiceProductViewSet(ModelViewSet):
     serializer_class = DomesticInvoiceProductModelSerializer
     queryset = DomesticInvoiceProduct.objects.all()
@@ -124,35 +135,12 @@ router = SimpleRouter()
 router.register('domestic_invoice',DomesticInvoiceViewSet)
 
 
-# # 海外清关
-# class CustomsClearance(ModelViewSet):
-#     serializer_class = None
-#     queryset = DomesticInvoice.objects.all()
-#     pagination_class = None
-#
-#     def create(self, request, *args, **kwargs):
-#         serializer = self.get_serializer(data=request.data)
-#         serializer.is_valid()
-#         data = serializer.data
-#         domestic_invoice_product = data.pop('domestic_invoice_product')
-#         company_id = data.pop('company')
-#         domestic_invoice_num = data['domestic_invoice_num']
-#         existed = DomesticInvoice.objects.filter(domestic_invoice_num=domestic_invoice_num)
-#         if existed:
-#             existed.update(company_id=company_id, **data)
-#             domestic_invoice = existed[0]
-#             domestic_invoice.domestic_invoice_product.all().delete()
-#         else:
-#             domestic_invoice = DomesticInvoice.objects.create(company_id=company_id, **data)
-#         for product_item in domestic_invoice_product:
-#             print(product_item)
-#             product_data = {
-#                 'product_id': product_item.get('[id]'),
-#                 'count': product_item.get('[count]'),
-#                 'unit_price': product_item.get('[unit_price]'),
-#                 'remark': product_item.get('[remark]', ''),
-#             }
-#             DomesticInvoiceProduct.objects.create(domestic_invoice=domestic_invoice, **product_data)
-#         return Response('success')
+# 海外清关
+class CustomsClearance(View):
+    def get(self,request):
+        pass
+
+    def post(self,request):
+        pass
 
 
