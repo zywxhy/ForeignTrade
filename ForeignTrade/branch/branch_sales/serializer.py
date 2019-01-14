@@ -22,7 +22,7 @@ class BranchSalesCollectionsModelSerializer(ModelSerializer):
 
 
 class BranchSalesContractModelSerializer(ModelSerializer):
-    domestic_invoice_product = BranchSalesProductModelSerializer(many=True)
+    branch_sales_product = BranchSalesProductModelSerializer(many=True)
 
     class Meta:
         model =  BranchSalesContract

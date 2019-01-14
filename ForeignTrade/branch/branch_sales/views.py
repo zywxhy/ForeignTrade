@@ -6,6 +6,8 @@ from .models import BranchSalesContract,BranchSalesProduct
 from rest_framework.routers import SimpleRouter
 from rest_framework.views import APIView,Response
 from .forms import BranchSalesForm
+import json
+from branch_client.models import BranchClient
 # Create your views here.
 
 class SalesContractView(View):
@@ -27,7 +29,10 @@ class SalesContractView(View):
 
 
 
-
+class SalesContractListView(View):
+    def get(self,request):
+        branch_sales = BranchSalesContract.objects.all()
+        return render(request,'branch_sales/branch_sales_list.html',locals())
 
 
 
@@ -82,30 +87,32 @@ class SalesContractModelViewSet(ModelViewSet):
     # 产品的添加和修改
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
+        branch_sales_product = request.data.get('branch_sales_product')
+        branch_sales_product = json.loads(branch_sales_product)
         serializer.is_valid()
         data = serializer.data  # 这里嵌套的product信息会自动在key值上加[]，如：'id' 变成 '[id]' 后续处理要注意
-        domestic_invoice_product = data.pop('domestic_invoice_product')
-        company_id = data.pop('company')
-        domestic_invoice_num = data['domestic_invoice_num']
-        existed = DomesticInvoice.objects.filter(domestic_invoice_num=domestic_invoice_num)
+        print(data)
+        client_id = data.pop('client')
+        sales_num = data['sales_num']
+        existed = BranchSalesContract.objects.filter(sales_num=sales_num)
         if existed:
-            existed.update(company_id=company_id, **data)
-            domestic_invoice = existed[0]
-            domestic_invoice.domestic_invoice_product.all().delete()
+            existed.update(client_id=client_id, **data)
+            branch_sales = existed[0]
+            branch_sales.branch_sales_product.all().delete()
         else:
-            domestic_invoice = DomesticInvoice.objects.create(company_id=company_id, **data)
-        for product_item in domestic_invoice_product:
+            branch_sales = BranchSalesContract.objects.create(client_id=client_id, **data)
+        for product_item in branch_sales_product:
             print(product_item)
             product_data = {
-                'product_id': product_item.get('[id]'),
-                'count': product_item.get('[count]'),
-                'unit_price': product_item.get('[unit_price]'),
-                'remark': product_item.get('[remark]', ''),
+                'product_id': product_item.get('id'),
+                'sales_count': product_item.get('sales_count'),
+                'unit_price': product_item.get('unit_price'),
+                'remark': product_item.get('remark', ''),
             }
-            DomesticInvoiceProduct.objects.create(domestic_invoice=domestic_invoice, **product_data)
+            BranchSalesProduct.objects.create(branch_sales=branch_sales, **product_data)
         return Response('success')
 
 
 
 router = SimpleRouter()
-router.register('sales_contract',SalesContractModelViewSet)
+router.register('branch_sales',SalesContractModelViewSet)

@@ -15,7 +15,7 @@ class BranchSalesForm(forms.Form):
 
 
     # widget=forms.TextInput(attrs={'class': 'form-control'})
-    sales_num = forms.CharField(max_length=20,widget=forms.TextInput(attrs={'class': 'form-control', 'disabled': 'disabled'}),label='合同编号', )
+    sales_num = forms.CharField(max_length=20,widget=forms.TextInput(attrs={'class': 'form-control'}),label='合同编号', )
     salesman = forms.ModelChoiceField(queryset=MyUser.objects.all(),widget=forms.Select(attrs={'class': 'form-control'}), empty_label="(Nothing)",
                                       label='业务员')
 
