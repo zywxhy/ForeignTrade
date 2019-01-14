@@ -225,11 +225,11 @@
                     , id: 'testReload'
                     , cols: [[
                         {type: 'checkbox', align: "center"}
-                        , {field: "product__product_id", title: "产品代码", align: "center"}
-                        , {field: "product__name", title: "名字", align: "center"}
-                        , {field: "product__spec", title: "规格", align: "center"}
+                        , {field: "product_id", title: "产品代码", align: "center"}
+                        , {field: "name", title: "名字", align: "center"}
+                        , {field: "spec", title: "规格", align: "center"}
                         , {field: "remark", title: "备注", align: "center", edit: 'text'}
-                        , {field: "product__mesu_unit", title: "单位", align: "center"}
+                        , {field: "mesu_unit", title: "单位", align: "center"}
                         , {field: "volume", title: "体积", align: "center"}
                         , {field: "unit_price", title: "单价", align: "center", edit: 'text'}
                         , {field: "sales_count", title: "数量", align: "center", edit: 'text'}
@@ -383,10 +383,10 @@
                             var getdata = table.cache.testReload;
 
                             $.each(checkStatus.data, function (index, item) {
-                                id_arr.push(item.product__product_id);
+                                id_arr.push(item.product_id);
                             });
                             for (var value of getdata) {
-                                if (id_arr.indexOf(value.product__product_id) === -1) {
+                                if (id_arr.indexOf(value.product_id) === -1) {
                                     arr.push(value);
                                 }
                             }
@@ -463,7 +463,7 @@
                         var count_num = 0;
                         var total = table.cache.testReload;
                         $.each(total, function (index, item) {
-                            if (item.product__product_id === data.product__product_id) {
+                            if (item.product_id === data.product_id) {
                                 item.amount = data.unit_price * data.sales_count;
                             };
                             count_num += Number(item.amount);
@@ -479,8 +479,8 @@
                     },
                     submit: function () {                  //提交按钮
                         //first table
-                        var inputAll = $("#sales_order_add").find("input");
-                        var selectAll = $("#sales_order_add").find("select");
+                        var inputAll = $("#_order").find("input");
+                        var selectAll = $("#_order").find("select");
                         var obj1 = self.callback(inputAll);
                         var obj2 = self.callback(selectAll);
                         var data = $.extend({}, obj1, obj2);
@@ -490,10 +490,10 @@
                         var tableData_third = table.cache.init;
 
                         data.sales_collection = JSON.stringify(tableData_third);
-                        //data.csrfmiddlewaretoken = '{{ csrf_token }}';
-                        data.sales_product = JSON.stringify(tableData);
+                        data.csrfmiddlewaretoken = '{{ csrf_token }}';
+                        data.branch_sales_product = JSON.stringify(tableData);
                         console.log(JSON.stringify(data));
-                        $.post("/sales/add/", data, function (a, b) {
+                        $.post("/branch_sales/", data, function (a, b) {
                             alert(a);
                         });
                     }
