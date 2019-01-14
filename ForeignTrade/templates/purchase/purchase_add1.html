@@ -26,9 +26,6 @@
             white-space: nowrap;
             text-overflow: ellipsis;
         }
-        .padmar{
-            margin:10px;
-        }
     </style>
 {% endblock %}
 
@@ -207,7 +204,25 @@
                         </div>
                     </div>
                     <div class="box-body">
-                        <table class="layui-hide" id="thirdDemo" lay-filter="filter"></table>
+                        <div class="layui-table-tool">
+                            <div class="layui-btn-container">
+                                <button type="button" class="layui-btn layui-btn-sm" id="collection_add"><span>添加</span></button>
+                                <button type="button" id="Remove_collection" class="layui-btn layui-btn-sm"><span>删除</span></button>
+                            </div>
+                        </div>
+
+                        <table class="table table-bordered table-hover table-condensed" style="table-layout:fixed;word-break:break-all;">
+                            <thead>
+                                <tr>
+                                    <th style="width:5%"><input type="checkbox" id="select_all2" style="width: 18px;height: 18px;"></th>
+                                    <th>付款类型</th>
+                                    <th>预计付款日期</th>
+                                    <th>金额</th>
+                                    <th>备注</th>
+                                </tr>
+                            </thead>
+                            <tbody id="collection"></tbody>
+                        </table>
                     </div>
                     <div class="box-footer"></div>
                 </div>
@@ -219,24 +234,18 @@
         <a type="button" data-method="delete" href="javascript:void(0)" class="layui-btn layui-btn-sm" lay-event="delete">删除</a>
     </div>
 </script>
-<script type="text/html" id="thirdTool">
-    <div class="layui-btn-container">
-        <a type="button" data-method="reload" href="javascript:void(0)" class="layui-btn layui-btn-sm" lay-event="add">添加</a>
-        <a type="button" data-method="reloadchild" href="javascript:void(0)" class="layui-btn layui-btn-sm" lay-event="delete">删除</a>
-    </div>
-</script>
 <div style="display:none" id="infoDemo">
-    <div class="infoDemo padmar">
+    <div class="infoDemo ">
         搜索ID：
         <div class="layui-inline">
             <input class="layui-input" name="id" id="demoReload" autocomplete="off">
         </div>
         <button class="layui-btn" data-method="reloadchild">搜索</button>
     </div>
-    <table class="layui-hide" id="childTable" lay-filter="demo"></table>
+    <table class="layui-hide" id="firstBlood" lay-filter="demo"></table>
 </div>
 <script type="text/html" id="titleTpl">
-    <a class="layui-btn layui-btn-danger layui-btn-xs" data-id="{{d.product__product_id}}"  data-method="reload" lay-event="add">添加</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" data-id="{{d.product_id}}"  data-method="reload" lay-event="add">添加</a>
 </script>
 {% endblock %}
 
@@ -280,52 +289,51 @@ var obj = {
     bind: function (data) {
         var self = this;
         var formdata;
-        layui.use(['table', 'layer','laydate'], function () {
-            var table = layui.table,
-            $ = layui.$,
-            layer = layui.layer,
-            laydate = layui.laydate;
+        layui.use(['table', 'layer'], function () {
+            var table = layui.table;
+            var $ = layui.$;
+            var layer = layui.layer;
             table.render({              //父页面的table
                 elem: '#layuiDemo'
                 , data: data
                 , toolbar: '#toolbarDemo'
                 , page: true
-               // ,defaultToolbar:['print']
+                ,defaultToolbar:[]
                 , id: 'testReload'
                 , cols: [[
                     {type: 'checkbox', align: "center"}
-                    , {field: "product__product_id", title: "产品代码", align: "center"}
-                    ,{field: "product__model", title: "产品型号", align: "center"}
-                    , {field: "product__name", title: "名字", align: "center"}
-                    , {field: "product__spec", title: "规格", align: "center"}
+                    , {field: "product_id", title: "产品代码", align: "center"}
+                    ,{field: "model", title: "产品型号", align: "center"}
+                    , {field: "name", title: "名字", align: "center"}
+                    , {field: "spec", title: "规格", align: "center"}
                     , {field: "remark", title: "备注", align: "center", edit: 'text'}
-                    , {field: "product__mesu_unit", title: "单位", align: "center"}
-                    , {field: "product__volume", title: "体积", align: "center"}
+                    , {field: "mesu_unit", title: "单位", align: "center"}
+                    , {field: "volume", title: "体积", align: "center"}
                     , {field: "unit_price", title: "单价", align: "center", edit: 'text'}
                     , {field: "purchase_count", title: "采购数量", align: "center", edit: 'text'}
                     , {field: "amount", title: "金额", align: "center"}
                 ]]
             });
             table.render({             //子页面的table
-                elem: '#childTable'
+                elem: '#firstBlood'
                 , data:[
                     {% for item in product_list %}
                         {
-                            'product__product_id':'{{ item.product.product_id }}',
-                            'product__model':'{{ item.product.model }}',
-                            'product__name':'{{ item.product.name }}',
-                            'product__spec':'{{ item.product.spec }}',
-                            'remark':'{{ item.remark }}',
-                            'product__mesu_unit':'{{ item.mesu_unit }}',
-                            'sales_count':'{{ item.sales_count }}',
-                            'purchase_count':'{{ item.purchase_count }}'
+                             'product__product_id':'{{ item.product.product_id }}',
+                             'product__model':'{{ item.product.model }}',
+                             'product__name':'{{ item.product.name }}',
+                             'product__spec':'{{ item.product.spec }}',
+                             'remark':'{{ item.remark }}',
+                             'product__mesu_unit':'{{ item.mesu_unit }}',
+                             'sales_count':'{{ item.sales_count }}',
+                             'purchase_count':'{{ item.purchase_count }}'
                         },
                     {% endfor %}
                 ]
                 , page: true
                 , id: 'testchange'
                 , cols: [[
-		            {field: "product__product_id", title: "产品id", align: "center", width: 100}
+		    {field: "product__product_id", title: "产品id", align: "center", width: 100}
                     , {field: "product__model", title: "产品型号", align: "center", width: 100}
                     , {field: "product__name", title: "产品名称", align: "center", width: 100}
                     , {field: "product__spec", title: "产品规格", align: "center", width: 200}
@@ -350,20 +358,45 @@ var obj = {
             table.on('tool(demo)', function (obj) {            //  监听子页面的tool操作
                 var data = obj.data;
                 var arr = [];
-                var arr1 = [];
                 var self = this;
                 layEvent = obj.event; //获得 lay-event 对应的值
                 var getdata = table.cache.testReload;
 
                 $.each(getdata, function (index, item) {
-                    arr.push(item.product__product_id);
+                    arr.push(item.product_id);
                 });
                 var number = arr.findIndex(function (value) {
-                    return value == data.product__product_id
+                    return value == data.product_id
                 });
-                if(number === -1){
-                    getdata.push(data);
-                    active.reload(getdata);
+                console.log(number);
+                if (number === -1) {
+                    var othis = $(this), method = othis.data('method');
+                    active[method] ? active[method].call(this, getdata) : '';
+
+                    if (layEvent === 'add') {
+                        $.ajax({
+                            type: 'get',
+                            data: {'product_id': data.product_id},
+                            url: '/product/get_product',
+                            success: function (res) {
+                                console.log(res);
+                                getdata.push({
+                                    'product_id': res.data[0].product_id,
+                                    'model':res.data[0].model,
+                                    'name': res.data[0].name,
+                                    'spec': res.data[0].spec,
+                                    'mesu': res.data[0].mesu_unit,
+                                    'volume': res.data[0].volume
+                                })
+                                table.reload('testReload', {
+                                    page: {
+                                        curr: 1 //重新从第 1 页开始
+                                    }
+                                    , data: getdata
+                                });
+                            }
+                        })
+                    }
                 }
             });
 
@@ -380,10 +413,10 @@ var obj = {
                         var getdata = table.cache.testReload;
 
                         $.each(checkStatus.data, function (index, item) {
-                            id_arr.push(item.product__product_id);
+                            id_arr.push(item.product_id);
                         });
                         for (var value of getdata) {
-                            if (id_arr.indexOf(value.product__product_id) === -1) {
+                            if (id_arr.indexOf(value.product_id) === -1) {
                                 arr.push(value);
                             }
                         }
@@ -407,96 +440,8 @@ var obj = {
                             , data: arr
                         });
                         break;
-                };
-            });
-
-            table.render({      //第三个表
-                elem:"#thirdDemo"
-                ,data:[]
-                ,id:'init'
-                ,toolbar: '#thirdTool'
-                ,defaultToolbar:[]
-                ,cols:[[
-                    {type:'checkbox',align:"center"}
-                    ,{field:"receipt_type",title:"收款类型",align:"center",edit: 'text'}
-                    ,{field:"receipt_date",title:"预计收款日期",edit: 'text',event: 'setSign',align:"center",templet:function(d){return '<div><div class="myDate" style="width: 100%;height: 100%;">'+d.receipt_date+'</div></div>'}}
-                    ,{field:"receipt",title:"金额",align:"center",edit: 'text'}
-                    ,{field:"remark",title:"备注",align:"center",edit: 'text'}
-                ]]
-                ,done:function(res,curr,count){
-                    var tableView =this.elem.next();
-                    var mydate = tableView.find('.myDate');
-                    layui.each(mydate,function(index,elem){
-                        laydate.render({
-                            elem:elem
-                            ,trigger: 'click'
-                            ,lang: 'en'
-                            ,done:function(value,date,endDate){
-                                var elemTemp = $(this)[0].elem[0].innerHTML;
-                                table.cache.init[index].receipt_date = elemTemp;
-                                console.log(table.cache.init[index].receipt_date);
-                                table.reload('init', {
-                                    page: {
-                                        curr: 1 //重新从第 1 页开始
-                                    }
-                                    ,data:table.cache.init
-                                });
-                            }
-                            ,
-                        });
-                    });
                 }
-            });
-            table.on('tool(filter)',function(obj){
-                var line = obj.data;
-                if(obj.event === 'setSign'){
-                    table.reload('init', {
-                        page: {
-                            curr: 1 //重新从第 1 页开始
-                        }
-                        ,data:table.cache.init
-                    });
-                }
-                
-            });
-            table.on('toolbar(filter)', function(obj){
-                var checkStatus = table.checkStatus(obj.config.id);
-                switch(obj.event){
-                    case 'add':
-                        var data = table.cache.init;
-                        var count = data.length;
-                        var _now = new Date();
-                        var day = _now.getFullYear() + '-' + (_now.getMonth()+1) + '-' + _now.getDate();
-                        data.push({'pid':count,'receipt_type':'Please fill in the collection type','receipt_date':day,'receipt':0,'remark':0})
-                        //执行重载
-                        table.reload('init', {
-                            page: {
-                                curr: 1 //重新从第 1 页开始
-                            }
-                            ,data:data
-                        });
-                        break;
-                    case 'delete':
-                        var arr = [];
-                        var id_arr = [];
-                        var getdata = table.cache.init;
-                        console.log(getdata);
-                        $.each(checkStatus.data,function(index,item){
-                            id_arr.push(item.pid);
-                        });
-                        for(var value of getdata){
-                            if(id_arr.indexOf(value.pid) == -1){
-                                arr.push(value);
-                            }
-                        }
-                        table.reload('init', {
-                            page: {
-                                curr: 1 //重新从第 1 页开始
-                            }
-                            ,data:arr
-                        });
-                        break;
-                }
+                ;
             });
             var active = {
                 setTop: function () {            //  监听按钮add 开启弹出层
@@ -547,9 +492,10 @@ var obj = {
                     var count_num = 0;
                     var total = table.cache.testReload;
                     $.each(total, function (index, item) {
-                        if (item.product__product_id === data.product__product_id) {
-                            item.amount = data.unit_price * data.purchase_count;
-                        };
+                        if (item.product_id === data.product_id) {
+                            item.amount = data.unit_price * data.count;
+                        }
+                        ;
                         count_num += parseInt(item.amount);
                     })
                     var data1 = $("#sales_order_add input.changeable");
@@ -598,11 +544,11 @@ var obj = {
                 var count_num = 0;
                 var total = table.cache.testReload;
                 $.each(total, function (index, item) {
-                    count_num += Number(item.amount);
+                    count_num += parseInt(item.amount);
                 })
                 var data1 = $("#sales_order_add input.changeable");
                 $.each(data1, function (index, item) {
-                    count_num = count_num + Number($(item).val());
+                    count_num = count_num + parseInt($(item).val());
                 });
 
                 $("#id_total_amount").val(count_num);
@@ -631,8 +577,85 @@ var obj = {
 
 };
 
+var data = {
+        Initialize:function(){
+            this.bind();
+        },
+        bind:function(){
+            layui.use('laydate',function(){
+                var laydate = layui.laydate,
+                $ = layui.$;
+                laydate.render({
+                    elem:'#id_date'
+                    ,lang:'en'
+                });
+            });
+
+            //全局变量，标记name递增
+            var collection_index = 0;
+            //收款计划添加
+            $('#collection_add').click(function () {
+                var content = '<tr><td><input type="checkbox" style="width: 18px;height: 18px;"/></td><td><select id=\'change2\' name="id_form-'+ collection_index +'-receipt_type">' +
+                    '<option value="">选择付款类型</option>' +
+                    '<option value="预付款">预付款</option>' +
+                    '<option  value="回款">回款</option>' +
+                    '<option value="尾款">尾款</option>' +
+                    '<option value="一次性回款">一次性回款</option>' +
+                    '</select></td>';
+                content += '<td><input class="time'+ collection_index +'" name="id_form-' + collection_index + '-receipt_time"/></td>';
+                content += '<td><input class="changeable" name="id_form-'+ collection_index +'-receipt" placeholder="0.00"></td>';
+                content += '<td><input class="changeable" name="id_form-'+ collection_index +'-remark" placeholder="无"></td></tr>';
+
+                $('#collection').append(content);
+                //执行一个laydate实例
+                layui.use('laydate',function(){
+                    var laydate = layui.laydate,
+                    $ = layui.$;
+                    laydate.render({
+                        elem:'.time' + collection_index
+                        ,lang:'en'
+                    })
+                });
+                collection_index ++;
+            });
+            //收款计划全选设置
+            $('#select_all2').change(function () {
+                var checkstatue = $(this).prop('checked');
+                $('#collection input[type="checkbox"]').prop('checked', checkstatue);
+            });
+            $(document).on('change','#collection input[type="checkbox"]',function(){
+                var findAll = $("#collection").find("input[type='checkbox']");
+                var data = [];
+                    $.each(findAll,function(index,item){
+                        var state = $(item).prop('checked');
+                        data.push(state);
+                    });
+                if($.inArray(false,data)<0){
+                    $("#select_all2").prop("checked",true);
+                }else{
+                    $("#select_all2").prop("checked",false);
+                }
+            });
+
+            //删除收款计划选中的选项
+            $('#Remove_collection').on("click",function(){
+                $("#collection input[type='checkbox']:checked").parent().parent().remove();
+                $("#collection").prev().find("input").prop("checked",false);
+            });
+            $(".chosen-select").chosen({
+                no_results_text: "没有找到结果！",//搜索无结果时显示的提示
+                search_contains:true,   //关键字模糊搜索，设置为false，则只从开头开始匹配
+            });
+
+        }
+    };
+
+
+
+
     $(function(){
-        obj.init([])
+        obj.init([]);
+        data.Initialize();
         $(".select2_sample").select2();
     })
 </script>

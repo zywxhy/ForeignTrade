@@ -506,8 +506,8 @@
                     },
                     submit: function () {                  //提交按钮
                         //first table
-                        var inputAll = $("#sales_order_add").find("input");
-                        var selectAll = $("#sales_order_add").find("select");
+                        var inputAll = $("#_order").find("input");
+                        var selectAll = $("#_order").find("select");
                         var obj1 = self.callback(inputAll);
                         var obj2 = self.callback(selectAll);
                         var data = $.extend({}, obj1, obj2);
@@ -517,10 +517,10 @@
                         var tableData_third = table.cache.init;
 
                         data.sales_collection = JSON.stringify(tableData_third);
-                        //data.csrfmiddlewaretoken = '{{ csrf_token }}';
-                        data.sales_product = JSON.stringify(tableData);
+                        data.csrfmiddlewaretoken = '{{ csrf_token }}';
+                        data.branch_sales_product = JSON.stringify(tableData);
                         console.log(JSON.stringify(data));
-                        $.post("/sales/add/", data, function (a, b) {
+                        $.post("/branch_sales/", data, function (a, b) {
                             alert(a);
                         });
                     },

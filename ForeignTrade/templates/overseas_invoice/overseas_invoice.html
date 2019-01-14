@@ -31,7 +31,7 @@
 {% block main_content %}
     <div class="box box-info box-solid">
         <div class="box-header with-border">
-            <h3 class="box-title">国内发货单</h3>
+            <h3 class="box-title">分公司发货单</h3>
             <div class="box-tools pull-right">
                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
                 <button type="button" class="btn btn-box-tool" id="delete_product"><i class="fa fa-times"></i></button>
@@ -44,26 +44,26 @@
                 <tr>
                     <td>
                         <div class="input-group input-group-sm form-inline {% if form.sales_num.errors %}has-error{% endif %}">
-                            <span class="input-group-addon">入库单单号</span>
-                            {{ form.warehousing_num }}
+                            <span class="input-group-addon">销售合同号</span>
+                            {{ form.branch_sales }}
                         </div>
                     </td>
                     <td>
                         <div class="input-group input-group-sm form-inline {% if form.sales_num.errors %}has-error{% endif %}">
-                            <span class="input-group-addon">国内发货单</span>
-                            {{ form.domestic_invoice }}
+                            <span class="input-group-addon">出库单号</span>
+                            {{ form.overseas_invoice_num }}
                         </div>
                     </td>
                     <td>
                         <div class="input-group input-group-sm form-inline {% if form.sales_num.errors %}has-error{% endif %}">
-                            <span class="input-group-addon">入库时间</span>
-                            {{ form.warehousing_date }}
+                            <span class="input-group-addon">出库时间</span>
+                            {{ form.invoice_date }}
                         </div>
                     </td>
                     <td>
                         <div class="input-group input-group-sm form-inline {% if form.sales_num.errors %}has-error{% endif %}">
-                            <span class="input-group-addon">仓库</span>
-                            {{ form.branch_stock }}
+                            <span class="input-group-addon">运输方式</span>
+                            {{ form.shipping_method }}
                         </div>
                     </td>
                     

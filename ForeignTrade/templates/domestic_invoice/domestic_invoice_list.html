@@ -1,4 +1,4 @@
-﻿{% extends 'base/AdminLTE_base.html' %}
+{% extends 'base/AdminLTE_base.html' %}
 {% block title %}添加合同{% endblock %}
 
 {% block style %}
@@ -37,11 +37,11 @@
 {% endblock %}
 
 {% block path %}
-    <ol class="breadcrumb">
-        <li><a href="{% url 'home' %}"><i class="fa fa-dashboard"></i> 主页</a></li>
-        <li class="active">采购管理</li>
-        <li class="active">采购合同</li>
-    </ol>
+{#    <ol class="breadcrumb">#}
+{#        <li><a href="{% url 'home' %}"><i class="fa fa-dashboard"></i> 主页</a></li>#}
+{#        <li class="active">采购管理</li>#}
+{#        <li class="active">采购合同</li>#}
+{#    </ol>#}
 {% endblock %}
 {% block main_title %}
     销售合同添加
@@ -130,7 +130,8 @@
     <script type="text/html" id="titleTpl">
         <a class="layui-btn layui-btn-normal layui-btn-xs" data-method="reload" lay-event="detail">查看</a>
         <a class="layui-btn layui-btn-warm layui-btn-xs" data-method="reload" lay-event="edit">修改</a>
-        <a class="layui-btn layui-btn-danger layui-btn-xs" data-method="reload" lay-event="del">生成出库单</a>
+        <a class="layui-btn layui-btn-warm layui-btn-xs" data-method="reload" lay-event="clear">清关</a>
+        <a class="layui-btn layui-btn-danger layui-btn-xs" data-method="reload" lay-event="del">生成入库单</a>
     </script>
 {% endblock %}
 
@@ -164,12 +165,13 @@
                 });
                 table.render({             //子页面的table
                     data:[
-                        {% for item in sales_contract %}
+                        {% for item in domestic_invoice %}
                             {
-                                'sales_num':'{{ item.sales_num }}',
-                                'salesman':'{{ item.salesman.first_name }}',
-                                'client':'{{ item.client.name }}',
-                                'status':'{{ item.status }}'
+                                'id':'{{ item.id }}',
+                                'domestic_invoice_num':'{{ item.domestic_invoice_num }}',
+                                'invoice_date':'{{ item.invoice_date }}',
+                                'company':'{{ item.company.name }}',
+
                             },
                         {% endfor %}
                     ]
@@ -180,10 +182,9 @@
                     ,where:{search: demoReload.val()}
                     ,cols:[[
                         {type:'checkbox',align:"center"}
-                        ,{field:"sales_num",title:"合同编号",align:"center"}
-                        ,{field:"salesman",title:"业务员",align:"center",edit: 'text'}
-                        ,{field:"client",title:"客户",align:"center",edit: 'text'}
-                        ,{field:"status",title:"状态",align:"center"}
+                        ,{field:"domestic_invoice_num",title:"发货单号",align:"center"}
+                        ,{field:"invoice_date",title:"发货时间",align:"center",}
+                        ,{field:"company",title:"分公司",align:"center",}
                         ,{title:"操作",toolbar:'#titleTpl',align:"center"}
                     ]]
                     ,parseData: function(res){ //res 即为原始返回的数据
@@ -201,11 +202,11 @@
                     var tr = obj.tr; //获得当前行 tr 的DOM对象
                     if(layEvent === 'detail'){ //查看
                         //do somehing
-                        href= '/sales/details?sales_num='+data.sales_num;
+                        href= '/domestic_invoice/operations?id='+data.id;
                     } else if(layEvent === 'edit'){ //删除
-                        href= '/sales/modify?sales_num='+data.sales_num;
+                        href= '/domestic_invoice/operations?id='+data.id;
                     } else if(layEvent === 'del'){ //编辑
-                        href= '/invoice/add?sales_num='+data.sales_num;
+                        href= '/branch_warehousing/operations?domestic_invoice='+data.id;
                     }
                     window.open(href)
                 });

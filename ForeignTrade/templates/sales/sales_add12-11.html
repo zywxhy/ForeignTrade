@@ -173,7 +173,6 @@
                             </div>
                         </td>
                     </tr>
-                    
                 </table>
             </div>
             <!-- /.box-body -->
@@ -307,14 +306,14 @@
                     , id: 'testReload'
                     , cols: [[
                         {type: 'checkbox', align: "center"}
-                        , {field: "product__product_id", title: "产品代码", align: "center"}
-                        , {field: "product__name", title: "名字", align: "center"}
-                        , {field: "product__spec", title: "规格", align: "center"}
+                        , {field: "product_id", title: "产品代码", align: "center"}
+                        , {field: "name", title: "名字", align: "center"}
+                        , {field: "spec", title: "规格", align: "center"}
                         , {field: "remark", title: "备注", align: "center", edit: 'text'}
-                        , {field: "product__mesu_unit", title: "单位", align: "center"}
+                        , {field: "mesu_unit", title: "单位", align: "center"}
                         , {field: "volume", title: "体积", align: "center"}
                         , {field: "unit_price", title: "单价", align: "center", edit: 'text'}
-                        , {field: "sales_count", title: "数量", align: "center", edit: 'text'}
+                        , {field: "count", title: "数量", align: "center", edit: 'text'}
                         , {field: "amount", title: "金额", align: "center"}
                     ]]
                 });
@@ -349,13 +348,13 @@
                     ,cols:[[
                         {type:'checkbox',align:"center"}
                         ,{field:"receipt_type",title:"收款类型",align:"center",edit: 'text'}
-                        ,{field:"receipt_date",title:"预计收款日期",edit: 'text',event: 'setSign',align:"center",templet:function(d){return '<div><div class="myDate" style="width: 100%;height: 100%;">'+d.receipt_date+'</div></div>'}}
+                        ,{field:"receipt_time",title:"预计收款日期",edit: 'text',event: 'setSign',align:"center",templet:function(d){return '<div><div class="myDate" style="width: 100%;height: 100%;">'+d.receipt_time+'</div></div>'}}
                         ,{field:"receipt",title:"金额",align:"center",edit: 'text'}
                         ,{field:"remark",title:"备注",align:"center",edit: 'text'}
                     ]]
                     ,done:function(res,curr,count){
                         var tableView =this.elem.next();
-                        var mydate = tableView.find('.myDate');
+                        var mydate = tableView.find('.myDate')
                         layui.each(mydate,function(index,elem){
                             laydate.render({
                                 elem:elem
@@ -363,8 +362,8 @@
                                 ,lang: 'en'
                                 ,done:function(value,date,endDate){
                                     var elemTemp = $(this)[0].elem[0].innerHTML;
-                                    table.cache.init[index].receipt_date = elemTemp;
-                                    console.log(table.cache.init[index].receipt_date);
+                                    table.cache.init[index].receipt_time = elemTemp;
+                                    console.log(table.cache.init[index].receipt_time);
                                     table.reload('init', {
                                         page: {
                                             curr: 1 //重新从第 1 页开始
@@ -388,7 +387,7 @@
                         });
                     }
                     
-                });
+                })
                 table.on('toolbar(filter)', function(obj){
                     var checkStatus = table.checkStatus(obj.config.id);
                     switch(obj.event){
@@ -397,7 +396,7 @@
                             var count = data.length;
                             var _now = new Date();
                             var day = _now.getFullYear() + '-' + (_now.getMonth()+1) + '-' + _now.getDate();
-                            data.push({'pid':count,'receipt_type':'Please fill in the collection type','receipt_date':day,'receipt':0,'remark':0})
+                            data.push({'pid':count,'receipt_type':'Please fill in the collection type','receipt_time':day,'receipt':0,'remark':0})
                             //执行重载
                             table.reload('init', {
                                 page: {
@@ -418,7 +417,7 @@
                                 if(id_arr.indexOf(value.pid) == -1){
                                     arr.push(value);
                                 }
-                            }
+                            };
                             table.reload('init', {
                                 page: {
                                     curr: 1 //重新从第 1 页开始
@@ -426,7 +425,7 @@
                                 ,data:arr
                             });
                             break;
-                    }
+                    };
                 });
 
 
@@ -442,12 +441,12 @@
                     var getdata = table.cache.testReload;
 
                     $.each(getdata, function (index, item) {
-                        arr.push(item.product__product_id);
+                        arr.push(item.product_id);
                     });
                     var number = arr.findIndex(function (value) {
                         return value == data.product_id
                     });
-                    // console.log(number);
+                    console.log(number);
                     if (number === -1) {
                         var othis = $(this), method = othis.data('method');
                         active[method] ? active[method].call(this, getdata) : '';
@@ -463,7 +462,7 @@
                                         'product__product_id': res.data[0].product_id,
                                         'product__name': res.data[0].name,
                                         'product__spec': res.data[0].spec,
-                                        'product__mesu': res.data[0].mesu_unit,
+                                        'product__mesu_unit': res.data[0].mesu_unit,
                                         'product__volume': res.data[0].volume
                                     });
                                     table.reload('testReload', {
@@ -491,10 +490,10 @@
                             var getdata = table.cache.testReload;
 
                             $.each(checkStatus.data, function (index, item) {
-                                id_arr.push(item.product__product_id);
+                                id_arr.push(item.product_id);
                             });
                             for (var value of getdata) {
-                                if (id_arr.indexOf(value.product__product_id) === -1) {
+                                if (id_arr.indexOf(value.product_id) === -1) {
                                     arr.push(value);
                                 }
                             }
@@ -509,7 +508,7 @@
                                 count_num = count_num + parseInt($(item).val());
                             });
                             $("#id_total_amount").val(count_num);
-                            // self.subdact();
+                            self.subdact();
 
                             table.reload('testReload', {
                                 page: {
@@ -518,7 +517,8 @@
                                 , data: arr
                             });
                             break;
-                    };
+                    }
+
                 });
                 var active = {
                     setTop: function () {            //  监听按钮add 开启弹出层
@@ -571,18 +571,18 @@
                         var count_num = 0;
                         var total = table.cache.testReload;
                         $.each(total, function (index, item) {
-                            if (item.product__product_id === data.product__product_id) {
-                                item.amount = data.unit_price * data.sales_count;
+                            if (item.product_id === data.product_id) {
+                                item.amount = data.unit_price * data.count;
                             };
                             count_num += Number(item.amount);
-                        })
+                        });
                         var data1 = $("#sales_order_add input.changeable");
                         $.each(data1, function (index, item) {
                             count_num = count_num + Number($(item).val());
                         });
 
                         $("#id_total_amount").val(count_num.toFixed(2));
-                        // self.subdact();
+                        self.subdact();
                         active["reload"].call(this, total);
                     },
                     submit: function () {                  //提交按钮
@@ -627,7 +627,7 @@
                     });
 
                     $("#id_total_amount").val(count_num);
-                    // self.subdact();
+                    self.subdact();
                     active.calculat(total);
                 });
                 $('#infoDemo .layui-btn').on('click', function () {               //子页面的搜索按钮
@@ -639,16 +639,34 @@
                     active[method] ? active[method].call(this) : '';
                 });
             });
-            self.get_exrate();
             $("#id_currency").change(function () {
                 self.get_exrate();
             });
         }
     };
 
+    var data = {
+        Initialize:function(){
+            this.bind();
+        },
+        bind:function(){
+            var that = this;
+            layui.use(['table','laydate'],function(){
+                var table = layui.table,
+                laydate = layui.laydate;
+                var $ = layui.$;
+                laydate.render({
+                        elem:'#id_date'
+                        ,lang:'en'
+                    })
+            })
+            
+        }
+    };
 
     $(function(){
         obj.init([]);
+        data.Initialize();
         // $(".select2_sample").select2({
         //     ajax: {
         //         url: "https://api.github.com/search/repositories",
@@ -675,15 +693,11 @@
         //     minimumInputLength: 1,
         // });
         //启动select2
-         layui.use('laydate',function(){
-                    var laydate = layui.laydate,
-                    $ = layui.$;
-                    laydate.render({
-                        elem:'#id_date'
-                        ,lang:'en'
-                    })
-                });
-        $(".select2_sample").select2()
+        
+        $(".select2_sample").select2();
+
+
+        
     })
 </script>
 {% endblock %}

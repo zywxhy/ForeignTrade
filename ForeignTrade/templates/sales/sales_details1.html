@@ -147,7 +147,7 @@
                             <td>
                                 <div class="input-group input-group-sm form-inline {% if form.sales_num.errors %}has-error{% endif %}">
                                     <span class="input-group-addon">汇率</span>
-                                    {{ form.exrate }}
+                                    {{ form.exchange_rate }}
                                 </div>
                             </td>
                         </tr>
@@ -224,7 +224,25 @@
                         </div>
                     </div>
                     <div class="box-body">
-                        <table class="layui-hide" id="thirdDemo" lay-filter="filter"></table>
+                        <div class="layui-table-tool">
+                            <div class="layui-btn-container">
+                                <button type="button" class="layui-btn layui-btn-sm" id="collection_add"><span>添加</span></button>
+                                <button type="button" id="Remove_collection" class="layui-btn layui-btn-sm"><span>删除</span></button>
+                            </div>
+                        </div>
+                        
+                        <table class="table table-bordered table-hover table-condensed" style="table-layout:fixed;word-break:break-all;">
+                            <thead>
+                                <tr>
+                                    <th style="width:5%"><input type="checkbox" id="select_all2" style="width: 18px;height: 18px;"></th>
+                                    <th>收款类型</th>
+                                    <th>预计收款日期</th>
+                                    <th>金额</th>
+                                    <th>备注</th>
+                                </tr>
+                            </thead>
+                            <tbody id="collection"></tbody>
+                        </table>
                     </div>
                     <div class="box-footer"></div>
                 </div>
@@ -259,107 +277,83 @@
 {% endblock %}
 
 {% block script %}
+<script src="../../static/js/public.js"></script>
 <script>
     var data = {
-        init:function(){ 
+        Initialize:function(){ 
             this.bind();
         },
-        oneValues:function (){
-            var result;
-            var url=window.location.search; 
-            if(url.indexOf("?")!=-1){
-                result = url.substr(url.indexOf("=")+1);
-            }
-            return result;
-        },
         bind:function(){
-            // var oneValues = this.oneValues();
-            layui.use(['laydate','table'],function(){
+            layui.use('laydate',function(){
                 var laydate = layui.laydate,
-                table = layui.table,
                 $ = layui.$;
                 laydate.render({
                     elem:'#id_date'
                     ,lang:'en'
                 });
-                table.render({              //父页面的table
-                    elem: '#layuiDemo'
-                    , data :[
-                        {% for item in sales_product %}
-                            {
-                                'product__product_id':'{{ item.product.product_id }}',
-                                'product__name':'{{ item.product.name }}',
-                                'product__spec':'{{ item.product.spec }}',
-                                'remark':'{{ item.remark }}',
-                                'unit_price':'{{ item.unit_price }}',
-                                'sales_count':'{{ item.sales_count }}',
-                                'amount':{{ item.amount }},
-                            },
-                        {% endfor %}
-                    ]
-                    , page: true
-                    , cols: [[
-                        {type: 'checkbox', align: "center"}
-                        , {field: "product__product_id", title: "产品代码", align: "center"}
-                        , {field: "product__name", title: "名字", align: "center"}
-                        , {field: "product__spec", title: "规格", align: "center"}
-                        , {field: "remark", title: "备注", align: "center",}
-                        , {field: "product__mesu_unit", title: "单位", align: "center"}
-                        , {field: "volume", title: "体积", align: "center"}
-                        , {field: "unit_price", title: "单价", align: "center",}
-                        , {field: "sales_count", title: "数量", align: "center",}
-                        , {field: "amount", title: "金额", align: "center"}
-                    ]]
+            })
+            
+            //全局变量，标记name递增
+            var collection_index = 0;
+            //收款计划添加
+            $('#collection_add').click(function () {
+                var content = '<tr><td><input type="checkbox" style="width: 18px;height: 18px;"/></td><td><select id=\'change2\' name="id_form-'+ collection_index +'-receipt_type">' +
+                    '<option value="">选择回款类型</option>' +
+                    '<option value="预收款">预收款</option>' +
+                    '<option  value="回款">回款</option>' +
+                    '<option value="尾款">尾款</option>' +
+                    '<option value="一次性回款">一次性回款</option>' +
+                    '</select></td>';
+                content += '<td><input class="time'+ collection_index +'" name="id_form-' + collection_index + '-receipt_time"/></td>';
+                content += '<td><input class="changeable" name="id_form-'+ collection_index +'-receipt" placeholder="0.00"></td>';
+                content += '<td><input class="changeable" name="id_form-'+ collection_index +'-remark" placeholder="无"></td></tr>';
+
+                $('#collection').append(content);
+                //执行一个laydate实例
+                layui.use('laydate',function(){
+                    var laydate = layui.laydate,
+                    $ = layui.$;
+                    laydate.render({
+                        elem:'.time' + collection_index
+                        ,lang:'en'
+                    })
                 });
-                table.render({      //第三个表
-                    elem:"#thirdDemo"
-                    , data:[
-                            {% for item in sales_collection %}
-                            {
-                                'receipt_type':'{{ item.receipt_type }}',
-                                'receipt_date':'{{ item.receipt_date }}',
-                                'receipt':'{{ item.receipt }}',
-                                'remark':'{{ item.remark }}',
-                            }
-                        {% endfor %}
-                    ]
-                    , page: true
-                    , cols:[[
-                        {type:'checkbox',align:"center"}
-                        ,{field:"receipt_type",title:"收款类型",align:"center",}
-                        ,{field:"receipt_date",title:"预计收款日期",align:"center",}
-                        ,{field:"receipt",title:"金额",align:"center",}
-                        ,{field:"remark",title:"备注",align:"center",}
-                    ]]
-                    // ,done:function(res,curr,count){
-                    //     var tableView =this.elem.next();
-                    //     var mydate = tableView.find('.myDate');
-                    //     layui.each(mydate,function(index,elem){
-                    //         laydate.render({
-                    //             elem:elem
-                    //             ,trigger: 'click'
-                    //             ,lang: 'en'
-                    //             ,done:function(value,date,endDate){
-                    //                 var elemTemp = $(this)[0].elem[0].innerHTML;
-                    //                 table.cache.init[index].receipt_date = elemTemp;
-                    //                 console.log(table.cache.init[index].receipt_date);
-                    //                 table.reload('init', {
-                    //                     page: {
-                    //                         curr: 1 //重新从第 1 页开始
-                    //                     }
-                    //                     ,data:table.cache.init
-                    //                 });
-                    //             }
-                    //             ,
-                    //         });
-                    //     });
-                    // }
-                });
+                collection_index ++;
             });
+            //收款计划全选设置
+            $('#select_all2').change(function () {
+                var checkstatue = $(this).prop('checked');
+                $('#collection input[type="checkbox"]').prop('checked', checkstatue);
+            });
+            $(document).on('change','#collection input[type="checkbox"]',function(){
+                var findAll = $("#collection").find("input[type='checkbox']");
+                var data = [];
+                    $.each(findAll,function(index,item){
+                        var state = $(item).prop('checked');
+                        data.push(state);
+                    });
+                if($.inArray(false,data)<0){
+                    $("#select_all2").prop("checked",true);
+                }else{
+                    $("#select_all2").prop("checked",false);
+                }
+            });
+
+            //删除收款计划选中的选项
+            $('#Remove_collection').on("click",function(){
+                $("#collection input[type='checkbox']:checked").parent().parent().remove();
+                $("#collection").prev().find("input").prop("checked",false);
+            });
+            $(".chosen-select").chosen({
+                no_results_text: "没有找到结果！",//搜索无结果时显示的提示
+                search_contains:true,   //关键字模糊搜索，设置为false，则只从开头开始匹配
+            });
+            
         }
     };
     $(function(){
-        data.init();
+        obj.init({{ products|safe }});
+        data.Initialize();
     })
 </script>
 {% endblock %}

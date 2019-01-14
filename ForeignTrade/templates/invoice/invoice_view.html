@@ -4,10 +4,10 @@
 
 {% block style %}
     <style>
-        .laytable-cell-checkbox, .laytable-cell-numbers, .laytable-cell-radio, .laytable-cell-space {
-            padding: 5px;
-            text-align: center;
-        }
+   .laytable-cell-checkbox, .laytable-cell-numbers, .laytable-cell-radio, .laytable-cell-space {
+    padding: 5px;
+    text-align: center;
+}
         *{
             box-sizing:content-box;
         }
@@ -20,7 +20,7 @@
             width: 100%;
             overflow: hidden;
         }
-        input , select {
+        input,select{
             border:0;
 	        width: 100%;
         }
@@ -160,7 +160,7 @@
                 form.on('select(test)',function(){
                     var demoReload = $('#demoReload').val();
                     console.log($('#select1').val());
-                    console.log($('#select2').val()); 
+                    console.log($('#select2').val());
                     console.log($('#test-1').val())
                 });
                 table.render({             //子页面的table
@@ -174,8 +174,9 @@
                             },
                         {% endfor %}
                     ]
+
                     ,elem:'#firstBlood'
-                    // ,url:'/product/product_select'
+                    //,url:'/product/product_select'
                     ,page:true
                     ,id:'testchange'
                     ,where:{search: demoReload.val()}
@@ -230,6 +231,7 @@
                     }
                     active[method] ? active[method].call(this,data) : '';
                 });
+
             })
 
         }

@@ -32,10 +32,6 @@
             right: 1px;
             top: -3px;
         }
-        .select2-container--default .select2-selection--single .select2-selection__rendered {
-            color: #444;
-            line-height: 25px;
-        }
     </style>
 {% endblock %}
 
@@ -57,7 +53,11 @@
             <div class="box box-info box-solid">
                 <div class="box-header with-border">
                     <h6 class="box-title">
-                        销售合同
+                        <button class="layui-btn layui-btn-normal" data-method="submit">
+                            <i class="fa fa-save"></i> Save</button>
+                        <a class="btn">
+                            <i class="fa fa-repeat"></i> Repeat
+                        </a>
                     </h6>
                     <div class="box-tools pull-right">
                         <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
@@ -90,6 +90,10 @@
                                 <div class="input-group input-group-sm form-inline {% if form.sales_num.errors %}has-error{% endif %}">
                                     <span class="input-group-addon">客户</span>
                                     {{ form.client }}
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-info btn-flat">选择</button>
+                                    </span>
+
                                 </div>
                             </td>
                         </tr>
@@ -141,7 +145,7 @@
                             <td>
                                 <div class="input-group input-group-sm form-inline {% if form.sales_num.errors %}has-error{% endif %}">
                                     <span class="input-group-addon">汇率</span>
-                                    {{ form.exchange_rate }}
+                                    {{ form.exrate }}
                                 </div>
                             </td>
                         </tr>
@@ -289,7 +293,7 @@
         },
         bind: function (data) {
             var self = this;
-            // var formdata;
+            var formdata;
             layui.use(['table','laydate','layer'], function () {
                 var table = layui.table,
                 laydate = layui.laydate,
@@ -301,7 +305,19 @@
                 });
                 table.render({              //父页面的table
                     elem: '#layuiDemo'
-                    , data: data
+                    , data: [
+                        {% for item in sales_product %}
+                            {
+                                'product__product_id':'{{ item.product.product_id }}',
+                                'product__name':'{{ item.product.name }}',
+                                'product__spec':'{{ item.product.spec }}',
+                                'remark':'{{ item.remark }}',
+                                'unit_price':'{{ item.unit_price }}',
+                                'sales_count':'{{ item.sales_count }}',
+                                'amount':{{ item.amount }},
+                            },
+                        {% endfor %}
+                    ]
                     , toolbar: '#toolbarDemo'
                     , page: true
                     , defaultToolbar:[]
@@ -309,7 +325,6 @@
                     , cols: [[
                         {type: 'checkbox', align: "center"}
                         , {field: "product__product_id", title: "产品代码", align: "center"}
-                        , {field: "id", title: "",hide:true, align: "center"}
                         , {field: "product__name", title: "名字", align: "center"}
                         , {field: "product__spec", title: "规格", align: "center"}
                         , {field: "remark", title: "备注", align: "center", edit: 'text'}
@@ -345,7 +360,16 @@
 
                 table.render({      //第三个表
                     elem:"#thirdDemo"
-                    ,data:[]
+                    ,data:[
+                            {% for item in sales_collection %}
+                            {
+                                'receipt_type':'{{ item.receipt_type }}',
+                                'receipt_date':'{{ item.receipt_date }}',
+                                'receipt':'{{ item.receipt }}',
+                                'remark':'{{ item.remark }}',
+                            }
+                        {% endfor %}
+                    ]
                     ,id:'init'
                     , defaultToolbar:[]
                     ,toolbar: '#thirdTool'
@@ -374,7 +398,8 @@
                                         }
                                         ,data:table.cache.init
                                     });
-                                },
+                                }
+                                ,
                             });
                         });
                     }
@@ -464,9 +489,9 @@
                                     getdata.push({
                                         'product__product_id': res.data[0].product_id,
                                         'product__name': res.data[0].name,
-                                        'unit_price': 0,
-                                        'sales_count': 0,
-                                        'amount': 0
+                                        'product__spec': res.data[0].spec,
+                                        'product__mesu': res.data[0].mesu_unit,
+                                        'product__volume': res.data[0].volume
                                     });
                                     table.reload('testReload', {
                                         page: {
@@ -485,7 +510,7 @@
                     switch (obj.event) {
                         case 'add':
                             var othis = $(this), method = othis.data('method');
-                            active[method] ? active[method].call(this) : '';
+                            active[method] ? active[method].call(this, othis) : '';
                             break;
                         case 'delete':
                             var arr = [];
@@ -499,7 +524,8 @@
                                 if (id_arr.indexOf(value.product__product_id) === -1) {
                                     arr.push(value);
                                 }
-                            };
+                            }
+                            ;
                             var count_num = 0;
                             $.each(arr, function (index, item) {
                                 count_num += parseInt(item.amount);
@@ -600,13 +626,21 @@
                         
                         data.sales_collection = JSON.stringify(tableData_third);
                         //data.csrfmiddlewaretoken = '{{ csrf_token }}';
-                        data.domestic_invoice_product = JSON.stringify(tableData);
+                        data.sales_product = JSON.stringify(tableData);
                         console.log(JSON.stringify(data));
                         $.post("/sales/add/", data, function (a, b) {
                             alert(a);
                         });
                     },
-                    
+                    // examine:function(){
+                    //     console.log('1')
+                    //     $.post(url,{result:2},function(){
+
+                    //     })
+                    // },
+                    // counterTrial:function(){
+                    //     $.post(url,{result:1},function(){})
+                    // }
                 };
                 $(document).on('change', 'input.changeable', function () {            //产品列表中的金额计算
                     var count_num = 0;
@@ -650,7 +684,7 @@
                 ,lang:'en'
             })
         });
-        $(".select2_sample").select2();
+        $(".select2_sample").select2()
     })
 </script>
 {% endblock %}

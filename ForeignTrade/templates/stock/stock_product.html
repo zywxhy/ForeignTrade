@@ -2,10 +2,8 @@
 {% block title %}添加合同{% endblock %}
 
 {% block style %}
+<link rel="stylesheet" href="../../static/css/bootstrap-select.min.css">
     <style>
-        *{
-            box-sizing:content-box;
-        }
         table {
             table-layout: fixed;
             word-break: break-all;
@@ -29,143 +27,101 @@
             white-space: nowrap;
             text-overflow: ellipsis;
         }
+        .layui-form-select dl {
+            z-index: 9999;
+        }
+        .layui-table-tips-c:before {
+            right: 1px;
+            top: -3px;
+        }
     </style>
 {% endblock %}
 
 {% block path %}
     <ol class="breadcrumb">
         <li><a href="{% url 'home' %}"><i class="fa fa-dashboard"></i> 主页</a></li>
-        <li class="active">采购管理</li>
-        <li class="active">采购合同</li>
+        <li class="active">销售管理</li>
+        <li class="active">销售合同</li>
     </ol>
 {% endblock %}
 {% block main_title %}
-    销售合同添加
+    销售合同明细
 {% endblock %}
 
 
 {% block main_content %}
-    <div class="box box-primary box-solid">
-        <div class="box-header with-border">
-            <div class="pull-left">
-                <h3 class="box-title">产品列表</h3>
-            </div>
-            <div class="box-tools pull-right">
-                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                <button type="button" class="btn btn-box-tool" id="delete_product"><i class="fa fa-times"></i></button>
-            </div>
-        </div>
-        <div class="box-body">
-            <form class="infoDemo layui-form">
-                <div class="layui-form-item">
-                    <div class="layui-inline">
-                        <label class="layui-form-label">分组选择框</label>
-                        <div class="layui-input-inline">
-                            <select name="quiz"  lay-filter="test" id="select1">
-                                <option value="">请选择问题</option>
-                                {% for item in stock %}
-                                <option value="{{ item.id }}">{{ item.name }}</option>
-                                {% endfor %}
-                            </select>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box box-default box-solid">
+                        <div class="box-header with-border">
+                            <h6 class="box-title">
+                                明细
+                            </h6>
+                            <div class="box-tools pull-right">
+                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                                <button type="button" class="btn btn-box-tool" id="delete_product"><i class="fa fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="box-body">
+                            <table class="layui-hide" id="sales_product_table" lay-filter="filter"></table>
+                        </div>
+                        <div class="box-footer">
                         </div>
                     </div>
-                    <div class="layui-inline">
-                        <label class="layui-form-label">搜索选择框</label>
-                        <div class="layui-input-inline">
-                            <select name="modules" lay-filter="test" id="select2" lay-search="">
-                                <option value="">直接选择或搜索选择</option>
-                                <option value="1">1</option>
-                            </select>
-                        </div>
-                    </div>
-                    
                 </div>
-                
-            </form>
-            <table class="layui-hide" id="firstBlood" lay-filter="demo"></table>
-        </div>
-        <div class="box-footer">
-    
+            </div>
         </div>
     </div>
-    <script type="text/html" id="titleTpl">
-        <a class="layui-btn layui-btn-normal layui-btn-xs" data-method="reload" lay-event="detail">查看</a>
-        <a class="layui-btn layui-btn-warm layui-btn-xs" data-method="reload" lay-event="edit">修改</a>
-        <a class="layui-btn layui-btn-danger layui-btn-xs" data-method="reload" lay-event="del">生成出库单</a>
-    </script>
 {% endblock %}
 
 {% block script %}
 <script>
-    var data = {
+    var obj = {
         init:function(){
             this.bind();
         },
         bind:function(){
-            layui.use(['table','form'],function(){
+            var self = this;
+            layui.use('table',function(){
                 var table = layui.table,
-                form = layui.form;
-                var $ = layui.$;
-                var demoReload = $('#demoReload');
-
-                form.on('select(test)',function(){
-                    var data = {
-                        stock_id :$('#select1').val(),
-                    };
-                    console.log($('#select1').val());
-                    active.reloadsearch(data);
-                });
-
-                table.render({             //父页面的table
-                    elem:'#firstBlood'
-                    ,url:'/stock/stock/'
+                $ = layui.$;
+                table.render({
+                    elem:'#sales_product_table'
+                    ,url:'/sales/sales_product/'
                     ,page:true
-                    ,id:'testchange'
-                    ,where:{stock_id: $('#select1').val()}
+                    ,limit:10
+                    ,id:'idTest'
                     ,cols:[[
-                        {type:'checkbox',align:"center"}
-                        ,{field:"product__model",title:"合同编号",align:"center"}
+                        {field:'sales__date',title:'日期',align:'center',sort:true}
+                        ,{field:'sales__client__name',title:'客户',align:'center',sort:true}
+                        ,{field:'sales__salesman__first_name',title:'业务员',align:'center',sort:true}
+                        ,{field:'sales__sales_num',title:'合同编号',align:'center',sort:true}
+                        ,{field:'product__model',title:'产品型号',align:'center',sort:true}
+                        ,{field:'product__name',title:'产品名称',align:'center',sort:true}
+                        ,{field:'product__spec',title:'产品规格',align:'center',sort:true}
+                        ,{field:'count',title:'销售数量',align:'center',sort:true}
                     ]]
-                    ,parseData: function(res){ //res 即为原始返回的数据
-                        return {
-                            "code": res.code, //解析接口状态
-                            "msg": res.msg, //解析提示文本
-                            "count": res.count, //解析数据长度
-                            "data": res.data //解析数据列表
-                        };
-                    },
                 });
-
-                table.on('tool(demo)',function(obj){
-                    var data = obj.data; //获得当前行数据
-                    var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
-                    var tr = obj.tr; //获得当前行 tr 的DOM对象
-                    if(layEvent === 'detail'){ //查看
-                        //do somehing
-                        href= '/sales/details?sales_num='+data.sales_num;
-                    } else if(layEvent === 'edit'){ //添加
-                        href= '/sales/modify?sales_num='+data.sales_num;
-                    } else if(layEvent === 'del'){ //生成出库单
-                        href= '/sales/contract?sales_num='+data.sales_num;
-                    }
-                    window.open(href);
-                });
-
-                var active = {
-                    reloadsearch: function(data){               //父页面搜索
-                        //执行重载
-                        table.reload('testchange', {
-                            where: data
-                        });
-                    }
-                };
-                
+                table.on('sort(filter)',function(obj){
+                    console.log(obj.field);
+                    console.log(obj);
+                    console.log(this);
+                    table.reload('idTest',{
+                        initSort:obj
+                        ,where:{
+                            field:obj.field,
+                            order:obj.type
+                        }
+                    })
+                })
             })
-            
         }
-    }
+    };
     $(function(){
-        data.init();
+        obj.init();
     })
 </script>
 {% endblock %}

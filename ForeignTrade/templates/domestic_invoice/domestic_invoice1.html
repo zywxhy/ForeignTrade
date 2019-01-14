@@ -44,35 +44,59 @@
                 <tr>
                     <td>
                         <div class="input-group input-group-sm form-inline {% if form.sales_num.errors %}has-error{% endif %}">
-                            <span class="input-group-addon">入库单单号</span>
-                            {{ form.warehousing_num }}
+                            <span class="input-group-addon">国内发货单单号</span>
+                            {{ form.domestic_invoice_num }}          
                         </div>
                     </td>
                     <td>
                         <div class="input-group input-group-sm form-inline {% if form.sales_num.errors %}has-error{% endif %}">
-                            <span class="input-group-addon">国内发货单</span>
-                            {{ form.domestic_invoice }}
+                            <span class="input-group-addon">发货时间</span>
+                            {{ form.invoice_date }}          
                         </div>
                     </td>
                     <td>
                         <div class="input-group input-group-sm form-inline {% if form.sales_num.errors %}has-error{% endif %}">
-                            <span class="input-group-addon">入库时间</span>
-                            {{ form.warehousing_date }}
+                            <span class="input-group-addon">预计到达时间</span>
+                            {{ form.estimated_date }}
                         </div>
                     </td>
                     <td>
                         <div class="input-group input-group-sm form-inline {% if form.sales_num.errors %}has-error{% endif %}">
-                            <span class="input-group-addon">仓库</span>
-                            {{ form.branch_stock }}
+                            <span class="input-group-addon">运输方式</span>
+                            {{ form.method }}
                         </div>
                     </td>
-                    
                 </tr>
-
                 <tr>
                     <td>
                         <div class="input-group input-group-sm form-inline {% if form.sales_num.errors %}has-error{% endif %}">
-                            <span class="input-group-addon">备注</span>
+                            <span class="input-group-addon">运费</span>
+                            {{ form.freight }}
+                        </div>
+                    </td>
+                    <td>
+                        <div class="input-group input-group-sm form-inline {% if form.sales_num.errors %}has-error{% endif %}">
+                            <span class="input-group-addon">地址</span>
+                            {{ form.address }}
+                        </div>
+                    </td>
+                    <td>
+                        <div class="input-group input-group-sm form-inline {% if form.sales_num.errors %}has-error{% endif %}">
+                            <span class="input-group-addon">提单号</span>
+                            {{ form.bill }}
+                        </div>
+                    </td>
+                    <td>
+                        <div class="input-group input-group-sm form-inline {% if form.sales_num.errors %}has-error{% endif %}">
+                            <span class="input-group-addon">公司</span>
+                            {{ form.company }}
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="input-group input-group-sm form-inline {% if form.sales_num.errors %}has-error{% endif %}">
+                            <span class="input-group-addon">其他信息</span>
                             {{ form.remark }}
                         </div>
                     </td>
@@ -158,11 +182,11 @@
                 var table = layui.table,
                 layer = layui.layer,
                 $ = layui.$;
-                var val = self.getQueryString("id")||'';
+                var val = self.getQueryString("sales_num");
                 table.render({
                     elem:'#invoice_add'
-                    //,url:'/domestic_invoice/'+ val //应该是选中的某一个第一张表附带的数据domestic_invoice_product
-                    ,data:[]
+                    ,url:'/domestic_invoice/1/' //应该是选中的某一个第一张表附带的数据domestic_invoice_product
+                   // ,data:[]
                     ,page:true
                     ,toolbar:'#toolbar'
                     ,defaultToolbar:[]
@@ -175,31 +199,22 @@
                         ,{field:"remark",title:"备注",align:"center",edit: 'text'}
                         ,{field:"mesu_unit",title:"单位",align:"center"}
                         ,{field:"volume",title:"体积",align:"center"}
-                        ,{field:"count",title:"入库数量",align:"center",edit: 'text'}
+                        ,{field:"count",title:"数量",align:"center",edit: 'text'}
+                        ,{field:"unit_price",title:"单价",align:"center",edit: 'text'}
                         ,{field:"sales_count",title:"总金额",align:"center"}              // 字段名对不上,url无法连接
                     ]]
-                    ,parseData:function(res){
-                        console.log(res);
-                        return {
-                            "code": res.status, //解析接口状态
-                            // "msg": res.message, //解析提示文本
-                            // "count": res.total, //解析数据长度
-                            "data": res.data[0].domestic_invoice_product //解析数据列表
-                        };
-                    }
                 });
                 table.render({
                     elem:'#child_table'
                     ,page:true
-                    ,data:{{ invoice_products_data|safe }}
-                    //,url: '/product/product_select'
+                    ,url: '/product/product_select'
                     ,defaultToolbar:[]
                     ,id:'ctable'
                     ,cols:[[
                         {field: "product_id", title: "产品id", align: "center", width: 100}
                         , {field: "name", title: "产品名称", align: "center", width: 100}
                         , {field: "spec", title: "产品规格", align: "center", width: 200}
-                        , {field: "count", title: "数量", align: "center", width: 100}
+                        , {field: "mesu", title: "计量单位", align: "center", width: 200}
                         , {field: "volume", title: "体积", align: "center", width: 100}
                         , {title: "操作", toolbar: '#titleTpl', align: "center", width: 100}
                     ]]
@@ -267,10 +282,13 @@
                     });
                     if (number === -1) {
                         getdata.push(data);
-                        active.reload('ftable',getdata);
+                        active.reload('ftable',getdata); 
                     }
                 });
-                // table.on('toolbar(demo)',function(obj){//头部工具行的操作，修改了页面的样式
+                table.on("tool(edit)",function(obj){
+
+                });
+                // table.on('toolbar(demo)',function(obj){
                 //     var checkStatus = table.checkStatus(obj.config.id);
                 //     console.log(checkStatus);
                 //     switch(obj.event){
@@ -292,24 +310,15 @@
                 //     }
                 // });
                 table.on('edit(_table)',function(obj){
-                    // var database = table.cache.ftable;
-                    // $.each(database,function(index,item){
-                    //     var count = item.sales_count - item.outbound_count;
-                    //     if(item.plan_count > count){
-                    //         item.plan_count = count;
-                    //         obj.value = count;
-                    //     }
-                    // });
-                    // active.reload('ftable',database);//计算可出库数量的剩余
-                    var count = obj.data.count||0,
-                    unit_price = obj.data.unit_price||0;
-                    var data = table.cache.ftable;
-                    $.each(data,function(index,item){
-                        if(item.id === obj.data.id){
-                            item.sales_count = count * unit_price;
+                    var database = table.cache.ftable;
+                    $.each(database,function(index,item){
+                        var count = item.sales_count - item.outbound_count;
+                        if(item.plan_count > count){
+                            item.plan_count = count;
+                            obj.value = count;
                         }
                     });
-                    active.reload('ftable',data);//计算每一行的总量
+                    active.reload('ftable',database);
                 });
                 var active = {
                     reload:function(id,dt){
@@ -331,9 +340,9 @@
                         var _data = table.cache.ftable;
                         //second table
                         data.csrfmiddlewaretoken = '{{ csrf_token }}';
-                        data.warehousing_product = _data;
+                        data.domestic_invoice_product = _data;
                         console.log(JSON.stringify(data));
-                        $.post("/branch_warehousing/", data, function (a, b) {
+                        $.post("/domestic_invoice/", data, function (a, b) {
                             alert(a);
                         });
                     },
