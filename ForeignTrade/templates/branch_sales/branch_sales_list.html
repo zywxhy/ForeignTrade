@@ -164,8 +164,9 @@
                 });
                 table.render({             //子页面的table
                     data:[
-                        {% for item in sales_contract %}
+                        {% for item in branch_sales %}
                             {
+                                'id':'{{ item.id }}',
                                 'sales_num':'{{ item.sales_num }}',
                                 'salesman':'{{ item.salesman.first_name }}',
                                 'client':'{{ item.client.name }}',
@@ -201,11 +202,11 @@
                     var tr = obj.tr; //获得当前行 tr 的DOM对象
                     if(layEvent === 'detail'){ //查看
                         //do somehing
-                        href= '/sales/details?sales_num='+data.sales_num;
+                        href= '/branch_sales/operations?sales_num='+data.sales_num;
                     } else if(layEvent === 'edit'){ //删除
-                        href= '/sales/modify?sales_num='+data.sales_num;
+                        href= '/branch_sales/operations?sales_num='+data.sales_num;
                     } else if(layEvent === 'del'){ //编辑
-                        href= '/invoice/add?sales_num='+data.sales_num;
+                        href= '/overseas_invoice/operations?branch_sales='+data.id;
                     }
                     window.open(href)
                 });

@@ -208,7 +208,7 @@
                 $('#id_exrate').val(index);
             })
         },
-        bind: function (data) {
+        bind: function () {
             var self = this;
             var formdata;
             layui.use(['table','laydate','layer'], function () {
@@ -218,7 +218,7 @@
                 $ = layui.$;
                 table.render({              //父页面的table
                     elem: '#layuiDemo'
-                    , data: data
+                    , data: {{ products_data|safe }}
                     , toolbar: '#toolbarDemo'
                     , page: true
                     , defaultToolbar:[]

@@ -171,12 +171,12 @@
                         {type:'checkbox',align:"center"}
                         ,{field:"product",title:"产品代码",align:"center"}
                         ,{field:"name",title:"名字",align:"center"}
-                        ,{field:"spec",title:"规格",align:"center"}
+                        ,{field:"product",title:"规格",align:"center"}
                         ,{field:"remark",title:"备注",align:"center",edit: 'text'}
                         ,{field:"mesu_unit",title:"单位",align:"center"}
                         ,{field:"volume",title:"体积",align:"center"}
-                        ,{field:"count",title:"入库数量",align:"center",edit: 'text'}
-                        ,{field:"sales_count",title:"总金额",align:"center"}              // 字段名对不上,url无法连接
+                        ,{field:"count",title:"出库数量",align:"center",edit: 'text'}
+                        ,{field:"sales_count",title:"总数量",align:"center"}              // 字段名对不上,url无法连接
                     ]]
                     ,parseData:function(res){
                         console.log(res);
@@ -191,7 +191,21 @@
                 table.render({
                     elem:'#child_table'
                     ,page:true
-                    ,data:{{ invoice_products_data|safe }}
+                    ,data:[
+                        {% for item in sales_products %}
+                            {
+                                'id':'{{ item.id }}',
+                                'name':'{{ item.product.name }}',
+                                'product':'{{ item.product.product_id }}',
+                                'remark':'{{ item.remark }}',
+                                'mesu_unit':'{{ item.product.mesu_unit }}',
+                                'volume':'{{ item.product.volume }}',
+                                'sales_count':'{{ item.sales_count }}',
+
+
+                            },
+                        {% endfor %}
+                    ]
                     //,url: '/product/product_select'
                     ,defaultToolbar:[]
                     ,id:'ctable'
@@ -331,9 +345,9 @@
                         var _data = table.cache.ftable;
                         //second table
                         data.csrfmiddlewaretoken = '{{ csrf_token }}';
-                        data.warehousing_product = _data;
+                        data.overseas_invoice_product = _data;
                         console.log(JSON.stringify(data));
-                        $.post("/branch_warehousing/", data, function (a, b) {
+                        $.post("/overseas_invoice/", data, function (a, b) {
                             alert(a);
                         });
                     },
