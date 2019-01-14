@@ -25,14 +25,13 @@ def A(request):
     return render(request,'test/test.html',locals())
 
 
+
 # Mix类,实现登录验证功能
 class LoginRequiredMixin(object):
 
     @method_decorator(login_required(login_url='/login/'))
     def dispatch(self,request,*args,**kwargs):
         return super().dispatch(request)
-
-
 
 
 
@@ -110,8 +109,6 @@ class FormView(View):
             Ticket.objects.create(**form.cleaned_data)
 
         return HttpResponse('OK')
-
-
 
 
 

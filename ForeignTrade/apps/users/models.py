@@ -6,6 +6,7 @@ from django.contrib.auth.models import AbstractUser
 class Company(models.Model):
     company_id = models.CharField(max_length=10,verbose_name='公司ID')    #总公司ID为1 后续以此类推
     name = models.CharField(max_length=50, unique=True, verbose_name='公司名')  # 公司
+    is_branch = models.BooleanField(default=True,verbose_name='分公司')   #是否分公司
     remark = models.CharField(max_length=300,verbose_name='公司备注') #备注
 
     class Meta:
@@ -17,6 +18,12 @@ class Company(models.Model):
 
     def __str__(self):
         return self.name
+
+
+
+
+
+
 
 #员工
 class MyUser(AbstractUser):
@@ -40,6 +47,28 @@ class MyUser(AbstractUser):
         return self.company.name+':'+self.first_name
 
 
+# 分公司接洽人
+class Contacter(models.Model):
+    company = models.ForeignKey(Company,on_delete=models.PROTECT,verbose_name='分公司')
+    contacter = models.ForeignKey(MyUser,on_delete=models.PROTECT,verbose_name='接洽人')
+
+
+
+
+
+
+
+class ReviewsPermission(models.Model):
+    pass
+
+
+
+
+
+
+
+
+
 
 
 class Person(models.Model):
@@ -50,6 +79,5 @@ class Person(models.Model):
 class Ticket(models.Model):
     test = models.ForeignKey(Person,on_delete=models.CASCADE,verbose_name='测试')
     name = models.CharField(max_length=20, default='',verbose_name='票')
-
 
 
