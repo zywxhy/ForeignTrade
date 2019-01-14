@@ -262,8 +262,9 @@ throw new Error('AdminLTE requires jQuery')
       that.remove($(this));
       return false;
     });
+    
   };
-
+  
   // Plugin Definition
   // =================
   function Plugin(option) {
@@ -1084,13 +1085,45 @@ throw new Error('AdminLTE requires jQuery')
   };
 
   // Private
+  function mainMenuClickFunc(param) {
 
+    $( ".sidebar-menu .treeview li").removeClass("active");
+    $($(this).parent()).addClass("active");
+
+    if(!$(this).offsetParent().hasClass("active")){
+        $( ".sidebar-menu .treeview").removeClass("active");
+        $(this).offsetParent().addClass("active");
+    }
+    var controller = $(this).attr("menu-controller");
+
+    $(".content-wrapper").html("");
+
+ 
+    $.ajax({
+        url: basePath  + controller,
+        data:param?param:{},
+        success: function (d) {
+            var html = $(d);
+            $(".content-wrapper").html(html);
+        }
+    });
+  }
+  
   Tree.prototype._setUpListeners = function () {
-    var that = this;
+    // var that = this;
+
+    // $(this.element).on('click', this.options.trigger, function (event) {
+    //   that.toggle($(this), event);
+    // });
+    var that = this
 
     $(this.element).on('click', this.options.trigger, function (event) {
-      that.toggle($(this), event);
-    });
+        if($($(this)[0].firstChild).hasClass("fa-circle-o")){
+            mainMenuClickFunc.call(this);
+        }else {
+            that.toggle($(this), event)
+        }
+    })
   };
 
   // Plugin Definition
