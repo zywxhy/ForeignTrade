@@ -7,10 +7,10 @@ from datetime import date
 
 
 class StockHandle:
-    def __init__(self,stock_instance,odd_instance,type):
+    def __init__(self,stock_instance,odd_instance):
         self.stock_instance = stock_instance
         self.odd_instance = odd_instance
-        self.type = type
+
 
 
 

@@ -8,7 +8,7 @@ class BranchStock(models.Model):
     name = models.CharField(max_length=50,default='',unique=True,verbose_name='仓库名')
 
     class Meta:
-        verbose_name = '仓库'
+        verbose_name = '海外仓库'
         verbose_name_plural = verbose_name
 
     def __str__(self):
