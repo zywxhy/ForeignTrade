@@ -1,4 +1,4 @@
-from django.shortcuts import render,HttpResponse
+from django.shortcuts import render,HttpResponse,get_object_or_404
 from django.views import View
 from sales.models import SalesContract,SalesProduct,CollectionPlan,SalesStatistics
 from users.models import MyUser,Company
@@ -9,6 +9,8 @@ from users.views import LoginRequiredMixin
 from collections import Counter
 from datetime import date
 import json
+from rest_framework.viewsets import ModelViewSet
+from .serializer import SalesContractModelSerializer
 from collections import defaultdict
 from ForeignTrade.my_class import DataSplit,ContractOperations,Layui
 from django.core.paginator import Paginator,PageNotAnInteger,EmptyPage
@@ -50,37 +52,22 @@ class SalesAddView(LoginRequiredMixin,View):
 
 
 
+
+
+
+
 #销售合同修改
 class SalesContractModify(View):
     def get(self, request):
-        sales_num = request.GET.get('sales_num')
-        sales = SalesContract.objects.get(sales_num=sales_num)
+        user = request.user
+        sales_num = request.GET.get('sales_num', '')
+        sales_contract = SalesContract.objects.get(sales_num=sales_num, )
         initial = {}
         for key in SalesForm(request.user).fields:
-            initial[key] =getattr(sales,key)
-        form = SalesForm(request.user,initial=initial)
-        product_list = SalesProduct.objects.filter(sales_id=sales.id)
-        try:
-            data = serializers.serialize('json', product_list)
-            data = eval(data)
-        except:
-            data = []
-
-        products = []
-
-        for item in data:
-            a = {}
-            p = Product.objects.get(id=item['fields'].get('product'))
-            for key2, value2 in p.__dict__.items():
-                a[key2] = value2
-            for key, value in item['fields'].items():
-                a[key] = value
-
-            a.pop('_state')
-            a.pop('image')
-            a.pop('cost')
-            products.append(a)
-            del a
+            initial[key] = getattr(sales_contract, key)
+        form = SalesForm(request.user, initial=initial)  # 初始化表单，数据是表单数据
+        sales_product = sales_contract.salesproduct_set.all()
+        sales_collection = sales_contract.collectionplan_set.all()
         return render(request, 'sales/sales_modify.html', locals())
 
 
@@ -89,7 +76,7 @@ class SalesContractModify(View):
 class SalesContractView(LoginRequiredMixin,View):
     def get(self,request):
         user = request.user
-        if user.has_perm('sales.can_read_all_sales'):
+        if user.permission_level > 3:
             sales_contract = SalesContract.objects.all().order_by('date')
         elif user.permission_level==3:
             sales_contract = SalesContract.objects.filter(salesman__company_id = user.company_id).order_by('date')
@@ -126,23 +113,19 @@ class SalesDetailsView(LoginRequiredMixin,View):
         form = SalesForm(request.user,initial=initial)       #初始化表单，数据是表单数据
         sales_product = sales_contract.salesproduct_set.all()
         sales_collection = sales_contract.collectionplan_set.all()
-
-        # layui = Layui(request,SalesProduct,fields,
-
         return render(request, 'sales/sales_details.html', locals())
 
 
 class SalesProductView(View):
     def get(self,request):
         user = request.user
-        company_id = request.GET.get('company_id',None)
+        company_id = request.GET.get('company_id','')
         limit = request.GET.get('limit',10)
         page = request.GET.get('page',None)
-        field = request.GET.get('field', None)
-        order = request.GET.get('order', None)
+        field = request.GET.get('field', '')
+        order = request.GET.get('order', '')
 
-
-        if company_id is None:
+        if not company_id:
             company_id = user.company_id
         if user.permission_level > 3:
             sales_product = SalesProduct.objects.filter(sales__salesman__company_id=company_id)
@@ -152,7 +135,7 @@ class SalesProductView(View):
             else:
                 sales_product = SalesProduct.objects.filter(sales__salesman__company_id=company_id)
 
-        if field is not None:
+        if field:
 
             if order == 'desc':
                 sales_product = sales_product.order_by(field).reverse()
@@ -229,3 +212,33 @@ def get_sales_info(request):
     return HttpResponse(data,content_type='application/json')
 
 
+def sales_review(request):
+    try:
+        result = request.POST['result']
+        sales_num = request.POST['sales_num']
+    except:
+        raise HttpResponse('Your review request is incorrect')
+    condition = {'sales_num': sales_num}
+    purchase = get_object_or_404(SalesContract, **condition)
+    if result == 'Y':
+        purchase.status = 1
+        purchase.save()
+        return HttpResponse('examination passed')
+
+    else:
+        purchase.status = 2
+        purchase.save()
+        return HttpResponse('examination not passed')
+
+
+from rest_framework.pagination import PageNumberPagination
+
+class SalesContractModelViewSet(ModelViewSet):
+    serializer_class =  SalesContractModelSerializer
+    queryset = SalesContract.objects.all()
+    #pagination_class = None
+
+
+from rest_framework.routers import SimpleRouter
+router = SimpleRouter()
+router.register('sales1',SalesContractModelViewSet)

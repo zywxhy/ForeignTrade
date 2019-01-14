@@ -31,7 +31,7 @@ class SalesContract(models.Model):
     export_company = models.CharField(max_length=20,verbose_name='出口公司')
     mode_of_transport = models.CharField(max_length=20,choices=(('空运','空运'),('海运','海运'),('快递','快递')),verbose_name='运输方式')
     exrate = models.FloatField(default=1,verbose_name='汇率')
-    status = models.IntegerField(default=0,choices=sales_status,verbose_name='合同状态')     # 0:未审核 1;已审核  2:已采购   3:退回    4:已出库(全部)  5:已完成(收款完毕)
+    status = models.IntegerField(default=0,choices=sales_status,verbose_name='合同状态')     # 0:未审核 1;已审核  2:已退回  3:已采购     4:已出库(全部)  5:已完成(收款完毕)
     shipping_fee = models.FloatField(default=0,verbose_name='运费')
     insurance = models.FloatField(default=0,verbose_name='保险费')
     other_fee = models.FloatField(default=0,verbose_name='其他费用')
