@@ -358,42 +358,15 @@
                     var self = this;
                     layEvent = obj.event; //获得 lay-event 对应的值
                     var getdata = table.cache.testReload;
-
                     $.each(getdata, function (index, item) {
-                        arr.push(item.product__product_id);
+                        arr.push(item.product_id);
                     });
                     var number = arr.findIndex(function (value) {
                         return value == data.product_id
                     });
-                    // console.log(number);
                     if (number === -1) {
-                        var othis = $(this), method = othis.data('method');
-                        active[method] ? active[method].call(this, getdata) : '';
-
-                        if (layEvent === 'add') {
-                            $.ajax({
-                                type: 'get',
-                                data: {'product_id': data.product_id},
-                                url: '/product/get_product',
-                                success: function (res) {
-                                    console.log(res);
-                                    getdata.push({
-                                        'product__product_id': res.data[0].product_id,
-                                        'product__name': res.data[0].name,
-                                        'product__spec': res.data[0].spec,
-                                        'unit_price': 0,
-                                        'sales_count': 0,
-                                        'amount':0
-                                    });
-                                    table.reload('testReload', {
-                                        page: {
-                                            curr: 1 //重新从第 1 页开始
-                                        }
-                                        , data: getdata
-                                    });
-                                }
-                            })
-                        }
+                        getdata.push(data);
+                        active.reload(getdata);
                     }
                 });
 
@@ -506,8 +479,8 @@
                     },
                     submit: function () {                  //提交按钮
                         //first table
-                        var inputAll = $("#_order").find("input");
-                        var selectAll = $("#_order").find("select");
+                        var inputAll = $("#sales_order_add").find("input");
+                        var selectAll = $("#sales_order_add").find("select");
                         var obj1 = self.callback(inputAll);
                         var obj2 = self.callback(selectAll);
                         var data = $.extend({}, obj1, obj2);
@@ -517,22 +490,13 @@
                         var tableData_third = table.cache.init;
 
                         data.sales_collection = JSON.stringify(tableData_third);
-                        data.csrfmiddlewaretoken = '{{ csrf_token }}';
-                        data.branch_sales_product = JSON.stringify(tableData);
+                        //data.csrfmiddlewaretoken = '{{ csrf_token }}';
+                        data.sales_product = JSON.stringify(tableData);
                         console.log(JSON.stringify(data));
-                        $.post("/branch_sales/", data, function (a, b) {
+                        $.post("/sales/add/", data, function (a, b) {
                             alert(a);
                         });
-                    },
-                    // examine:function(){
-                    //     console.log('1')
-                    //     $.post(url,{result:2},function(){
-
-                    //     })
-                    // },
-                    // counterTrial:function(){
-                    //     $.post(url,{result:1},function(){})
-                    // }
+                    }
                 };
                 $(document).on('change', 'input.changeable', function () {            //产品列表中的金额计算
                     var count_num = 0;
