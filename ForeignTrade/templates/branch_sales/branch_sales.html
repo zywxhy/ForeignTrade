@@ -461,10 +461,12 @@
                     },
                     calculat: function (data) {            //计算金额，重载页面
                         var count_num = 0;
+                        var unit_price = data.unit_price||0,
+                        sales_count = data.sales_count||0;
                         var total = table.cache.testReload;
                         $.each(total, function (index, item) {
-                            if (item.product_id === data.product_id) {
-                                item.amount = data.unit_price * data.sales_count;
+                            if (item.product__product_id === data.product__product_id) {
+                                item.amount = unit_price * sales_count;
                             };
                             count_num += Number(item.amount);
                         })
