@@ -3,8 +3,16 @@
 
 {% block style %}
     <style>
-        
-        
+        .padmar{
+            margin:10px;
+        }
+        .layui-table-tips-c:before {
+            right: 1px;
+            top: -3px;
+        }
+        #_order tr td{
+            width: 25%;
+        }
     </style>
 {% endblock %}
 
@@ -139,21 +147,30 @@
             </div>
         </div>
         <div class="pull-right">
-            <button class="layui-btn layui-btn-normal" data-method="submit"><i class="fa fa-save"></i> Save</button>
+            <button class="layui-btn layui-btn-primary" data-method="submit"><i class="fa fa-save"></i> Save</button>
         </div>
 
     </div>
 </div>
 <script type="text/html" id="toolbarDemo">
     <div class="layui-btn-container">
-        <a type="button" data-method="setTop" href="javascript:void(0)" class="layui-btn layui-btn-sm" lay-event="add">添加</a>
-        <a type="button" data-method="delete" href="javascript:void(0)" class="layui-btn layui-btn-sm" lay-event="delete">删除</a>
+        <div class="layui-btn-group">
+            <button data-method="setTop" href="javascript:void(0)" class="layui-btn layui-btn-primary layui-btn-sm" lay-event="add">增加</button>
+            <!-- <button class="layui-btn">编辑</button> -->
+            <button data-method="delete" href="javascript:void(0)" class="layui-btn layui-btn-primary layui-btn-sm" lay-event="delete">删除</button>
+        </div>
     </div>
 </script>
 <script type="text/html" id="thirdTool">
     <div class="layui-btn-container">
-        <a type="button" data-method="reload" href="javascript:void(0)" class="layui-btn layui-btn-sm" lay-event="add">添加</a>
-        <a type="button" data-method="reloadchild" href="javascript:void(0)" class="layui-btn layui-btn-sm" lay-event="delete">删除</a>
+        <div class="layui-btn-group">
+            <button data-method="reload" href="javascript:void(0)" class="layui-btn layui-btn-primary layui-btn-sm" lay-event="add">增加</button>
+            <!-- <button class="layui-btn">编辑</button> -->
+            <button data-method="reloadchild" href="javascript:void(0)" class="layui-btn layui-btn-primary layui-btn-sm" lay-event="delete">删除</button>
+        </div>
+        
+        <a type="button" >添加</a>
+        <a type="button" >删除</a>
     </div>
 </script>
 <div style="display:none" id="infoDemo">
@@ -162,12 +179,12 @@
         <div class="layui-inline">
             <input class="layui-input" name="id" id="demoReload" autocomplete="off">
         </div>
-        <button class="layui-btn" data-method="reloadchild">搜索</button>
+        <button class="layui-btn layui-btn-primary" data-method="reloadchild">搜索</button>
     </div>
     <table class="layui-hide"  id="firstBlood" lay-filter="demo"></table>
 </div>
 <script type="text/html" id="titleTpl">
-    <a class="layui-btn layui-btn-danger layui-btn-xs" data-id="{{d.product_id}}"  data-method="reload" lay-event="add">添加</a>
+    <a class="layui-btn layui-btn-primary layui-btn-xs" data-id="{{d.product_id}}"  data-method="reload" lay-event="add">添加</a>
 </script>
 {% endblock %}
 
@@ -219,35 +236,39 @@
                 table.render({              //父页面的table
                     elem: '#layuiDemo'
                     , data: {{ products_data|safe }}
+                    , skin: 'nob' //行边框风格
+                    , even: true //开启隔行背景
                     , toolbar: '#toolbarDemo'
                     , page: true
                     , defaultToolbar:[]
                     , id: 'testReload'
                     , cols: [[
-                        {type: 'checkbox', align: "center"}
-                        , {field: "product_id", title: "产品代码", align: "center"}
-                        , {field: "name", title: "名字", align: "center"}
-                        , {field: "spec", title: "规格", align: "center"}
-                        , {field: "remark", title: "备注", align: "center", edit: 'text'}
-                        , {field: "mesu_unit", title: "单位", align: "center"}
-                        , {field: "volume", title: "体积", align: "center"}
-                        , {field: "unit_price", title: "单价", align: "center", edit: 'text'}
-                        , {field: "sales_count", title: "数量", align: "center", edit: 'text'}
-                        , {field: "amount", title: "金额", align: "center"}
+                        {type: 'checkbox', align: "left"}
+                        , {field: "product_id", title: "产品代码", align: "left", templet: '<div>{% verbatim %}{{ d.product.product_id }}{% endverbatim %}</div>'}
+                        , {field: "name", title: "名字", align: "left", templet: '<div>{% verbatim %}{{ d.product.name }}{% endverbatim %}</div>'}
+                        , {field: "spec", title: "规格", align: "left", templet: '<div>{% verbatim %}{{ d.product.spec }}{% endverbatim %}</div>'}
+                        , {field: "remark", title: "备注", align: "left", edit: 'text',}
+                        , {field: "mesu_unit", title: "单位", align: "left", templet: '<div>{% verbatim %}{{ d.product.mesu_unit }}{% endverbatim %}</div>'}
+                        , {field: "volume", title: "体积", align: "left", templet: '<div>{% verbatim %}{{ d.product.volume }}{% endverbatim %}</div>'}
+                        , {field: "unit_price", title: "单价", align: "left", edit: 'text',}
+                        , {field: "sales_count", title: "数量", align: "left", edit: 'text',}
+                        , {field: "amount", title: "金额", align: "left",}
                     ]]
                 });
                 table.render({             //子页面的table
                     elem: '#firstBlood'
                     , url: '/product/product_select'
+                    , skin: 'nob' //行边框风格
+                    , even: true //开启隔行背景
                     , page: true
                     , id: 'testchange'
                     , cols: [[
-                        {field: "product_id", title: "产品id", align: "center", width: 100}
-                        , {field: "name", title: "产品名称", align: "center", width: 100}
-                        , {field: "spec", title: "产品规格", align: "center", width: 200}
-                        , {field: "mesu", title: "计量单位", align: "center", width: 200}
-                        , {field: "volume", title: "体积", align: "center", width: 100}
-                        , {title: "操作", toolbar: '#titleTpl', align: "center", width: 100}
+                        {field: "product_id", title: "产品id", align: "left", width: 100, templet: '<div>{% verbatim %}{{ d.product.product_id }}{% endverbatim %}</div>'}
+                        , {field: "name", title: "产品名称", align: "left", width: 100, templet: '<div>{% verbatim %}{{ d.product.name }}{% endverbatim %}</div>'}
+                        , {field: "spec", title: "产品规格", align: "left", width: 200, templet: '<div>{% verbatim %}{{ d.product.spec }}{% endverbatim %}</div>'}
+                        , {field: "mesu_unit", title: "计量单位", align: "left", width: 200, templet: '<div>{% verbatim %}{{ d.product.mesu_unit }}{% endverbatim %}</div>'}
+                        , {field: "volume", title: "体积", align: "left", width: 100, templet: '<div>{% verbatim %}{{ d.product.volume }}{% endverbatim %}</div>'}
+                        , {title: "操作", toolbar: '#titleTpl', align: "left", width: 100}
                     ]]
                     , parseData: function (res) { //res 即为原始返回的数据
                         return {
@@ -261,15 +282,18 @@
 
                 table.render({      //第三个表
                     elem:"#thirdDemo"
-                    ,data:[]
-                    ,id:'init'
-                    ,toolbar: '#thirdTool'
-                    ,cols:[[
-                        {type:'checkbox',align:"center"}
-                        ,{field:"receipt_type",title:"收款类型",align:"center",edit: 'text'}
-                        ,{field:"receipt_date",title:"预计收款日期",edit: 'text',event: 'setSign',align:"center",templet:function(d){return '<div><div class="myDate" style="width: 100%;height: 100%;">'+d.receipt_date+'</div></div>'}}
-                        ,{field:"receipt",title:"金额",align:"center",edit: 'text'}
-                        ,{field:"remark",title:"备注",align:"center",edit: 'text'}
+                    , data:[]
+                    , skin: 'nob' //行边框风格
+                    , even: true //开启隔行背景
+                    , id:'init'
+                    , defaultToolbar:[]
+                    , toolbar: '#thirdTool'
+                    , cols:[[
+                        {type:'checkbox',align:"left"}
+                        ,{field:"receipt_type",title:"收款类型",align:"left",edit: 'text'}
+                        ,{field:"receipt_date",title:"预计收款日期",edit: 'text',event: 'setSign',align:"left",templet:function(d){return '<div><div class="myDate" style="width: 100%;height: 100%;">'+d.receipt_date+'</div></div>'}}
+                        ,{field:"receipt",title:"金额",align:"left",edit: 'text'}
+                        ,{field:"remark",title:"备注",align:"left",edit: 'text'}
                     ]]
                     ,done:function(res,curr,count){
                         var tableView =this.elem.next();
@@ -357,7 +381,8 @@
                     layEvent = obj.event; //获得 lay-event 对应的值
                     var getdata = table.cache.testReload;
                     $.each(getdata, function (index, item) {
-                        arr.push(item.product_id);
+                        console.log(item);
+                        arr.push(item.product.product_id);
                     });
                     var number = arr.findIndex(function (value) {
                         return value == data.product_id
@@ -381,20 +406,19 @@
                             var getdata = table.cache.testReload;
 
                             $.each(checkStatus.data, function (index, item) {
-                                id_arr.push(item.product_id);
+                                id_arr.push(item.product.product_id);
                             });
                             for (var value of getdata) {
-                                if (id_arr.indexOf(value.product_id) === -1) {
+                                if (id_arr.indexOf(value.product.product_id) === -1) {
                                     arr.push(value);
                                 }
-                            }
-                            ;
+                            };
                             var count_num = 0;
                             $.each(arr, function (index, item) {
-                                count_num += parseInt(item.amount);
+                                count_num += parseInt(item.amount||0);
                             });
                             //input框
-                            var data1 = $("#sales_order_add input.changeable");
+                            var data1 = $("#_order input.changeable");
                             $.each(data1, function (index, item) {
                                 count_num = count_num + parseInt($(item).val());
                             });
@@ -463,12 +487,12 @@
                         sales_count = data.sales_count||0;
                         var total = table.cache.testReload;
                         $.each(total, function (index, item) {
-                            if (item.product__product_id === data.product__product_id) {
+                            if (item.product.product_id === data.product.product_id) {
                                 item.amount = unit_price * sales_count;
                             };
-                            count_num += Number(item.amount);
+                            count_num += Number(item.amount||0);
                         })
-                        var data1 = $("#sales_order_add input.changeable");
+                        var data1 = $("#_order input.changeable");
                         $.each(data1, function (index, item) {
                             count_num = count_num + Number($(item).val());
                         });
@@ -502,16 +526,16 @@
                     var count_num = 0;
                     var total = table.cache.testReload;
                     $.each(total, function (index, item) {
-                        count_num += parseInt(item.amount);
+                        count_num += parseInt(item.amount||0);
                     })
-                    var data1 = $("#sales_order_add input.changeable");
+                    var data1 = $("#_order input.changeable");
                     $.each(data1, function (index, item) {
                         count_num = count_num + parseInt($(item).val());
                     });
 
-                    $("#id_total_amount").val(count_num);
+                    $("#id_total_amount").val(count_num.toFixed(2));
                     // self.subdact();
-                    active.calculat(total);
+                    // active.calculat(total);
                 });
                 $('#infoDemo .layui-btn').on('click', function () {               //子页面的搜索按钮
                     var othis = $(this), method = othis.data('method');

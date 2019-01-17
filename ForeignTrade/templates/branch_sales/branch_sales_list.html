@@ -128,9 +128,20 @@
                         </div>
                     </div>
     <script type="text/html" id="titleTpl">
-        <a class="layui-btn layui-btn-normal layui-btn-xs" data-method="reload" lay-event="detail">查看</a>
-        <a class="layui-btn layui-btn-warm layui-btn-xs" data-method="reload" lay-event="edit">修改</a>
-        <a class="layui-btn layui-btn-danger layui-btn-xs" data-method="reload" lay-event="del">生成出库单</a>
+        <div class="layui-btn-group">
+            <button class="layui-btn layui-btn-primary layui-btn-sm" data-method="reload" lay-event="detail">
+                <i class="layui-icon">&#xe654;</i>
+            </button>
+            <button class="layui-btn layui-btn-primary layui-btn-sm" data-method="reload" lay-event="edit">
+                <i class="layui-icon">&#xe642;</i>
+            </button>
+            <button class="layui-btn layui-btn-primary layui-btn-sm" data-method="reload" lay-event="del">
+                <i class="layui-icon">&#xe640;</i>
+            </button>
+        </div>
+        <!-- <a class="layui-btn layui-btn-normal layui-btn-xs">查看</a>
+        <a class="layui-btn layui-btn-warm layui-btn-xs">修改</a>
+        <a class="layui-btn layui-btn-danger layui-btn-xs">生成出库单</a> -->
     </script>
 {% endblock %}
 
