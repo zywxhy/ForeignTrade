@@ -59,6 +59,7 @@ INSTALLED_APPS = [
     'domestic_invoice',    #国内出库
     'overseas_invoice',    #国内入库
     'branch_client',
+    'branch_products',
 
 # 国内
     'users',
