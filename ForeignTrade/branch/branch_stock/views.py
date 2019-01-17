@@ -41,6 +41,8 @@ class WarehousingReview(View):
         branch_warehousing = BranchWarehousing.objects.get(warehousing_num=warehousing_num)
         warehousing_product = branch_warehousing.warehousing_product.all()
         stock = branch_warehousing.branch_stock
+        if branch_warehousing.status != 0:
+            return HttpResponse('已审核，请勿重复审核')
         if result == 'Y':
             for product in warehousing_product:
                 stock_instance = BranchStockProducts.objects.filter(stock=stock,product=product.product)
@@ -62,7 +64,8 @@ class WarehousingReview(View):
                                                                               product_id=product.product.id)
                 domestic_invoice_product.warehousing_count += product.count
                 domestic_invoice_product.save()
-
+                branch_warehousing.status = 1
+                branch_warehousing.save()
             return HttpResponse('success')
 
         else:
@@ -72,10 +75,9 @@ class WarehousingReview(View):
 
 
 #出库审批
-
 class InvoiceReview(View):
     def post(self, request):
-        result = request.POST.get('Y')
+        result = request.POST.get('result')
         invoice_num = request.POST.get('invoice_num')
         overseas_invoice = OverseasInvoice.objects.get(overseas_invoice_num=invoice_num)
         invoice_product = overseas_invoice.overseas_invoice_product.all()
@@ -98,5 +100,6 @@ class InvoiceReview(View):
                 stock_instance.save()
 
             return HttpResponse('出库成功')
-
+        else:
+            return HttpResponse('fail')
 
