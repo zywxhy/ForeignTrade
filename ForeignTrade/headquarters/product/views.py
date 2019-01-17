@@ -134,11 +134,11 @@ class ProductSelectView(View):
             data = []
         products = []
         for item in data:
-            product_dict = {}
+            product_dict = {'product':{}}
             for key,value in item.__dict__.items():
-                product_dict[key] = value
-            product_dict.pop('_state')
-            product_dict.pop('image')
+                product_dict['product'][key] = value
+            product_dict['product'].pop('_state')
+            product_dict['product'].pop('image')
             products.append(product_dict)
 
         my_dict = {
