@@ -12,7 +12,10 @@ class BranchWarehousingModelForm(forms.Form):
         if domestic_invoice_id:
             odd_num = DomesticInvoice.objects.get(id=domestic_invoice_id).domestic_invoice_num
         self.fields['domestic_invoice'].initial = odd_num
-        #self.fields['branch_stock'].queryset = BranchStock.objects.filter(company_id=request.user.company_id)
+        if self.initial:
+            domestic_invoice = self.initial['domestic_invoice']
+            self.initial['domestic_invoice'] = domestic_invoice.domestic_invoice_num
+            #self.fields['branch_stock'].queryset = BranchStock.objects.filter(company_id=request.user.company_id)
 
 
     warehousing_num = forms.CharField(max_length=20, initial='', label='入库单号',widget=forms.TextInput(attrs={'class': 'form-control'}))

@@ -8,8 +8,8 @@ from datetime import date
 
 class StockHandle:
     def __init__(self,stock_instance,odd_instance):
-        self.stock_instance = stock_instance
-        self.odd_instance = odd_instance
+        self.stock_instance = stock_instance        # 仓库
+        self.odd_instance = odd_instance            # 入库出库处理
 
 
 

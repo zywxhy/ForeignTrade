@@ -1,0 +1,232 @@
+{% extends 'base/AdminLTE_base.html' %}
+{% block title %}添加合同{% endblock %}
+
+{% block style %}
+    <style>
+        *{
+            box-sizing:content-box;
+        }
+        table {
+            table-layout: fixed;
+            word-break: break-all;
+        }
+
+        p {
+            width: 100%;
+            overflow: hidden;
+        }
+        input,select{
+            border:0;
+	        width: 100%;
+        }
+	    .datepicker-days td, .datepicker-days th {
+            width:35px;
+        }
+        tr th,
+        tr td{
+            text-align: center;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+    </style>
+{% endblock %}
+
+{% block path %}
+    <ol class="breadcrumb">
+        <li><a href="{% url 'home' %}"><i class="fa fa-dashboard"></i> 主页</a></li>
+        <li class="active">采购管理</li>
+        <li class="active">采购合同</li>
+    </ol>
+{% endblock %}
+{% block main_title %}
+    销售合同添加
+{% endblock %}
+
+
+{% block main_content %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box box-primary box-solid">
+                        <div class="box-header with-border">
+                            <div class="pull-left">
+                                <h3 class="box-title">产品列表</h3>
+                            </div>
+                            <div class="box-tools pull-right">
+                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                                <button type="button" class="btn btn-box-tool" id="delete_product"><i class="fa fa-times"></i></button>
+                            </div>
+                        </div>
+                        <div class="box-body">
+                            <from class="infoDemo layui-form">
+                                <div class="layui-form-item">
+                                    <div class="layui-inline">
+                                        <label class="layui-form-label">搜索ID：</label>
+                                        <div class="layui-input-inline">
+                                            <input class="layui-input" name="id" id="demoReload" autocomplete="off">
+                                        </div>
+                                    </div>
+                                    <div class="layui-inline">
+                                        <label class="layui-form-label">分组选择框</label>
+                                        <div class="layui-input-inline">
+                                            <select name="quiz"  lay-filter="test" id="select1">
+                                                <option value="">请选择问题</option>
+                                                <optgroup label="城市记忆">
+                                                <option value="你工作的第一个城市">你工作的第一个城市</option>
+                                                </optgroup>
+                                                <optgroup label="学生时代">
+                                                <option value="你的工号">你的工号</option>
+                                                <option value="你最喜欢的老师">你最喜欢的老师</option>
+                                                </optgroup>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="layui-inline">
+                                        <label class="layui-form-label">搜索选择框</label>
+                                        <div class="layui-input-inline">
+                                            <select name="modules" lay-filter="test" id="select2" lay-search="">
+                                                <option value="">直接选择或搜索选择</option>
+                                                <option value="1">layer</option>
+                                                <option value="2">form</option>
+                                                <option value="3">layim</option>
+                                                <option value="4">element</option>
+                                                <option value="5">laytpl</option>
+                                                <option value="6">upload</option>
+                                                <option value="7">laydate</option>
+                                                <option value="8">laypage</option>
+                                                <option value="9">flow</option>
+                                                <option value="10">util</option>
+                                                <option value="11">code</option>
+                                                <option value="12">tree</option>
+                                                <option value="13">layedit</option>
+                                                <option value="14">nav</option>
+                                                <option value="15">tab</option>
+                                                <option value="16">table</option>
+                                                <option value="17">select</option>
+                                                <option value="18">checkbox</option>
+                                                <option value="19">switch</option>
+                                                <option value="20">radio</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="layui-inline">
+                                        <label class="layui-form-label">国际版</label>
+                                        <div class="layui-input-inline">
+                                            <input type="text" class="layui-input" id="test-1" placeholder="开始 到 结束">
+                                        </div>
+                                        <button class="layui-btn" data-method="reloadsearch">搜索</button>
+                                    </div>
+                                </div>
+                                
+                            </form>
+                            <table class="layui-hide" id="firstBlood" lay-filter="demo"></table>
+                        </div>
+                        <div class="box-footer">
+                    
+                        </div>
+                    </div>
+                </div>
+            </div>       
+        </div>
+    </div>
+    <script type="text/html" id="titleTpl">
+        <a class="layui-btn layui-btn-danger layui-btn-xs" data-method="reload" lay-event="add">查看</a>
+        <a class="layui-btn layui-btn-danger layui-btn-xs" data-method="reload" lay-event="add">修改</a>
+        <a class="layui-btn layui-btn-danger layui-btn-xs" data-method="reload" lay-event="add">删除</a>
+    </script>
+{% endblock %}
+
+{% block script %}
+<script>
+    var data = {
+        Initialize:function(){
+            this.bind();
+        },
+        bind:function(){
+            layui.use(['table','form','laydate'],function(){
+                var table = layui.table,
+                laydate = layui.laydate,
+                form = layui.form;
+                var $ = layui.$;
+                var demoReload = $('#demoReload');
+
+                laydate.render({
+                    elem: '#test-1'
+                    ,lang: 'en'
+                    ,range: true
+                    ,done: function(value, date, endDate){
+                        console.log($('#test-1').val())
+                    }
+                });
+                form.on('select(test)',function(){
+                        var demoReload = $('#demoReload').val();
+                    console.log($('#select1').val());
+                    console.log($('#select2').val());
+                    console.log($('#test-1').val())
+                });
+                table.render({             //子页面的table
+                    data:[
+                        {% for item in sales_contract %}
+                            {
+                                'sales_num':'{{ item.sales_num }}',
+                                'salesman':'{{ item.salesman.first_name }}',
+                                'client':'{{ item.client.name }}',
+                                'status':'{{ item.status }}'
+                            },
+                        {% endfor %}
+                    ]
+                    ,elem:'#firstBlood'
+                    //,url:'/product/product_select'
+                    ,page:true
+                    ,id:'testchange'
+                    ,where:{search: demoReload.val()}
+                    ,cols:[[
+                        {type:'checkbox',align:"center"}
+                        ,{field:"sales_num",title:"合同编号",align:"center"}
+                        ,{field:"salesman",title:"业务员",align:"center",}
+                        ,{field:"client",title:"客户",align:"center",}
+                        ,{field:"status",title:"状态",align:"center"}
+                        ,{title:"操作",toolbar:'#titleTpl',align:"center"}
+                    ]]
+                    ,parseData: function(res){ //res 即为原始返回的数据
+                        return {
+                            "code": res.status, //解析接口状态
+                            "msg": res.message, //解析提示文本
+                            "count": res.total, //解析数据长度
+                            "data": res.data //解析数据列表
+                        };
+                    },
+                });
+                
+                var active = {
+                    reloadsearch: function(data){               //子页面搜索
+                        //执行重载
+                        table.reload('testchange', {
+                            where: {
+                                search: data
+                            }
+                        });
+                    }
+                };
+                $('.infoDemo .layui-btn').on('click', function(){               //子页面的搜索按钮
+                    var othis = $(this), method = othis.data('method');
+                    var data = {
+                        demoReload : $('#demoReload').val(),
+                        demoReload :$('#select1').val(),
+                        demoReload :$('#select2').val(),
+                        demoReload :$('#test-1').val()
+                    }
+                    active[method] ? active[method].call(this,data) : '';
+                });
+                
+            })
+            
+        }
+    }
+    $(function(){
+        data.Initialize();
+    })
+</script>
+{% endblock %}

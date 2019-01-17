@@ -28,6 +28,7 @@ class DomesticInvoiceView(View):
                 product = item.pop('product')
                 item.update(product)
             products_data = json.dumps(products_data)
+        print(initial)
         form = DomesticInvoiceModelForm(initial=initial)  # 初始化表单，数据是表单数据
         return render(request,'domestic_invoice/domestic_invoice.html',{'form':form,'products_data':products_data})
 

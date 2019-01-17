@@ -54,7 +54,7 @@ urlpatterns = [
     path('invoice/', include('invoice.urls')),
     path('storage/', include('storage.urls')),
 
-
+    path('' , include('branch_stock.urls')),
     path('' , include('domestic_invoice.urls')),
     path('', include('overseas_invoice.urls')),
     path('', include('branch_sales.urls')),

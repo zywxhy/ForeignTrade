@@ -272,7 +272,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <span>国内发货</span>
                 <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
                 </a>
-                <ul class="treeview-menu">
+                <ul class="treeview-menu active">
                   <li><a href="{% url 'domestic_invoice_list' %}"><i class="fa fa-circle-thin"></i>发货单查看</a></li>
                   <li><a href="{% url 'domestic_invoice' %}"><i class="fa fa-circle-thin"></i>发货单添加</a></li>
                   <li><a href="#"><i class="fa fa-circle-thin"></i>发货汇总(移植中)</a></li>
@@ -318,7 +318,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
           </a>
             <ul class="treeview-menu">
-              <li><a href="{% url 'branch_warehousing' %}"><i class="fa fa-circle-thin"></i>入库单</a></li>
+              <li><a href="{% url 'branch_warehousing_list' %}"><i class="fa fa-circle-thin"></i>入库单</a></li>
               <li><a href="#"><i class="fa fa-circle-thin"></i>出库单</a></li>
               <li><a href="{% url 'stock' %}"><i class="fa fa-circle-thin"></i>即时库存</a></li>
               <li><a href="#"><i class="fa fa-circle-thin"></i>库存台账</a></li>

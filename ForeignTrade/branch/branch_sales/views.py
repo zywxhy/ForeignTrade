@@ -21,9 +21,13 @@ class SalesContractView(View):
             initial = {}
             for key in BranchSalesForm(request.user).fields:
                 initial[key] = getattr(sales_contract, key)
-            sales_products = BranchSalesProduct.objects.filter(sales_num=sales_num)
+            sales_products = BranchSalesProduct.objects.filter(branch_sales=sales_contract)
             products_data = BranchSalesProductModelSerializer(instance=sales_products,many=True,).data
             print(products_data)
+            for item in products_data:
+                product = item.pop('product')
+                item.update(product)
+        products_data = json.dumps(products_data)
         form = BranchSalesForm(request.user, initial=initial)  # 初始化表单，数据是表单数据
         return render(request,'branch_sales/branch_sales.html',{'form':form,'products_data':products_data})
 

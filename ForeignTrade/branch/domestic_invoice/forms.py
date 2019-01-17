@@ -2,7 +2,12 @@ from django import forms
 from.models import DomesticInvoice
 
 class DomesticInvoiceModelForm(forms.ModelForm):
-
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        print('forms',self.initial)
+        if not self.initial:
+            self.fields['invoice_date'].initial = ''
+            self.fields['estimated_date'].initial = ''
     class Meta:
         model = DomesticInvoice
         fields = ['company',
@@ -15,6 +20,8 @@ class DomesticInvoiceModelForm(forms.ModelForm):
                   'remark',
                   'bill',
                   ]
+
+
 
         widgets = {
             'company': forms.Select(attrs={'class': 'form-control'}),

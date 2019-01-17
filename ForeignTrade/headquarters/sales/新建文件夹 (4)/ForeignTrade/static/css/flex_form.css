@@ -1,0 +1,25 @@
+.box {
+    display: -webkit-flex;
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+    justify-content: center;
+    align-content: stretch;
+    width: 100%;
+}
+.cell{
+    flex:1 0;
+}
+.cell_self{
+    flex:1 0;
+    align-self: center;
+}
+.box_inline{
+    display: -webkit-flex;
+    display: flex;
+    align-items: center;
+    justify-items: start;
+}
+.cell_inline{
+   flex: 1 0;
+}

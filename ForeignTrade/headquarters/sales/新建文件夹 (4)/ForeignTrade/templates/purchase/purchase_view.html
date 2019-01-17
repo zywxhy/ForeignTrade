@@ -1,0 +1,309 @@
+{% extends 'base/AdminLTE_base.html' %}
+{% block title %}添加合同{% endblock %}
+
+{% block style %}
+    <style>
+        *{
+            box-sizing:content-box;
+        }
+        table {
+            table-layout: fixed;
+            word-break: break-all;
+        }
+
+        p {
+            width: 100%;
+            overflow: hidden;
+        }
+        input,select{
+            border:0;
+	        width: 100%;
+        }
+	    .datepicker-days td, .datepicker-days th {
+            width:35px;
+        }
+        tr th,
+        tr td{
+            text-align: center;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+        .laytable-cell-checkbox, .laytable-cell-numbers, .laytable-cell-radio, .laytable-cell-space {
+    		padding: 5px;
+    		text-align: center;
+	    }
+    </style>
+{% endblock %}
+
+{% block path %}
+    <ol class="breadcrumb">
+        <li><a href="{% url 'home' %}"><i class="fa fa-dashboard"></i> 主页</a></li>
+        <li class="active">采购管理</li>
+        <li class="active">采购合同</li>
+    </ol>
+{% endblock %}
+{% block main_title %}
+    销售合同添加
+{% endblock %}
+
+
+{% block main_content %}
+    <div class="box box-primary box-solid">
+        <div class="box-header with-border">
+            <div class="pull-left">
+                <h3 class="box-title">采购列表</h3>
+            </div>
+            <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                <button type="button" class="btn btn-box-tool" id="delete_product"><i class="fa fa-times"></i></button>
+            </div>
+        </div>
+        <div class="box-body">
+
+            <table class="layui-hide" id="purchase" lay-filter="demo"></table>
+        </div>
+        <div class="box-footer"></div>
+    </div>
+    <div class="box box-primary box-solid">
+        <div class="box-header with-border">
+            <div class="pull-left">
+                <h3 class="box-title">销售列表</h3>
+            </div>
+            <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                <button type="button" class="btn btn-box-tool" id="delete_product"><i class="fa fa-times"></i></button>
+            </div>
+        </div>
+        <div class="box-body">
+            <table class="layui-hide" id="firstBlood" lay-filter="demo"></table>
+        </div>
+        <div class="box-footer">
+
+        </div>
+    </div>
+<script type="text/html" id="operations">
+
+    <a class="layui-btn layui-btn-danger layui-btn-xs" data-method="reload" lay-event="detail1">查看</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" data-method="reload" lay-event="edit1">编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" data-method="reload" lay-event="del1">生成入库单</a>
+</script>
+<script type="text/html" id="titleTpl">
+    <a class="layui-btn layui-btn-danger layui-btn-xs" data-method="reload" lay-event="del">生成采购单</a>
+</script>
+{% endblock %}
+
+{% block script %}
+<script>
+    var purchase = {
+        Initialize:function(){
+            this.bind();
+        },
+        bind:function(){
+            layui.use(['table','form','laydate'],function(){
+                var table = layui.table,
+                laydate = layui.laydate,
+                form = layui.form;
+                var $ = layui.$;
+                var demoReload = $('#demoReload');
+
+                laydate.render({
+                    elem: '#test-2'
+                    ,lang: 'en'
+                    ,range: true
+                    ,done: function(value, date, endDate){
+                        console.log($('#test-2').val())
+                    }
+                });
+                form.on('select(test)',function(){
+                    var demoReload = $('#demoReload').val();
+                    console.log($('#select1').val());
+                    console.log($('#select2').val());
+                    console.log($('#test-2').val())
+                });
+
+                laydate.render({
+                    elem: '#test-1'
+                    ,lang: 'en'
+                    ,range: true
+                    ,done: function(value, date, endDate){
+                        console.log($('#test-1').val())
+                    }
+                });
+                table.render({             //子页面的table
+                    url:'/purchase/get_sales/'
+                    ,elem:'#firstBlood'
+                    //,url:'/product/product_select'
+                    ,page:true
+                    ,id:'testchange'
+                    ,where:{search: demoReload.val()}
+                    ,cols:[[
+                        {type:'checkbox',align:"center"}
+                        ,{field:"date",title:"时间",align:"center"}
+                        ,{field:"sales_num",title:"合同编号",align:"center"}
+                        ,{field:"salesman__first_name",title:"业务员",align:"center",edit: 'text'}
+
+                        ,{title:"操作",toolbar:'#titleTpl',align:"center"}
+                    ]]
+                    ,parseData: function(res){ //res 即为原始返回的数据
+                        return {
+                            "code": res.code, //解析接口状态
+                            "msg": res.msg, //解析提示文本
+                            "count": res.count, //解析数据长度
+                            "data": res.data //解析数据列表
+                        };
+                    },
+                });
+                table.render({             //子页面的table
+                    data:[
+                        {% for item in purchase_contract %}
+                            {
+                                'purchase_num':'{{ item.purchase_num }}',
+                                'buyer':'{{ item.buyer.first_name }}',
+                                'supplier':'{{ item.supplier.name }}',
+                                'date':'{{ item.date }}'
+                            },
+                        {% endfor %}
+                    ]
+                    //url:'/purchase/get_sales/'
+                    ,elem:'#purchase'
+                    //,url:'/product/product_select'
+                    ,page:true
+                    ,id:'testchange1'
+                    ,where:{search: demoReload.val()}
+                    ,cols:[[
+                        {type:'checkbox',align:"center"}
+                        ,{field:"buyer",title:"合同编号",align:"center"}
+                        ,{field:"supplier",title:"业务员",align:"center",}
+                        ,{field:"date",title:"时间",align:"center"}
+                        ,{title:"操作",toolbar:'#operations',align:"center"}
+                    ]]
+                    ,parseData: function(res){ //res 即为原始返回的数据
+                        return {
+                            "code": res.code, //解析接口状态
+                            "msg": res.msg, //解析提示文本
+                            "count": res.count, //解析数据长度
+                            "data": res.data //解析数据列表
+                        };
+                    },
+                });
+                table.on('tool(demo)',function(obj){
+                    var data = obj.data; //获得当前行数据
+                    var layEvent1 = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+                    var tr = obj.tr; //获得当前行 tr 的DOM对象
+
+                    if(layEvent1 === 'detail1'){ //查看
+                        //do somehing
+                        href= '/purchase/details?purchase_num='+data.purchase_num;
+                    } else if(layEvent1 === 'edit1'){ //删除
+                        href= '/purchase/modify?purchase_num='+data.purchase_num;
+                    } else if(layEvent1 === 'del1'){ //编辑
+                        href= '/storage/add?purchase_num='+data.purchase_num;
+                    } else if(layEvent1 === 'del'){ //编辑
+                        href= '/purchase/add?sales_num='+data.sales_num;
+                    }
+                    window.open(href)
+                });
+                var active = {
+                    reloadsearch: function(data){               //子页面搜索
+                        //执行重载
+                        table.reload('testchange1', {
+                            where: {
+                                search: data
+                            }
+                        });
+                    }
+                };
+                $('.infoDemo .layui-btn').on('click', function(){               //子页面的搜索按钮
+                    var othis = $(this), method = othis.data('method');
+                    var data = {
+                        demoReload : $('#demoReload').val(),
+                        demoReload :$('#select1').val(),
+                        demoReload :$('#select2').val(),
+                        demoReload :$('#test-1').val()
+                    };
+                    active[method] ? active[method].call(this,data) : '';
+                });
+
+            })
+
+        }
+    };
+
+
+
+
+    var data = {
+        Initialize:function(){
+            this.bind();
+        },
+        bind:function(){
+            layui.use(['table','form','laydate'],function(){
+                var table = layui.table,
+                laydate = layui.laydate,
+                form = layui.form;
+                var $ = layui.$;
+                var demoReload = $('#demoReload');
+
+                laydate.render({
+                    elem: '#test-1'
+                    ,lang: 'en'
+                    ,range: true
+                    ,done: function(value, date, endDate){
+                        console.log($('#test-1').val())
+                    }
+                });
+                form.on('select(test)',function(){
+                    var demoReload = $('#demoReload').val();
+                    console.log($('#select1').val());
+                    console.log($('#select2').val());
+                    console.log($('#test-1').val())
+                });
+
+                table.on('tool(demo)',function(obj){
+                    var data = obj.data; //获得当前行数据
+                    var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+                    var tr = obj.tr; //获得当前行 tr 的DOM对象
+                    if(layEvent === 'detail'){ //查看
+                        //do somehing
+                        href= '/sales/details?sales_num='+data.sales_num;
+                    } else if(layEvent === 'edit'){ //删除
+                        href= '/sales/modify?sales_num='+data.sales_num;
+                    } else if(layEvent === 'del'){ //编辑
+                        href= '/purchase/add?sales_num='+data.sales_num;
+                    }
+                    window.open(href)
+                });
+                var active = {
+                    reloadsearch: function(data){               //子页面搜索
+                        //执行重载
+                        table.reload('testchange', {
+                            where: {
+                                search: data
+                            }
+                        });
+                    }
+                };
+                $('.infoDemo .layui-btn').on('click', function(){               //子页面的搜索按钮
+                    var othis = $(this), method = othis.data('method');
+                    var data = {
+                        demoReload : $('#demoReload').val(),
+                        demoReload :$('#select1').val(),
+                        demoReload :$('#select2').val(),
+                        demoReload :$('#test-1').val()
+                    }
+                    active[method] ? active[method].call(this,data) : '';
+                });
+                
+            })
+            
+        }
+    };
+
+
+    $(function(){
+        //data.Initialize();
+        purchase.Initialize();
+    })
+</script>
+{% endblock %}

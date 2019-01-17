@@ -1,0 +1,282 @@
+{% extends 'base/AdminLTE_base.html' %}
+{% block title %}添加合同{% endblock %}
+
+{% block style %}
+    <style>
+        
+        
+    </style>
+{% endblock %}
+
+{% block path %}
+    <ol class="breadcrumb">
+        <li><a href="{% url 'home' %}"><i class="fa fa-dashboard"></i> 主页</a></li>
+        <li class="active">采购管理</li>
+        <li class="active">采购合同</li>
+    </ol>
+{% endblock %}
+{% block main_title %}
+    销售合同添加
+{% endblock %}
+
+
+{% block main_content %}
+    <div class="box box-info box-solid">
+        <div class="box-header with-border">
+            <h6 class="box-title">
+                <a class="btn">
+                    <i class="fa fa-save" id="invoice"></i> Save</a>
+                <a class="btn">
+                    <i class="fa fa-repeat"></i> Repeat
+                </a>
+            </h6>
+            <div class="box-tools pull-right">
+                <!-- Collapse Button -->
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                <button type="button" class="btn btn-box-tool" id="deleteproduct"><i class="fa fa-times"></i></button>
+            </div>
+            <!-- /.box-tools -->
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+            <table class="table" id="sales_order_add">
+                <tr>
+                    <td>
+                        <div class="input-group input-group-sm form-inline {% if form.sales_num.errors %}has-error{% endif %}">
+                            <span class="input-group-addon">出库单号</span>
+                            {{ form.invoice_num }}          
+                        </div>
+                    </td>
+                    <td>
+                        <div class="input-group input-group-sm form-inline {% if form.sales_num.errors %}has-error{% endif %}">
+                            <span class="input-group-addon">出库日期</span>
+                            {{ form.invoice_date }}          
+                        </div>
+                    </td>
+                    <td>
+                        <div class="input-group input-group-sm form-inline {% if form.sales_num.errors %}has-error{% endif %}">
+                            <span class="input-group-addon">销售合同</span>
+                            {{ form.sales_num }}
+                        </div>
+                    </td>
+                    <td>
+                        <div class="input-group input-group-sm form-inline {% if form.sales_num.errors %}has-error{% endif %}">
+                            <span class="input-group-addon">经办人</span>
+                            {{ form.maker }}
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="input-group input-group-sm form-inline {% if form.sales_num.errors %}has-error{% endif %}">
+                            <span class="input-group-addon">发货方式</span>
+                            {{ form.ship_method }}
+                        </div>
+                    </td>
+                    <td>
+                        <div class="input-group input-group-sm form-inline {% if form.sales_num.errors %}has-error{% endif %}">
+                            <span class="input-group-addon">发货单号</span>
+                            {{ form.manifest_num }}
+                        </div>
+                    </td>
+                    <td>
+                        <div class="input-group input-group-sm form-inline {% if form.sales_num.errors %}has-error{% endif %}">
+                            <span class="input-group-addon">联系方式</span>
+                            {{ form.contact }}
+                        </div>
+                    </td>
+                    <td>
+                        <div class="input-group input-group-sm form-inline {% if form.sales_num.errors %}has-error{% endif %}">
+                            <span class="input-group-addon">地址</span>
+                            {{ form.address }}
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <!-- /.box-body -->
+        <div class="box-footer">
+            
+        </div>
+        <!-- box-footer -->
+
+    </div>
+    
+    <div class="box box-primary box-solid">
+        <div class="box-header with-border">
+            <h3 class="box-title">产品列表</h3>
+            <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                <button type="button" class="btn btn-box-tool" id="delete_product"><i class="fa fa-times"></i></button>
+            </div>
+        </div>
+        <div class="box-body">
+            <table id="invoice_add" lay-filter="_table"></table>
+        </div>
+        <div class="box-footer">
+
+        </div>
+    </div>
+    <script type="text/html" id="toolbar">
+        <div class="layui-btn-container">
+            <a type="button" data-method="add" href="javascript:void(0)" class="layui-btn layui-btn-sm" lay-event="add">添加</a>
+            <a type="button" data-method="delete" href="javascript:void(0)" class="layui-btn layui-btn-sm" lay-event="delete">删除</a>    
+        </div>
+    </script>
+    <script type="text/html" id="childbar">
+        <div class="layui-btn-container">
+            <a type="button" data-method="add" href="javascript:void(0)" class="layui-btn layui-btn-sm" lay-event="add">添加</a>
+        </div>
+    </script>
+    <div style="display:none" id="layui_layer">
+        <table class="layui-hide" id="child_table" lay-filter="demo"></table>
+    </div>
+{% endblock %}
+
+{% block script %}
+<script>
+    var invoice = {
+        init:function(){
+            this.bind();
+        },
+        bind:function(){
+            layui.use(['table','layer'],function(){
+                var table = layui.table,
+                layer = layui.layer,
+                $ = layui.$;
+                var val = $('[name="sales_num"]').val();
+                table.render({
+                    elem:'#invoice_add'
+                    // ,url:'/invoice/get_sales_product?sales_num='+val
+                    ,data:[]
+                    ,page:true
+                    ,toolbar:'#toolbar'
+                    ,defaultToolbar:[]
+                    ,id:'ftable'
+                    ,cols:[[
+                        {type:'checkbox',align:"center"}
+                        ,{field:"product_id",title:"产品代码",align:"center"}
+                        ,{field:"name",title:"名字",align:"center"}
+                        ,{field:"spec",title:"规格",align:"center"}
+                        ,{field:"remark",title:"备注",align:"center"}
+                        ,{field:"mesu_unit",title:"单位",align:"center"}
+                        ,{field:"volume",title:"体积",align:"center"}
+                        ,{field:"x_count",title:"待出库数量",align:"center",edit: 'text'}
+                        ,{field:"outbound_count",title:"已出库数量",align:"center"}
+                        ,{field:"count",title:"总数量",align:"center"}
+                    ]]
+                    ,parseData:function(res){
+                        return {
+                            "code": res.status, //解析接口状态
+                            "msg": res.message, //解析提示文本
+                            "count": res.total, //解析数据长度
+                            "data": res.data //解析数据列表
+                        };
+                    }
+                });
+                table.render({
+                    elem:'#child_table'
+                    //,url:'/invoice/get_sales_product?sales_num='+val
+                    ,page:true
+                    ,data:{{ products|safe }}
+                    ,toolbar:'#childbar'
+                    ,defaultToolbar:[]
+                    ,id:'ctable'
+                    ,cols:[[
+                        {type:'checkbox',align:"center"}
+                        ,{field:"product_id",title:"产品代码",align:"center",width:100}
+                        ,{field:"name",title:"名字",align:"center",width:100}
+                        ,{field:"spec",title:"规格",align:"center",width:100}
+                        ,{field:"remark",title:"备注",align:"center",width:100}
+                        ,{field:"mesu_unit",title:"单位",align:"center",width:100}
+                        ,{field:"volume",title:"体积",align:"center",width:100}
+                        ,{field:"x_count",title:"出库数量",align:"center",width:100,edit: 'text',}
+                        ,{field:"outbound_count",title:"已出库数量",align:"center",width:100}
+                        ,{field:"count",title:"总数量",align:"center",width:100}
+                    ]]
+                    ,parseData:function(res){
+                        return {
+                            "code": res.status, //解析接口状态
+                            "msg": res.message, //解析提示文本
+                            "count": res.total, //解析数据长度
+                            "data": res.data //解析数据列表
+                        };
+                    }
+                });
+                table.on('toolbar(_table)',function(obj){
+                    var checkStatus = table.checkStatus(obj.config.id);
+                    switch(obj.event){
+                        case 'add':
+                            layer.open({
+                                type:1
+                                ,content:$('#layui_layer')
+                                ,title: ['窗口', 'font-size:18px;']
+                                ,area:'auto'
+                                ,maxWidth:1000
+                                ,shadeClose:true
+                                ,resize:false
+                                ,zIndex: layer.zIndex //重点1
+                                ,btn: ['关闭'] //只是为了演示
+                                ,closeBtn: 2
+                                ,yes: function(){
+                                    layer.closeAll();
+                                }
+                            });
+                        break;
+                        case 'delete':
+                            console.log(checkStatus);
+                            var arr = [],
+                            arr1 = [],
+                            data = table.cache.ftable;
+                            $.each(checkStatus.data,function(index,item){
+                                arr.push(item.product_id)
+                            })
+                            $.each(data,function(index,item){
+                                if(arr.indexOf(item.product_id) === -1){
+                                    arr1.push(item);
+                                }
+                            })
+
+                            active.reload('ftable',arr1);
+                        break;
+                    }
+                });
+                table.on('toolbar(demo)',function(obj){
+                    var checkStatus = table.checkStatus(obj.config.id);
+                    console.log(checkStatus)
+                    switch(obj.event){
+                        case 'add':
+                            var arr = [],
+                            arr1 = [],
+                            data = table.cache.ftable;
+                            $.each(data,function(index,item){
+                                arr.push(item.product_id)
+                            })
+                            $.each(checkStatus.data,function(index,item){
+                                if(arr.indexOf(item.product_id) === -1){
+                                    arr1.push(item);
+                                }
+                            })
+                            var _total = $.merge($.merge([],data),arr1);
+                            active.reload('ftable',_total);
+                        break;
+                    }
+                });
+                var active = {
+                    reload:function(id,data){
+                        table.reload(id, {
+                            page: {
+                                curr: 1 //重新从第 1 页开始
+                            }
+                            ,data:data
+                        });
+                    }
+                }
+            })
+        }
+    }
+    $(function(){
+        invoice.init();
+    })
+</script>
+{% endblock %}

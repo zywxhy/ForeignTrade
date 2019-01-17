@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    <script src="../../static/js/jquery-2.1.1.js"></script>
+    <script src="../../static/js/bootstrap.min.js"></script>
+    <script src="../../static/js/bootstrap-select.min.js"></script>
+    <script src="../../static/laydate/laydate.js"></script>
+    <script src="../../static/js/myfunction.js"></script>
+    <link type="text/css" rel="stylesheet" href="../../static/css/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="../../static/css/bootstrap-select.min.css">
+
+    <style>
+          th,td{width:10%;white-space:nowrap;overflow:hidden;}
+        .searchdiv{ margin: 0;border: 0 #337ab7;width: 100%;float: left;}
+        .ztreediv{ margin: 0;border: solid 1px #0C0C0C;width: 13%;height:520px;float: left;overflow-y:auto;}
+        .pagediv{ margin: 0;border: solid 1px #31b0d5;width: 80%;height:80px;float: left;}
+        .goodsdiv{ margin: 0;border: solid 1px #31b0d5;width: 87%;height:520px;float: left;overflow-y:auto;}
+
+
+
+   {% block link_script %}
+   {% endblock %}
+        {% block style %}{% endblock %}
+    </style>
+
+</head>
+<body>
+ <div class="panel panel-primary" >
+    <div class="panel-body"  >
+    <div class="panel panel-warning">
+        <div class="panel-body">
+        {% block piece1 %}{% endblock %}
+        </div>
+        </div>
+
+
+        <div class="ztreediv panel panel-success">
+    <div class="panel-heading">
+    <div class="panel-title" style="text-align: center"><h5>{% block title2 %}{% endblock %}</h5></div>
+    </div>
+        <div class="panel-body">
+            {% block piece2 %}{% endblock %}
+        </div>
+</div>
+
+<div class="panel panel-info goodsdiv">
+    <div class="panel-heading">
+    <div class="panel-title" style="text-align: center"><h5>{% block title3 %}{% endblock %}</h5></div>
+    </div>
+   <div class="panel-body">
+
+       {% block piece3%}{% endblock %}
+   </div>
+</div>
+    </div>
+      </div>
+{% block body %}
+{% endblock %}
+{% block script %}
+{% endblock %}
+</body>
+</html>

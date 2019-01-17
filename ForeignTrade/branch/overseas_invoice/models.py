@@ -1,6 +1,7 @@
 from django.db import models
 from branch_sales.models import BranchSalesContract
 from product.models import Product
+from branch_stock.models import BranchStock
 
 # Create your models here.
 class OverseasInvoice(models.Model):
@@ -10,7 +11,7 @@ class OverseasInvoice(models.Model):
     maker = models.CharField(max_length=30,verbose_name='经办人',help_text='经办人')
     remark = models.CharField(max_length=300,verbose_name='备注',help_text='备注')
     shipping_method = models.CharField(max_length=300,verbose_name='运输方式',help_text='运输方式')
-
+    branch_stock = models.ForeignKey(BranchStock, on_delete=models.CASCADE, verbose_name='仓库')
 
 
 

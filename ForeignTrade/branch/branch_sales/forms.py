@@ -4,7 +4,7 @@ from sales.models import time_to_str, SalesContract
 from finance.models import ExchangeRate
 from branch_client.models import BranchClient
 from django.db.models import Q
-
+from finance.models import ExchangeRate
 
 # 销售订单(报价阶段)
 class BranchSalesForm(forms.Form):
@@ -12,7 +12,10 @@ class BranchSalesForm(forms.Form):
     def __init__(self, user, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['salesman'].queryset = MyUser.objects.filter(type='salesman', company_id=user.company.id)
-
+        currency = []
+        for item in ExchangeRate.objects.filter(type='USD'):
+            currency.append((item.currency,item.currency))
+        self.fields['currency'].choices = currency
 
     # widget=forms.TextInput(attrs={'class': 'form-control'})
     sales_num = forms.CharField(max_length=20,widget=forms.TextInput(attrs={'class': 'form-control'}),label='合同编号', )
@@ -25,7 +28,7 @@ class BranchSalesForm(forms.Form):
 
     client = forms.ModelChoiceField(queryset=BranchClient.objects.all(),
                                     widget=forms.Select(attrs={'class': 'form-control select2_sample', }), label='客户')
-    currency = forms.ChoiceField(label='币种', widget=forms.Select(attrs={'class': 'form-control'}))
+    currency = forms.ChoiceField(label='币种', widget=forms.Select(attrs={'class': 'form-control'}),)
 
 
     # exrate = forms.FloatField(initial=1, label='汇率',

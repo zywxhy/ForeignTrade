@@ -5,6 +5,7 @@ from rest_framework.views import Response
 from .models import OverseasInvoice,OverseasInvoiceProduct
 from .serializer import OverseasInvoiceModelSerializer,OverseasInvoiceProductModelSerializer
 from .forms import OverseasInvoicePlanForm
+from branch_sales.models import BranchSalesContract
 from django.views import View
 import json
 
@@ -12,7 +13,7 @@ import json
 class OverseasInvoiceView(View):
     def get(self,request):
         form = OverseasInvoicePlanForm(request)
-        warehousing_products = []
+        invoice_products = []
         odd_id = request.GET.get('id','')
         if odd_id:
             overseas_invoice = OverseasInvoice.objects.get(pk=odd_id)
@@ -20,15 +21,15 @@ class OverseasInvoiceView(View):
             for key,value in form.fields:
                 initial[key] = getattr(overseas_invoice, key)
             form = OverseasInvoicePlanForm(request,initial=initial)
-        domestic_invoice_id = request.GET.get('domestic_invoice')
+        branch_sales_id = request.GET.get('branch_sales')
 
-        invoice_products = OverseasInvoice.objects.get(id= domestic_invoice_id).domestic_invoice_product.all()
+        sales_products = BranchSalesContract.objects.get(id= branch_sales_id).branch_sales_product.all()
         products_data = OverseasInvoiceProductModelSerializer(instance=invoice_products, many=True, ).data
         for item in products_data:
             product = item.pop('product')
             item.update(product)
         invoice_products_data = json.dumps(products_data)
-        return render(request,'branch_warehousing/branch_warehousing.html',locals())
+        return render(request,'overseas_invoice/overseas_invoice.html',locals())
 
 
 
@@ -74,24 +75,25 @@ class OverseasInvoiceModelViewSet(ModelViewSet):
         serializer.is_valid()
         data = serializer.data    # 这里嵌套的product信息会自动在key值上加[]，如：'id' 变成 '[id]' 后续处理要注意
         overseas_invoice_product = data.pop('overseas_invoice_product')
-        branch_sales_id = data.pop('branch_sales')
+        sales_num = data.pop('branch_sales')
+        branch_sales_id = BranchSalesContract.objects.get(sales_num=sales_num).id
         overseas_invoice_num = data['overseas_invoice_num']
         existed = OverseasInvoice.objects.filter(overseas_invoice_num=overseas_invoice_num)
         if existed:
             existed.update(branch_sales_id=branch_sales_id,**data)
-            domestic_invoice = existed[0]
-            domestic_invoice.domestic_invoice_product.all().delete()
+            overseas_invoice = existed[0]
+            overseas_invoice.overseas_invoice_product.all().delete()
         else:
-            domestic_invoice = OverseasInvoice.objects.create(branch_sales_id=branch_sales_id,**data)
+            overseas_invoice = OverseasInvoice.objects.create(branch_sales_id=branch_sales_id,**data)
         for product_item in overseas_invoice_product:
             print(product_item)
             product_data = {
                 'product_id':product_item.get('[id]'),
                 'count':product_item.get('[count]'),
-                'unit_price':product_item.get('[unit_price]'),
-                'remark':product_item.get('[remark]',''),
+
             }
-            OverseasInvoiceProduct.objects.create(domestic_invoice=domestic_invoice,**product_data)
+            print(product_data)
+            OverseasInvoiceProduct.objects.create(overseas_invoice=overseas_invoice,**product_data)
         return Response('success')
 
 
@@ -101,4 +103,4 @@ class OverseasInvoiceModelViewSet(ModelViewSet):
 
 
 router = SimpleRouter()
-router.register('overseas_invoice/api',OverseasInvoiceModelViewSet)
+router.register('overseas_invoice',OverseasInvoiceModelViewSet)

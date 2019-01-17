@@ -70,6 +70,13 @@
                 </tr>
 
                 <tr>
+
+                    <td>
+                        <div class="input-group input-group-sm form-inline {% if form.sales_num.errors %}has-error{% endif %}">
+                            <span class="input-group-addon">仓库</span>
+                            {{ form.branch_stock }}
+                        </div>
+                    </td>
                     <td>
                         <div class="input-group input-group-sm form-inline {% if form.sales_num.errors %}has-error{% endif %}">
                             <span class="input-group-addon">备注</span>

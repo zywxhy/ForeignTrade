@@ -15,23 +15,56 @@ import json
 class BranchWarehousingView(View):
     def get(self,request):
         form = BranchWarehousingModelForm(request)
-        warehousing_products = []
+        warehousing_products_data = []
         odd_id = request.GET.get('id','')
+
         if odd_id:
             branch_warehousing = BranchWarehousing.objects.get(pk=odd_id)
+            invoice_products = branch_warehousing.domestic_invoice.domestic_invoice_product.all()
             initial = {}
-            for key,value in form.fields:
+            for key in form.fields:
                 initial[key] = getattr(branch_warehousing, key)
             form = BranchWarehousingModelForm(request,initial=initial)
-        domestic_invoice_id = request.GET.get('domestic_invoice')
-
-        invoice_products = DomesticInvoice.objects.get(id= domestic_invoice_id).domestic_invoice_product.all()
+            warehousing_products_data = BranchWarehousingProductModelSerializer(
+                instance=branch_warehousing.warehousing_product.all(), many=True).data
+            for item in warehousing_products_data:
+                product = item.pop('product')
+                item.update(product)
+        else:
+            domestic_invoice_id = request.GET.get('domestic_invoice', '')
+            invoice_products = DomesticInvoice.objects.get(id=domestic_invoice_id).domestic_invoice_product.all()
         products_data = DomesticInvoiceProductModelSerializer(instance=invoice_products, many=True, ).data
         for item in products_data:
             product = item.pop('product')
             item.update(product)
         invoice_products_data = json.dumps(products_data)
+        warehousing_products_data = json.dumps(warehousing_products_data)
         return render(request,'branch_warehousing/branch_warehousing.html',locals())
+
+
+class BranchWarehousingReviewView(View):
+    def get(self,request):
+        form = BranchWarehousingModelForm(request)
+        warehousing_products = []
+        odd_id = request.GET.get('id','')
+        warehousing_products_data = []
+        if odd_id:
+            branch_warehousing = BranchWarehousing.objects.get(pk=odd_id)
+            initial = {}
+            for key in form.fields:
+                initial[key] = getattr(branch_warehousing, key)
+            form = BranchWarehousingModelForm(request,initial=initial)
+            warehousing_products_data = BranchWarehousingProductModelSerializer(instance=branch_warehousing.warehousing_product.all(),many=True).data
+            for item in warehousing_products_data:
+                product = item.pop('product')
+                item.update(product)
+        warehousing_products_data = json.dumps(warehousing_products_data)
+
+
+
+
+        return render(request,'branch_stock/branch_stock_warehousing.html',locals())
+
 
 
 class BranchWarehousingListView(View):
@@ -93,7 +126,7 @@ class BranchWarehousingViewSet(ModelViewSet):
             print(product_item)
             product_data = {
                 'product_id':product_item.get('[id]'),
-                'count':product_item.get('[warehousing_count]'),
+                'count':product_item.get('[count]'),
                # 'unit_price':product_item.get('[unit_price]'),
                 'remark':product_item.get('[remark]',''),
             }

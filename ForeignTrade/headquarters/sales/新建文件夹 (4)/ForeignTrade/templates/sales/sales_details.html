@@ -1,0 +1,365 @@
+{% extends 'base/AdminLTE_base.html' %}
+{% block title %}添加合同{% endblock %}
+
+{% block style %}
+    <style>
+
+        p {
+            width: 100%;
+            overflow: hidden;
+        }
+        input,select{
+            border:0;
+	        width: 100%;
+        }
+        /* datepicker */
+	    .datepicker-days td, .datepicker-days th {
+            width:35px;
+        }
+        /* 表格超出隐藏 */
+	    tr th,
+    	tr td{
+        	text-align: center;
+        	overflow: hidden;
+        	white-space: nowrap;
+        	text-overflow: ellipsis;
+    	}
+        /* 搜索框位置 */
+        .padmar{
+            margin:10px;
+        }
+        /* 表格cancel按钮居中 */
+        .layui-table-tips-c:before {
+            right: 1px;
+            top: -3px;
+        }
+    </style>
+{% endblock %}
+
+{% block path %}
+    <ol class="breadcrumb">
+        <li><a href="{% url 'home' %}"><i class="fa fa-dashboard"></i> 主页</a></li>
+        <li class="active">销售管理</li>
+        <li class="active">销售合同</li>
+
+    </ol>
+{% endblock %}
+{% block main_title %}
+    销售合同添加
+{% endblock %}
+
+
+{% block main_content %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-info box-solid">
+                <div class="box-header with-border">
+                    <h6 class="box-title">
+                        销售合同
+                    </h6>
+
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
+                                class="fa fa-minus"></i></button>
+
+                        <button type="button" class="btn btn-box-tool" id="deleteproduct"><i class="fa fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="box-body">
+
+                    <table class="table" id="sales_order_add">
+                        <tr>
+                            <td>
+                                <div class="input-group input-group-sm form-inline {% if form.sales_num.errors %}has-error{% endif %}">
+                                    <span class="input-group-addon">合同编号</span>
+                                    {{ form.sales_num }}
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group input-group-sm form-inline {% if form.sales_num.errors %}has-error{% endif %}">
+                                    <span class="input-group-addon">业务员</span>
+                                    {{ form.salesman }}
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group input-group-sm form-inline {% if form.sales_num.errors %}has-error{% endif %}">
+                                    <span class="input-group-addon">采购员</span>
+                                    {{ form.buyer }}
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group input-group-sm form-inline {% if form.sales_num.errors %}has-error{% endif %}">
+                                    <span class="input-group-addon">客户</span>
+                                    {{ form.client }}
+                                    <span class="input-group-btn">
+                                                <button type="button" class="btn btn-info btn-flat">选择</button>
+                                            </span>
+
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="input-group input-group-sm form-inline {% if form.sales_num.errors %}has-error{% endif %}">
+                                    <span class="input-group-addon">签约日期</span>
+                                    {{ form.date }}
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group input-group-sm form-inline {% if form.sales_num.errors %}has-error{% endif %}">
+                                    <span class="input-group-addon">装运口岸</span>
+                                    {{ form.shipment_port }}
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group input-group-sm form-inline {% if form.sales_num.errors %}has-error{% endif %}">
+                                    <span class="input-group-addon">目的口岸</span>
+                                    {{ form.destination_port }}
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group input-group-sm form-inline {% if form.sales_num.errors %}has-error{% endif %}">
+                                    <span class="input-group-addon">币种</span>
+                                    {{ form.currency }}
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="input-group input-group-sm form-inline {% if form.sales_num.errors %}has-error{% endif %}">
+                                    <span class="input-group-addon">价格条款</span>
+                                    {{ form.price_clause }}
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group input-group-sm form-inline {% if form.sales_num.errors %}has-error{% endif %}">
+                                    <span class="input-group-addon">出口公司</span>
+                                    {{ form.export_company }}
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group input-group-sm form-inline {% if form.sales_num.errors %}has-error{% endif %}">
+                                    <span class="input-group-addon">运输方式</span>
+                                    {{ form.mode_of_transport }}
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group input-group-sm form-inline {% if form.sales_num.errors %}has-error{% endif %}">
+                                    <span class="input-group-addon">汇率</span>
+                                    {{ form.exrate }}
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="input-group input-group-sm form-inline {% if form.sales_num.errors %}has-error{% endif %}">
+                                    <span class="input-group-addon">运费</span>
+                                    {{ form.shipping_fee }}
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group input-group-sm form-inline {% if form.sales_num.errors %}has-error{% endif %}">
+                                    <span class="input-group-addon">保险费</span>
+                                    {{ form.insurance }}
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group input-group-sm form-inline {% if form.sales_num.errors %}has-error{% endif %}">
+                                    <span class="input-group-addon">其他费用</span>
+                                    {{ form.other_fee }}
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group input-group-sm form-inline {% if form.sales_num.errors %}has-error{% endif %}">
+                                    <span class="input-group-addon">总金额</span>
+                                    {{ form.total_amount }}
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="4">
+                                <div class="input-group input-group-sm form-inline {% if form.sales_num.errors %}has-error{% endif %}"
+                                style="width: 100%">
+                                    <span class="input-group-addon">备注</span>
+                                    {{ form.remark }}
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="box-footer"></div>
+                <!-- box-footer -->
+            </div>
+        </div>
+    </div>
+
+    <div class="box box-primary box-solid">
+        <div class="box-header with-border">
+            <div class="pull-left">
+                <h3 class="box-title">产品列表</h3>
+            </div>
+            <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                <button type="button" class="btn btn-box-tool" id="delete_product"><i class="fa fa-times"></i></button>
+            </div>
+        </div>
+        <div class="box-body">
+            <table class="layui-hide" id="layuiDemo" lay-filter="test"></table>
+        </div>
+        <div class="box-footer">
+
+        </div>
+    </div>
+    <div class="row">
+            <div class="col-md-12">
+                <div class="box box-default box-solid">
+                    <div class="box-header with-border">
+                        <div class="pull-left">
+                            <h6 class="box-title">收款计划</h6>
+                        </div>
+                        <div class="box-tools pull-right">
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            <button type="button" class="btn btn-box-tool" id="delete_product"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <table class="layui-hide" id="thirdDemo" lay-filter="filter"></table>
+                    </div>
+                    <div class="box-footer"></div>
+                </div>
+            </div>
+        </div>
+        <div class="pull-right">
+            <button class="layui-btn layui-btn-normal" data-method="examine">审核</button>
+            <button class="layui-btn layui-btn-normal" data-method="counterTrial">反审</button>
+        </div>
+                
+    </div>
+</div>
+<script type="text/html" id="toolbarDemo">
+    <div class="layui-btn-container">
+        <a type="button" data-method="setTop" href="javascript:void(0)" class="layui-btn layui-btn-sm" lay-event="add">添加</a>
+        <a type="button" data-method="delete" href="javascript:void(0)" class="layui-btn layui-btn-sm" lay-event="delete">删除</a>
+    </div>
+</script>
+<div style="display:none" id="infoDemo">
+    <div class="infoDemo padmar">
+        搜索：
+        <div class="layui-inline">
+            <input class="layui-input" name="id" id="demoReload" autocomplete="off">
+        </div>
+        <button class="layui-btn" data-method="reloadchild">搜索</button>
+    </div>
+    <table class="layui-hide"  id="firstBlood" lay-filter="demo"></table>
+</div>
+<script type="text/html" id="titleTpl">
+    <a class="layui-btn layui-btn-danger layui-btn-xs" data-id="{{d.product_id}}"  data-method="reload" lay-event="add">添加</a>
+</script>
+{% endblock %}
+
+{% block script %}
+<script>
+    var data = {
+        init:function(){ 
+            this.bind();
+        },
+        oneValues:function (){
+            var result;
+            var url=window.location.search; 
+            if(url.indexOf("?")!=-1){
+                result = url.substr(url.indexOf("=")+1);
+            }
+            return result;
+        },
+        bind:function(){
+            // var oneValues = this.oneValues();
+            layui.use(['laydate','table'],function(){
+                var laydate = layui.laydate,
+                table = layui.table,
+                $ = layui.$;
+                laydate.render({
+                    elem:'#id_date'
+                    ,lang:'en'
+                });
+                table.render({              //父页面的table
+                    elem: '#layuiDemo'
+                    , data :[
+                        {% for item in sales_product %}
+                            {
+                                'product__product_id':'{{ item.product.product_id }}',
+                                'product__name':'{{ item.product.name }}',
+                                'product__spec':'{{ item.product.spec }}',
+                                'remark':'{{ item.remark }}',
+                                'unit_price':'{{ item.unit_price }}',
+                                'sales_count':'{{ item.sales_count }}',
+                                'amount':{{ item.amount }},
+                            },
+                        {% endfor %}
+                    ]
+                    , page: true
+                    , cols: [[
+                        {type: 'checkbox', align: "center"}
+                        , {field: "product__product_id", title: "产品代码", align: "center"}
+                        , {field: "product__name", title: "名字", align: "center"}
+                        , {field: "product__spec", title: "规格", align: "center"}
+                        , {field: "remark", title: "备注", align: "center",}
+                        , {field: "product__mesu_unit", title: "单位", align: "center"}
+                        , {field: "volume", title: "体积", align: "center"}
+                        , {field: "unit_price", title: "单价", align: "center",}
+                        , {field: "sales_count", title: "数量", align: "center",}
+                        , {field: "amount", title: "金额", align: "center"}
+                    ]]
+                });
+                table.render({      //第三个表
+                    elem:"#thirdDemo"
+                    , data:[
+                            {% for item in sales_collection %}
+                            {
+                                'receipt_type':'{{ item.receipt_type }}',
+                                'receipt_date':'{{ item.receipt_date }}',
+                                'receipt':'{{ item.receipt }}',
+                                'remark':'{{ item.remark }}',
+                            }
+                        {% endfor %}
+                    ]
+                    , page: true
+                    , cols:[[
+                        {type:'checkbox',align:"center"}
+                        ,{field:"receipt_type",title:"收款类型",align:"center",}
+                        ,{field:"receipt_date",title:"预计收款日期",align:"center",}
+                        ,{field:"receipt",title:"金额",align:"center",}
+                        ,{field:"remark",title:"备注",align:"center",}
+                    ]]
+                    // ,done:function(res,curr,count){
+                    //     var tableView =this.elem.next();
+                    //     var mydate = tableView.find('.myDate');
+                    //     layui.each(mydate,function(index,elem){
+                    //         laydate.render({
+                    //             elem:elem
+                    //             ,trigger: 'click'
+                    //             ,lang: 'en'
+                    //             ,done:function(value,date,endDate){
+                    //                 var elemTemp = $(this)[0].elem[0].innerHTML;
+                    //                 table.cache.init[index].receipt_date = elemTemp;
+                    //                 console.log(table.cache.init[index].receipt_date);
+                    //                 table.reload('init', {
+                    //                     page: {
+                    //                         curr: 1 //重新从第 1 页开始
+                    //                     }
+                    //                     ,data:table.cache.init
+                    //                 });
+                    //             }
+                    //             ,
+                    //         });
+                    //     });
+                    // }
+                });
+            });
+        }
+    };
+    $(function(){
+        data.init();
+    })
+</script>
+{% endblock %}
