@@ -33,6 +33,33 @@ class OverseasInvoiceView(View):
 
 
 
+class OverseasInvoiceViewReview(View):
+    def get(self,request):
+        form = OverseasInvoicePlanForm(request)
+        invoice_products = []
+        odd_id = request.GET.get('id','')
+        if odd_id:
+            overseas_invoice = OverseasInvoice.objects.get(pk=odd_id)
+            initial = {}
+            for key,value in form.fields:
+                initial[key] = getattr(overseas_invoice, key)
+            form = OverseasInvoicePlanForm(request,initial=initial)
+        branch_sales_id = request.GET.get('branch_sales')
+
+        sales_products = BranchSalesContract.objects.get(id= branch_sales_id).branch_sales_product.all()
+        products_data = OverseasInvoiceProductModelSerializer(instance=invoice_products, many=True, ).data
+        for item in products_data:
+            product = item.pop('product')
+            item.update(product)
+        invoice_products_data = json.dumps(products_data)
+        return render(request,'overseas_invoice/overseas_invoice.html',locals())
+
+
+class OverseasInvoiceListView(View):
+    def get(self,request):
+        overseas_invoice = OverseasInvoice.objects.all()
+        return render(request,'overseas_invoice/overseas_invoice_list.html',locals())
+
 
 
 
