@@ -302,19 +302,18 @@
                             laydate.render({
                                 elem:elem
                                 ,trigger: 'click'
+                                ,btns: ['now', 'confirm']
                                 ,lang: 'en'
                                 ,done:function(value,date,endDate){
                                     var elemTemp = $(this)[0].elem[0].innerHTML;
                                     table.cache.init[index].receipt_date = elemTemp;
-                                    console.log(table.cache.init[index].receipt_date);
                                     table.reload('init', {
                                         page: {
                                             curr: 1 //重新从第 1 页开始
                                         }
                                         ,data:table.cache.init
                                     });
-                                }
-                                ,
+                                },
                             });
                         });
                     }
@@ -352,7 +351,6 @@
                             var arr = [];
                             var id_arr = [];
                             var getdata = table.cache.init;
-                            console.log(getdata);
                             $.each(checkStatus.data,function(index,item){
                                 id_arr.push(item.pid);
                             });
@@ -381,7 +379,6 @@
                     layEvent = obj.event; //获得 lay-event 对应的值
                     var getdata = table.cache.testReload;
                     $.each(getdata, function (index, item) {
-                        console.log(item);
                         arr.push(item.product.product_id);
                     });
                     var number = arr.findIndex(function (value) {
@@ -442,6 +439,8 @@
                             , content: $('#infoDemo')
                             , title: '添加产品'
                             , area: ['auto','auto']
+                            , offset: 't'
+                            , anim: 1
                             , shadeClose: true
                             , shade: .3
                             , zIndex: layer.zIndex //重点1
@@ -582,14 +581,14 @@
         //     minimumInputLength: 1,
         // });
         //启动select2
-         layui.use('laydate',function(){
-                    var laydate = layui.laydate,
-                    $ = layui.$;
-                    laydate.render({
-                        elem:'#id_date'
-                        ,lang:'en'
-                    })
-                });
+        layui.use('laydate',function(){
+            var laydate = layui.laydate,
+            $ = layui.$;
+            laydate.render({
+                elem:'#id_sales_date'
+                ,lang:'en'
+            })
+        });
         $(".select2_sample").select2()
     })
 </script>
