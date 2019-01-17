@@ -13,6 +13,9 @@
         .padmar{
             margin:10px;
         }
+        #_order tr td{
+            width: 25%;
+        }
     </style>
 {% endblock %}
 
@@ -89,14 +92,20 @@
                     </td>
                     <td>
                         <div class="input-group input-group-sm form-inline {% if form.sales_num.errors %}has-error{% endif %}">
-                            <span class="input-group-addon">公司</span>
-                            {{ form.company }}
+                            <span class="input-group-addon">金额</span>
+                            {{ form.amount }}
                         </div>
                     </td>
                    
                     
                 </tr>
                 <tr>
+                    <td>
+                        <div class="input-group input-group-sm form-inline {% if form.sales_num.errors %}has-error{% endif %}">
+                            <span class="input-group-addon">公司</span>
+                            {{ form.company }}
+                        </div>
+                    </td>
                     <td>
                         <div class="input-group input-group-sm form-inline {% if form.sales_num.errors %}has-error{% endif %}">
                             <span class="input-group-addon">其他信息</span>
@@ -401,6 +410,18 @@
             autoclose: true,
             format: 'yyyy-mm-dd',
             orientation: 'bottom'
+        });
+        layui.use('laydate',function(){
+            var laydate = layui.laydate,
+            $ = layui.$;
+            laydate.render({
+                elem:'#id_invoice_date'
+                ,lang:'en'
+            });
+            laydate.render({
+                elem:'#id_estimated_date'
+                ,lang:'en'
+            })
         });
     })
 </script>
