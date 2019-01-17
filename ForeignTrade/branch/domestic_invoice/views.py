@@ -24,13 +24,24 @@ class DomesticInvoiceView(View):
                 initial[key] = getattr(domestic_invoice, key)
             invoice_products = domestic_invoice.domestic_invoice_product
             products_data = DomesticInvoiceProductModelSerializer(instance=invoice_products, many=True, ).data
-            for item in products_data:
-                product = item.pop('product')
-                item.update(product)
+            # for item in products_data:
+            #     product = item.pop('product')
+            #     item.update(product)
             products_data = json.dumps(products_data)
         print(initial)
         form = DomesticInvoiceModelForm(initial=initial)  # 初始化表单，数据是表单数据
         return render(request,'domestic_invoice/domestic_invoice.html',{'form':form,'products_data':products_data})
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -94,9 +105,9 @@ class DomesticInvoiceViewSet(ModelViewSet):
         serializer = self.get_serializer(instance)
         data = serializer.data
         domestic_invoice_product = data['domestic_invoice_product']
-        for product in domestic_invoice_product:
-            product_info = product.pop('product')
-            product.update(product_info)
+        # for product in domestic_invoice_product:
+        #     product_info = product.pop('product')
+        #     product.update(product_info)
         data = {
                 'status': 0,
                 'code': 0,
