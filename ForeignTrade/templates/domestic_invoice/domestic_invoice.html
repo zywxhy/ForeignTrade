@@ -196,18 +196,19 @@
                     ,id:'ftable'
                     ,cols:[[
                         {type:'checkbox',align:"center"}
-                        ,{field:"product",title:"产品代码",align:"center"}
-                        ,{field:"name",title:"名字",align:"center"}
-                        ,{field:"spec",title:"规格",align:"center"}
+                        //,{field:"product",title:"产品代码",align:"center",templet: '<div>{% verbatim %}{{ d.product.product_id }}{% endverbatim %}</div>'}
+                        ,{field:"model",title:"型号",align:"center",templet: '<div>{% verbatim %}{{ d.product.model }}{% endverbatim %}</div>' }
+                        ,{field:"name",title:"名字",align:"center",templet: '<div>{% verbatim %}{{ d.product.name }}{% endverbatim %}</div>' }
+                        ,{field:"spec",title:"规格",align:"center",templet: '<div>{% verbatim %}{{ d.product.spec }}{% endverbatim %}</div>'}
                         ,{field:"remark",title:"备注",align:"center",edit: 'text'}
-                        ,{field:"mesu_unit",title:"单位",align:"center"}
-                        ,{field:"volume",title:"体积",align:"center"}
+                        ,{field:"mesu_unit",title:"单位",align:"center",templet: '<div>{% verbatim %}{{ d.product.mesu_unit }}{% endverbatim %}</div>'}
+                        ,{field:"volume",title:"体积",align:"center",templet: '<div>{% verbatim %}{{ d.product.volume }}{% endverbatim %}</div>'}
                         ,{field:"count",title:"数量",align:"center",edit: 'text'}
                         ,{field:"unit_price",title:"单价",align:"center",edit: 'text'}
                         ,{field:"sales_count",title:"总金额",templet:function (d) {return d.count*d.unit_price},align:"center"}              // 字段名对不上,url无法连接
                     ]]
                     ,parseData:function(res){
-                        console.log(res)
+                        console.log(res);
                         return {
                             "code": res.status, //解析接口状态
                             // "msg": res.message, //解析提示文本
@@ -223,11 +224,11 @@
                     ,defaultToolbar:[]
                     ,id:'ctable'
                     ,cols:[[
-                        {field: "product_id", title: "产品id", align: "center", width: 100}
-                        , {field: "name", title: "产品名称", align: "center", width: 100}
-                        , {field: "spec", title: "产品规格", align: "center", width: 200}
-                        , {field: "mesu", title: "计量单位", align: "center", width: 200}
-                        , {field: "volume", title: "体积", align: "center", width: 100}
+                          {field: "model", title: "产品型号", align: "center", width: 100,templet: '<div>{% verbatim %}{{ d.product.model }}{% endverbatim %}</div>'}
+                        , {field: "name", title: "产品名称", align: "center", width: 100,templet: '<div>{% verbatim %}{{ d.product.name }}{% endverbatim %}</div>'}
+                        , {field: "spec", title: "产品规格", align: "center", width: 200,templet: '<div>{% verbatim %}{{ d.product.spec }}{% endverbatim %}</div>'}
+                        , {field: "mesu", title: "计量单位", align: "center", width: 200,templet: '<div>{% verbatim %}{{ d.product.mesu }}{% endverbatim %}</div>'}
+                        , {field: "volume", title: "体积", align: "center", width: 100,templet: '<div>{% verbatim %}{{ d.product.volume }}{% endverbatim %}</div>'}
                         , {title: "操作", toolbar: '#titleTpl', align: "center", width: 100}
                     ]]
                     ,parseData:function(res){
@@ -269,12 +270,12 @@
                             data = table.cache.ftable;
                             $.each(checkStatus.data,function(index,item){
                                 arr.push(item.product_id)
-                            })
+                            });
                             $.each(data,function(index,item){
                                 if(arr.indexOf(item.product_id) === -1){
                                     arr1.push(item);
                                 }
-                            })
+                            });
 
                             active.reload('ftable',arr1);
                         break;
@@ -287,7 +288,8 @@
                     layEvent = obj.event; //获得 lay-event 对应的值
                     var getdata = table.cache.ftable;
                     $.each(getdata, function (index, item) {
-                        arr.push(item.product_id);
+                        console.log(item);
+                        arr.push(item.product.product_id);
                     });
                     var number = arr.findIndex(function (value) {
                         return value == data.product_id
