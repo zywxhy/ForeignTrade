@@ -23,10 +23,6 @@ class SalesContractView(View):
                 initial[key] = getattr(sales_contract, key)
             sales_products = BranchSalesProduct.objects.filter(branch_sales=sales_contract)
             products_data = BranchSalesProductModelSerializer(instance=sales_products,many=True,).data
-            print(products_data)
-            for item in products_data:
-                product = item.pop('product')
-                item.update(product)
         products_data = json.dumps(products_data)
         form = BranchSalesForm(request.user, initial=initial)  # 初始化表单，数据是表单数据
         return render(request,'branch_sales/branch_sales.html',{'form':form,'products_data':products_data})
@@ -48,21 +44,6 @@ class SalesContractModelViewSet(ModelViewSet):
 
 
 
-
-    # def list(self, request, *args, **kwargs):jp
-    #     queryset = self.filter_queryset(self.get_queryset())
-    #     page = self.paginate_queryset(queryset)
-    #     if page is not None:
-    #         data = []
-    #         for item in page:
-    #             data.append(self.get_serializer(instance=item).data)
-    #         return self.get_paginated_response(data)
-    #     data = self.get_serializer(instance=queryset,many=True).data
-    #     domestic_invoice_product = data['domestic_invoice_product']
-    #     for product in domestic_invoice_product:
-    #         product_info = product.pop('product')
-    #         product.update(product_info)
-    #     return Response(data)
     def list(self, request, *args, **kwargs):
         queryset = self.filter_queryset(self.get_queryset())
         serializer = self.get_serializer(queryset, many=True)
@@ -76,11 +57,6 @@ class SalesContractModelViewSet(ModelViewSet):
     def retrieve(self, request, *args, **kwargs):
         instance = self.get_object()
         serializer = self.get_serializer(instance)
-        data = serializer.data
-        domestic_invoice_product = data['domestic_invoice_product']
-        for product in domestic_invoice_product:
-            product_info = product.pop('product')
-            product.update(product_info)
         data = {
             'status': 0,
             'code': 0,
