@@ -17,6 +17,7 @@ class DomesticInvoice(models.Model):
     arrival_date = models.DateField(default='2000-01-01', verbose_name='到港日期', null=True)
     clearance_date = models.DateField(default='2000-01-01', verbose_name='清关日期', null=True)
     share_cost = models.FloatField(default=0, verbose_name='均摊总成本')
+    status = models.IntegerField(default=0)          # {0:'未审批,1:'已审批',2:'开始入库',3:'入库完毕'}
     remark = models.CharField(max_length=30,default='',verbose_name='其他信息')
 
 #国内发货单产品表

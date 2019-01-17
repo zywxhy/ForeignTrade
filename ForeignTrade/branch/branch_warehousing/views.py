@@ -25,18 +25,11 @@ class BranchWarehousingView(View):
             for key in form.fields:
                 initial[key] = getattr(branch_warehousing, key)
             form = BranchWarehousingModelForm(request,initial=initial)
-            warehousing_products_data = BranchWarehousingProductModelSerializer(
-                instance=branch_warehousing.warehousing_product.all(), many=True).data
-            for item in warehousing_products_data:
-                product = item.pop('product')
-                item.update(product)
+            warehousing_products_data = BranchWarehousingProductModelSerializer(instance=branch_warehousing.warehousing_product.all(), many=True).data
         else:
             domestic_invoice_id = request.GET.get('domestic_invoice', '')
             invoice_products = DomesticInvoice.objects.get(id=domestic_invoice_id).domestic_invoice_product.all()
         products_data = DomesticInvoiceProductModelSerializer(instance=invoice_products, many=True, ).data
-        for item in products_data:
-            product = item.pop('product')
-            item.update(product)
         invoice_products_data = json.dumps(products_data)
         warehousing_products_data = json.dumps(warehousing_products_data)
         return render(request,'branch_warehousing/branch_warehousing.html',locals())
@@ -55,9 +48,6 @@ class BranchWarehousingReviewView(View):
                 initial[key] = getattr(branch_warehousing, key)
             form = BranchWarehousingModelForm(request,initial=initial)
             warehousing_products_data = BranchWarehousingProductModelSerializer(instance=branch_warehousing.warehousing_product.all(),many=True).data
-            for item in warehousing_products_data:
-                product = item.pop('product')
-                item.update(product)
         warehousing_products_data = json.dumps(warehousing_products_data)
 
 
@@ -88,15 +78,9 @@ class BranchWarehousingViewSet(ModelViewSet):
         }
         return Response(data)
 
-
     def retrieve(self, request, *args, **kwargs):
         instance = self.get_object()
         serializer = self.get_serializer(instance)
-        data = serializer.data
-        warehousing_product = data['warehousing_product']
-        for product in warehousing_product:
-            product_info = product.pop('product')
-            product.update(product_info)
         data = {
                 'status': 0,
                 'code': 0,

@@ -33,18 +33,6 @@ class DomesticInvoiceView(View):
         return render(request,'domestic_invoice/domestic_invoice.html',{'form':form,'products_data':products_data})
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 class DomesticInvoiceListView(View):
     def get(self,request):
         domestic_invoice = DomesticInvoice.objects.all()
@@ -52,43 +40,12 @@ class DomesticInvoiceListView(View):
 
 
 
-
-
-
-class DomesticInvoiceProductViewSet(ModelViewSet):
-    serializer_class = DomesticInvoiceProductModelSerializer
-    queryset = DomesticInvoiceProduct.objects.all()
-    pagination_class = None
-
-    def list(self, request, *args, **kwargs):
-        queryset = self.filter_queryset(self.get_queryset())
-        serializer = self.get_serializer(queryset, many=True)
-        data = serializer.data
-        for item in data:
-            product = item.pop('product')
-            item.update(product)
-        return Response(data)
-
-
 class DomesticInvoiceViewSet(ModelViewSet):
     serializer_class = DomesticInvoiceModelSerializer
     queryset = DomesticInvoice.objects.all()
     pagination_class = None
 
-    # def list(self, request, *args, **kwargs):jp
-    #     queryset = self.filter_queryset(self.get_queryset())
-    #     page = self.paginate_queryset(queryset)
-    #     if page is not None:
-    #         data = []
-    #         for item in page:
-    #             data.append(self.get_serializer(instance=item).data)
-    #         return self.get_paginated_response(data)
-    #     data = self.get_serializer(instance=queryset,many=True).data
-    #     domestic_invoice_product = data['domestic_invoice_product']
-    #     for product in domestic_invoice_product:
-    #         product_info = product.pop('product')
-    #         product.update(product_info)
-    #     return Response(data)
+
     def list(self, request, *args, **kwargs):
         queryset = self.filter_queryset(self.get_queryset())
         serializer = self.get_serializer(queryset, many=True)
@@ -103,11 +60,6 @@ class DomesticInvoiceViewSet(ModelViewSet):
     def retrieve(self, request, *args, **kwargs):
         instance = self.get_object()
         serializer = self.get_serializer(instance)
-        data = serializer.data
-        domestic_invoice_product = data['domestic_invoice_product']
-        # for product in domestic_invoice_product:
-        #     product_info = product.pop('product')
-        #     product.update(product_info)
         data = {
                 'status': 0,
                 'code': 0,
@@ -134,7 +86,7 @@ class DomesticInvoiceViewSet(ModelViewSet):
         for product_item in domestic_invoice_product:
             print(product_item)
             product_data = {
-                'product_id':product_item.get('[id]'),
+                'product_id':product_item.get('[product][id]'),
                 'count':product_item.get('[count]'),
                 'unit_price':product_item.get('[unit_price]'),
                 'remark':product_item.get('[remark]',''),
