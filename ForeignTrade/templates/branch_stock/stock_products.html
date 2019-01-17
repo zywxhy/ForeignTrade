@@ -49,89 +49,99 @@
 
 
 {% block main_content %}
-                    <div class="box box-primary box-solid">
-                        <div class="box-header with-border">
-                            <div class="pull-left">
-                                <h3 class="box-title">产品列表</h3>
-                            </div>
-                            <div class="box-tools pull-right">
-                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                                <button type="button" class="btn btn-box-tool" id="delete_product"><i class="fa fa-times"></i></button>
-                            </div>
-                        </div>
-                        <div class="box-body">
-                            <form class="infoDemo layui-form">
-                                <div class="layui-form-item">
-                                    <div class="layui-inline">
-                                        <label class="layui-form-label">搜索ID：</label>
-                                        <div class="layui-input-inline">
-                                            <input class="layui-input" name="id" id="demoReload" autocomplete="off">
-                                        </div>
-                                    </div>
-                                    <div class="layui-inline">
-                                        <label class="layui-form-label">分组选择框</label>
-                                        <div class="layui-input-inline">
-                                            <select name="quiz"  lay-filter="test" id="select1">
-                                                <option value="">请选择问题</option>
-                                                <optgroup label="城市记忆">
-                                                <option value="你工作的第一个城市">你工作的第一个城市</option>
-                                                </optgroup>
-                                                <optgroup label="学生时代">
-                                                <option value="你的工号">你的工号</option>
-                                                <option value="你最喜欢的老师">你最喜欢的老师</option>
-                                                </optgroup>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="layui-inline">
-                                        <label class="layui-form-label">搜索选择框</label>
-                                        <div class="layui-input-inline">
-                                            <select name="modules" lay-filter="test" id="select2" lay-search="">
-                                                <option value="">直接选择或搜索选择</option>
-                                                <option value="1">layer</option>
-                                                <option value="2">form</option>
-                                                <option value="3">layim</option>
-                                                <option value="4">element</option>
-                                                <option value="5">laytpl</option>
-                                                <option value="6">upload</option>
-                                                <option value="7">laydate</option>
-                                                <option value="8">laypage</option>
-                                                <option value="9">flow</option>
-                                                <option value="10">util</option>
-                                                <option value="11">code</option>
-                                                <option value="12">tree</option>
-                                                <option value="13">layedit</option>
-                                                <option value="14">nav</option>
-                                                <option value="15">tab</option>
-                                                <option value="16">table</option>
-                                                <option value="17">select</option>
-                                                <option value="18">checkbox</option>
-                                                <option value="19">switch</option>
-                                                <option value="20">radio</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="layui-inline">
-                                        <label class="layui-form-label">国际版</label>
-                                        <div class="layui-input-inline">
-                                            <input type="text" class="layui-input" id="test-1" placeholder="开始 到 结束">
-                                        </div>
-                                        <button class="layui-btn" data-method="reloadsearch">搜索</button>
-                                    </div>
-                                </div>
-                                
-                            </form>
-                            <table class="layui-hide" id="firstBlood" lay-filter="demo"></table>
-                        </div>
-                        <div class="box-footer">
-                    
+    <div class="box box-primary box-solid">
+        <div class="box-header with-border">
+            <div class="pull-left">
+                <h3 class="box-title">产品列表</h3>
+            </div>
+            <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                <button type="button" class="btn btn-box-tool" id="delete_product"><i class="fa fa-times"></i></button>
+            </div>
+        </div>
+        <div class="box-body">
+            <form class="infoDemo layui-form">
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">搜索ID：</label>
+                        <div class="layui-input-inline">
+                            <input class="layui-input" name="id" id="demoReload" autocomplete="off">
                         </div>
                     </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">分组选择框</label>
+                        <div class="layui-input-inline">
+                            <select name="quiz"  lay-filter="test" id="select1">
+                                <option value="">请选择问题</option>
+                                <optgroup label="城市记忆">
+                                <option value="你工作的第一个城市">你工作的第一个城市</option>
+                                </optgroup>
+                                <optgroup label="学生时代">
+                                <option value="你的工号">你的工号</option>
+                                <option value="你最喜欢的老师">你最喜欢的老师</option>
+                                </optgroup>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">搜索选择框</label>
+                        <div class="layui-input-inline">
+                            <select name="modules" lay-filter="test" id="select2" lay-search="">
+                                <option value="">直接选择或搜索选择</option>
+                                <option value="1">layer</option>
+                                <option value="2">form</option>
+                                <option value="3">layim</option>
+                                <option value="4">element</option>
+                                <option value="5">laytpl</option>
+                                <option value="6">upload</option>
+                                <option value="7">laydate</option>
+                                <option value="8">laypage</option>
+                                <option value="9">flow</option>
+                                <option value="10">util</option>
+                                <option value="11">code</option>
+                                <option value="12">tree</option>
+                                <option value="13">layedit</option>
+                                <option value="14">nav</option>
+                                <option value="15">tab</option>
+                                <option value="16">table</option>
+                                <option value="17">select</option>
+                                <option value="18">checkbox</option>
+                                <option value="19">switch</option>
+                                <option value="20">radio</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">国际版</label>
+                        <div class="layui-input-inline">
+                            <input type="text" class="layui-input" id="test-1" placeholder="开始 到 结束">
+                        </div>
+                        <button class="layui-btn" data-method="reloadsearch">搜索</button>
+                    </div>
+                </div>
+                
+            </form>
+            <table class="layui-hide" id="firstBlood" lay-filter="demo"></table>
+        </div>
+        <div class="box-footer">
+    
+        </div>
+    </div>
     <script type="text/html" id="titleTpl">
-        <a class="layui-btn layui-btn-normal layui-btn-xs" data-method="reload" lay-event="detail">查看</a>
-        <a class="layui-btn layui-btn-warm layui-btn-xs" data-method="reload" lay-event="edit">修改</a>
-        <a class="layui-btn layui-btn-warm layui-btn-xs" data-method="reload" lay-event="clear">清关</a>
-        <a class="layui-btn layui-btn-danger layui-btn-xs" data-method="reload" lay-event="del">生成入库单</a>
+        <div class="layui-btn-group">
+            <button class="layui-btn layui-btn-normal layui-btn-xs" lay-event="detail">
+                <i class="layui-icon">&#xe654;</i>查看
+            </button>
+            <button class="layui-btn layui-btn-warm layui-btn-xs" lay-event="edit">
+                <i class="layui-icon">&#xe642;</i>修改
+            </button>
+            <button class="layui-btn layui-btn-warm layui-btn-xs" lay-event="clear">
+                <i class="layui-icon">&#xe640;</i>清关
+            </button>
+            <button class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">
+                <i class="layui-icon">&#xe640;</i>生成入库单
+            </button>
+        </div>
     </script>
 {% endblock %}
 
@@ -171,11 +181,11 @@
                     ,id:'testchange'
                     ,where:{search: demoReload.val()}
                     ,cols:[[
-                        {type:'checkbox',align:"center"}
-                        ,{field:"domestic_invoice_num",title:"发货单号",align:"center"}
-                        ,{field:"invoice_date",title:"发货时间",align:"center",}
-                        ,{field:"company",title:"分公司",align:"center",}
-                        ,{title:"操作",toolbar:'#titleTpl',align:"center"}
+                        {type:'checkbox',align:"left"}
+                        ,{field:"domestic_invoice_num",title:"发货单号",align:"left"}
+                        ,{field:"invoice_date",title:"发货时间",align:"left",}
+                        ,{field:"company",title:"分公司",align:"left",}
+                        ,{title:"操作",toolbar:'#titleTpl',align:"left"}
                     ]]
                     ,parseData: function(res){ //res 即为原始返回的数据
                         return {

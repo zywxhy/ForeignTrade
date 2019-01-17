@@ -130,14 +130,14 @@
     </div>
     <script type="text/html" id="titleTpl">
         <div class="layui-btn-group">
-            <button class="layui-btn layui-btn-primary layui-btn-sm" data-method="reload" lay-event="detail">
-                <i class="layui-icon">&#xe654;</i>
+            <button class="layui-btn layui-btn-primary layui-btn-sm" lay-event="detail">
+                <i class="layui-icon">&#xe654;</i>查看
             </button>
-            <button class="layui-btn layui-btn-primary layui-btn-sm" data-method="reload" lay-event="edit">
-                <i class="layui-icon">&#xe642;</i>
+            <button class="layui-btn layui-btn-primary layui-btn-sm" lay-event="edit">
+                <i class="layui-icon">&#xe642;</i>修改
             </button>
-            <button class="layui-btn layui-btn-primary layui-btn-sm" data-method="reload" lay-event="del">
-                <i class="layui-icon">&#xe640;</i>
+            <button class="layui-btn layui-btn-primary layui-btn-sm" lay-event="del">
+                <i class="layui-icon">&#xe640;</i>生成出库单
             </button>
         </div>
         <!-- <a class="layui-btn layui-btn-normal layui-btn-xs">查看</a>
@@ -199,7 +199,7 @@
                         ,{field:"salesman",title:"业务员",align:"left",edit: 'text'}
                         ,{field:"client",title:"客户",align:"left",edit: 'text'}
                         ,{field:"status",title:"状态",align:"left"}
-                        ,{title:"操作",toolbar:'#titleTpl',align:"left"}
+                        ,{title:"操作", fixed: 'right', width:300, toolbar:'#titleTpl',align:"left"}
                     ]]
                     ,parseData: function(res){ //res 即为原始返回的数据
                         return {
