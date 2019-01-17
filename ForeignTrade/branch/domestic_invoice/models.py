@@ -19,6 +19,8 @@ class DomesticInvoice(models.Model):
     share_cost = models.FloatField(default=0, verbose_name='均摊总成本')
     status = models.IntegerField(default=0)          # {0:'未审批,1:'已审批',2:'开始入库',3:'入库完毕'}
     remark = models.CharField(max_length=30,default='',verbose_name='其他信息')
+    total_amount = models.FloatField(default=0,verbose_name='总金额')
+
 
 #国内发货单产品表
 class DomesticInvoiceProduct(models.Model):
@@ -27,6 +29,7 @@ class DomesticInvoiceProduct(models.Model):
     count = models.IntegerField(default=0,verbose_name='发货数量')
     warehousing_count = models.IntegerField(default=0,verbose_name='入库数量')
     unit_price = models.FloatField(default=0,verbose_name='海外成本(国内报价)')
+    unit_cost = models.FloatField(default=0,verbose_name='产品总价')
     share_cost = models.FloatField(verbose_name='均摊成本', default=0)
     add_cost = models.FloatField(verbose_name='额外成本', default=0)
     remark = models.CharField(max_length=100,default='',verbose_name='备注')
