@@ -91,10 +91,10 @@ class DomesticInvoiceViewSet(ModelViewSet):
         result = serializer.is_valid()
         if not result:
             print(serializer.errors)
-            return Response(serializer.errors)
+            return Response({'result':'failure','msg':serializer.errors})
         product_data = data.get('domestic_invoice_product','')
         if not product_data:
-            return Response('ERROR:No products',status=400)
+            return Response({'result':'failure','msg':'ERROR:No products'})
         domestic_invoice = serializer.save()
         for product in product_data:
             try:
@@ -109,9 +109,9 @@ class DomesticInvoiceViewSet(ModelViewSet):
             if bool(errors):
                 domestic_invoice.domestic_invoice_product.all().delete()
                 print(product_serializer.errors)
-                return Response(product_serializer.errors,status=400)
+                return Response({'result':'failure','msg':product_serializer.errors})
             product_serializer.save(domestic_invoice = domestic_invoice,product_id =id)
-        return Response('success',status=201)
+        return Response({'result':'success','msg':'success'})
 
 router = SimpleRouter()
 router.register('domestic_invoice',DomesticInvoiceViewSet)
