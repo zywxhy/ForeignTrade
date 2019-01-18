@@ -85,8 +85,8 @@ class DomesticInvoiceViewSet(ModelViewSet):
 
     # 产品的添加和修改
     def create(self, request, *args, **kwargs):
-        print(request.data)
         data = json.loads(request.data.get('data'))
+        print(data)
         serializer = self.get_serializer(data = data)
         result = serializer.is_valid()
         if not result:
@@ -97,6 +97,10 @@ class DomesticInvoiceViewSet(ModelViewSet):
             return Response('ERROR:No products')
         domestic_invoice = serializer.save()
         for product in product_data:
+            try:
+                product.pop('domestic_invoice')
+            except:
+                pass
             id = product['product']['id']
             product_serializer = DomesticInvoiceProductModelSerializer(data=product,)
             product_serializer.is_valid()
