@@ -43,7 +43,7 @@ class DomesticInvoiceProductModelSerializer(ModelSerializer):
         fields = '__all__'
         extra_kwargs = {
                         'count': {'validators': [my_validator],'required':True},
-                        'unit_price':{'validators':[my_validator],'required':True}
+                        'unit_price':{'validators':[my_validator],'required':True},
                         'remark':{'required':False}
                         }
 

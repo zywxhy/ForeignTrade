@@ -314,7 +314,7 @@
                     layEvent = obj.event; //获得 lay-event 对应的值
                     var getdata = table.cache.ftable;
                     $.each(getdata, function (index, item) {
-                        console.log(item);
+                        // console.log(item);
                         arr.push(item.product.product_id);
                     });
                     var number = arr.findIndex(function (value) {
@@ -368,7 +368,6 @@
 
                     var fdata = obj.data;
                     console.log(fdata);
-
                     active.calculat(fdata);
                 });
                 var active = {
@@ -390,12 +389,33 @@
 
                         var _data = table.cache.ftable;
                         //second table
-                        data.csrfmiddlewaretoken = '{{ csrf_token }}';
+                        var new_data = {};
+                        
+                        new_data.csrfmiddlewaretoken = '{{ csrf_token }}';
                         data.domestic_invoice_product = _data;
+                        new_data.data = JSON.stringify(data)
                         console.log(JSON.stringify(data));
-                        $.post("/domestic_invoice/", data, function (a, b) {
-                            alert(a);
-                        });
+                        $.ajax({
+                            url:"/domestic_invoice/",
+                            type:"post",
+                            data:new_data,
+                            success:function(res){
+                                console.log(res.result==="success")
+                                if(res.result==="success"){
+                                    alert(res.msg);
+                                }else{
+                                    var _html = '';
+                                    for(i in res.msg){
+                                        console.log(res.msg[i])
+                                    }
+                                    // _html += 
+                                    // alert(res.msg)
+                                }
+                            },
+                            error:function(error){
+                                console.log(error)
+                            }
+                        })
                     },
                     reloadchild: function () {               //子页面搜索
                         var demoReload = $('#demoReload');
