@@ -51,10 +51,6 @@ class BranchWarehousingReviewView(View):
             form = BranchWarehousingModelForm(request,initial=initial)
             warehousing_products_data = BranchWarehousingProductModelSerializer(instance=branch_warehousing.warehousing_product.all(),many=True).data
         warehousing_products_data = json.dumps(warehousing_products_data)
-
-
-
-
         return render(request,'branch_stock/branch_stock_warehousing.html',locals())
 
 
@@ -93,30 +89,34 @@ class BranchWarehousingViewSet(ModelViewSet):
 
     # 产品的添加和修改
     def create(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data = request.data)
-        serializer.is_valid()
-        data = serializer.data    # 这里嵌套的product信息会自动在key值上加[]，如：'id' 变成 '[id]' 后续处理要注意
-        branch_stock_id = data.pop('branch_stock')
-        warehousing_product = data.pop('warehousing_product')
-        domestic_invoice_num = data.pop('domestic_invoice')
-        domestic_invoice = DomesticInvoice.objects.get(domestic_invoice_num=domestic_invoice_num)
-        warehousing_num = data['warehousing_num']
-        existed = BranchWarehousing.objects.filter(warehousing_num=warehousing_num)
-        if existed:
-            existed.update(branch_stock_id=branch_stock_id,domestic_invoice=domestic_invoice,**data)
-            warehousing = existed[0]
-            warehousing.warehousing_product.all().delete()
-        else:
-            warehousing = BranchWarehousing.objects.create(branch_stock_id=branch_stock_id,domestic_invoice=domestic_invoice,**data)
-        for product_item in warehousing_product:
-            print(product_item)
-            product_data = {
-                'product_id':product_item.get('[id]'),
-                'count':product_item.get('[count]'),
-               # 'unit_price':product_item.get('[unit_price]'),
-                'remark':product_item.get('[remark]',''),
-            }
-            BranchWarehousingProduct.objects.create(warehousing=warehousing,**product_data)
+        data = json.loads(request.data.get('data'))
+        print(data)
+        serializer = self.get_serializer(data=data)
+        result = serializer.is_valid()
+        product_data = data.get('domestic_invoice_product', '')
+        if not product_data:         # 判断有无产品表
+            return Response({'result': 'failure', 'msg': 'ERROR:No products'})
+        if not result:               # 判断验证器结果，若为False，返回错误信息
+            return Response({'result':'failure','msg':serializer.errors})
+        branch_warehousing = serializer.save()
+        if not branch_warehousing:   # 审核判断，若已审核，返回错误信息
+            return Response({'result':'failure','msg':'Has been audited and no modification is allowed.'})
+        for product in product_data:
+            try:
+                product.pop('warehousing')
+            except:
+                pass
+            product_serializer = BranchWarehousingProductModelSerializer(data=product, )
+            product_serializer.is_valid()
+            errors = product_serializer.errors
+            errors.pop('domestic_invoice')
+            if bool(errors):
+                branch_warehousing.warehousing_product.all().delete()
+                print(product_serializer.errors)
+                return Response({'result': 'failure', 'msg': errors})
+            id = product['product']['id']
+            product_serializer.save(branch_warehousing=branch_warehousing, product_id=id)
+
         return Response('success')
 
 
