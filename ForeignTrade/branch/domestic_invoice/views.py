@@ -17,7 +17,7 @@ import io
 
 
 
-
+error = {}
 
 
 
@@ -96,6 +96,8 @@ class DomesticInvoiceViewSet(ModelViewSet):
         if not product_data:
             return Response({'result':'failure','msg':'ERROR:No products'})
         domestic_invoice = serializer.save()
+        if not domestic_invoice:
+            return Response({'result':'failure','msg':'Has been audited and no modification is allowed.'})
         for product in product_data:
             try:
                 product.pop('domestic_invoice')

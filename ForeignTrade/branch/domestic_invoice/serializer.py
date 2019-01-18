@@ -44,7 +44,7 @@ class DomesticInvoiceProductModelSerializer(ModelSerializer):
         extra_kwargs = {
                         'count': {'validators': [my_validator],'required':True},
                         'unit_price':{'validators':[my_validator],'required':True},
-                        'remark':{'required':False}
+                        # 'remark':{'required':False,'allow_null':True}
                         }
 
 
@@ -88,8 +88,10 @@ class DomesticInvoiceModelSerializer(ModelSerializer):
         domestic_invoice_num = data['domestic_invoice_num']
         existed = DomesticInvoice.objects.filter(domestic_invoice_num=domestic_invoice_num)
         if existed:
-            existed.update(company_id=company_id, **data)
             self.instance = existed[0]
+            if self.instance.status != 0:
+                return False
+            existed.update(company_id=company_id, **data)
             self.instance.domestic_invoice_product.all().delete()
         else:
             self.instance = DomesticInvoice.objects.create(company_id=company_id, **data)
