@@ -31,7 +31,7 @@ class BranchWarehousingView(View):
         products_data = DomesticInvoiceProductModelSerializer(instance=invoice_products, many=True, ).data
         for item in products_data:
             invoice_count = item.pop('count')
-            item.update('invoice_count',invoice_count)
+            item.update({'invoice_count':invoice_count})
         invoice_products_data = json.dumps(products_data)
         warehousing_products_data = json.dumps(warehousing_products_data)
         return render(request,'branch_warehousing/branch_warehousing.html',locals())
