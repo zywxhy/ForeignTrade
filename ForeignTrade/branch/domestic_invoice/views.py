@@ -10,7 +10,23 @@ from .forms import DomesticInvoiceModelForm
 from rest_framework.routers import SimpleRouter
 from .models import DomesticInvoice,DomesticInvoiceProduct
 import json
+from rest_framework.parsers import JSONParser
+import io
+
 # Create your views here.
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 class DomesticInvoiceView(View):
     def get(self,request):
@@ -67,36 +83,41 @@ class DomesticInvoiceViewSet(ModelViewSet):
         }
         return Response(data)
 
-
     # 产品的添加和修改
     def create(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data = request.data)
-        serializer.is_valid()
-        data = serializer.data    # 这里嵌套的product信息会自动在key值上加[]，如：'id' 变成 '[id]' 后续处理要注意
-        domestic_invoice_product = data.pop('domestic_invoice_product')
-        company_id = data.pop('company')
-        domestic_invoice_num = data['domestic_invoice_num']
-        existed = DomesticInvoice.objects.filter(domestic_invoice_num=domestic_invoice_num)
-        if existed:
-            existed.update(company_id=company_id,**data)
-            domestic_invoice = existed[0]
-            domestic_invoice.domestic_invoice_product.all().delete()
-        else:
-            domestic_invoice = DomesticInvoice.objects.create(company_id=company_id,**data)
-        for product_item in domestic_invoice_product:
-            print(product_item)
-            product_data = {
-                'product_id':product_item.get('[product][id]'),
-                'count':product_item.get('[count]'),
-                'unit_price':product_item.get('[unit_price]'),
-                'remark':product_item.get('[remark]',''),
-            }
-            DomesticInvoiceProduct.objects.create(domestic_invoice=domestic_invoice,**product_data)
+        print(request.data)
+        data = json.loads(request.data.get('data'))
+        serializer = self.get_serializer(data = data)
+        result = serializer.is_valid()
+        if not result:
+            print(serializer.errors)
+            return Response(serializer.errors)
+        product_data = data.get('domestic_invoice_product','')
+        if not product_data:
+            return Response('ERROR:No products')
+        domestic_invoice = serializer.save()
+        for product in product_data:
+            id = product['product']['id']
+            product_serializer = DomesticInvoiceProductModelSerializer(data=product,)
+            product_serializer.is_valid()
+            errors = product_serializer.errors
+            errors.pop('domestic_invoice')
+            if bool(errors):
+                domestic_invoice.domestic_invoice_product.all().delete()
+                print(product_serializer.errors)
+                return Response(product_serializer.errors)
+            product_serializer.save(domestic_invoice = domestic_invoice,product_id =id)
         return Response('success')
-
 
 router = SimpleRouter()
 router.register('domestic_invoice',DomesticInvoiceViewSet)
+
+
+
+
+
+
+
 
 
 # 海外清关
