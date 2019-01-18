@@ -17,7 +17,6 @@ class BranchWarehousingView(View):
         form = BranchWarehousingModelForm(request)
         warehousing_products_data = []
         odd_id = request.GET.get('id','')
-
         if odd_id:
             branch_warehousing = BranchWarehousing.objects.get(pk=odd_id)
             invoice_products = branch_warehousing.domestic_invoice.domestic_invoice_product.all()
@@ -30,6 +29,9 @@ class BranchWarehousingView(View):
             domestic_invoice_id = request.GET.get('domestic_invoice', '')
             invoice_products = DomesticInvoice.objects.get(id=domestic_invoice_id).domestic_invoice_product.all()
         products_data = DomesticInvoiceProductModelSerializer(instance=invoice_products, many=True, ).data
+        for item in products_data:
+            invoice_count = item.pop('count')
+            item.update('invoice_count',invoice_count)
         invoice_products_data = json.dumps(products_data)
         warehousing_products_data = json.dumps(warehousing_products_data)
         return render(request,'branch_warehousing/branch_warehousing.html',locals())
