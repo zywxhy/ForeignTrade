@@ -5,9 +5,12 @@
     <bookmark url="file://$PROJECT_DIR$/branch/domestic_invoice/serializer.py" line="23" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7f87c24d-5d39-4830-8590-98c8da8ff610" name="Default" comment="" />
+    <list default="true" id="7f87c24d-5d39-4830-8590-98c8da8ff610" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/branch/domestic_invoice/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/branch/domestic_invoice/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/domestic_invoice/domestic_invoice.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/domestic_invoice/domestic_invoice.html" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
-    <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -39,91 +42,79 @@
   <component name="DjangoConsoleOptions" custom-start-script="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)">
     <option name="myCustomStartScript" value="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)" />
   </component>
+  <component name="FUSProjectUsageTrigger">
+    <session id="1917083093">
+      <usages-collector id="statistics.file.extensions.open">
+        <counts>
+          <entry key="py" value="1" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.open">
+        <counts>
+          <entry key="Python" value="1" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.edit">
+        <counts>
+          <entry key="py" value="49" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.edit">
+        <counts>
+          <entry key="Python" value="49" />
+        </counts>
+      </usages-collector>
+    </session>
+  </component>
   <component name="FavoritesManager">
     <favorites_list name="ForeignTrade" />
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="AdminLTE_base.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/base/AdminLTE_base.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="234">
-              <caret line="320" column="58" selection-start-line="320" selection-start-column="35" selection-end-line="320" selection-end-column="58" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/branch/branch_stock/views.py">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/branch_sales/branch_sales_list.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="285">
-              <caret line="60" selection-start-line="60" selection-end-line="60" />
-              <folding>
-                <element signature="e#0#48#0" expanded="true" />
-              </folding>
+              <caret line="173" column="51" selection-start-line="173" selection-start-column="51" selection-end-line="173" selection-end-column="51" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="branch_warehousing_list.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/branch_warehousing/branch_warehousing_list.html">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/branch/domestic_invoice/forms.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="215">
-              <caret line="132" column="98" selection-start-line="132" selection-start-column="98" selection-end-line="132" selection-end-column="98" />
+            <state relative-caret-position="360">
+              <caret line="32" column="104" lean-forward="true" selection-start-line="32" selection-start-column="104" selection-end-line="32" selection-end-column="104" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/branch/branch_warehousing/views.py">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/domestic_invoice/domestic_invoice_list.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-89">
-              <caret line="34" column="113" selection-start-line="34" selection-start-column="113" selection-end-line="34" selection-end-column="113" />
-              <folding>
-                <element signature="e#0#35#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="241">
+              <caret line="13" column="11" lean-forward="true" selection-start-line="13" selection-start-column="11" selection-end-line="13" selection-end-column="11" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="forms.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/branch/branch_warehousing/forms.py">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/branch_stock/stock_products.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="304">
-              <caret line="16" column="84" lean-forward="true" selection-start-line="16" selection-start-column="84" selection-end-line="16" selection-end-column="84" />
-              <folding>
-                <element signature="e#0#24#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="226">
+              <caret line="164" column="31" lean-forward="true" selection-start-line="164" selection-start-column="31" selection-end-line="164" selection-end-column="31" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/branch/branch_warehousing/urls.py">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/branch/domestic_invoice/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="133">
-              <caret line="7" column="10" lean-forward="true" selection-start-line="7" selection-start-column="10" selection-end-line="7" selection-end-column="29" />
+            <state relative-caret-position="462">
+              <caret line="21" column="4" selection-start-line="21" selection-start-column="4" selection-end-line="21" selection-end-column="4" />
               <folding>
                 <element signature="e#0#28#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="branch_stock_invoice.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/branch_stock/branch_stock_invoice.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="438">
-              <caret line="377" column="14" selection-start-line="377" selection-start-column="14" selection-end-line="377" selection-end-column="14" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="branch_warehousing.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/branch_warehousing/branch_warehousing.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="329">
-              <caret line="170" column="44" selection-start-line="170" selection-start-column="44" selection-end-line="170" selection-end-column="44" />
             </state>
           </provider>
         </entry>
@@ -183,7 +174,6 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/headquarters/sales/views.py" />
-        <option value="$PROJECT_DIR$/branch/domestic_invoice/models.py" />
         <option value="$PROJECT_DIR$/branch/domestic_invoice/urls.py" />
         <option value="$PROJECT_DIR$/ForeignTrade/my_class.py" />
         <option value="$PROJECT_DIR$/headquarters/users/middlewares.py" />
@@ -217,7 +207,6 @@
         <option value="$PROJECT_DIR$/branch/overseas_invoice/forms.py" />
         <option value="$PROJECT_DIR$/templates/overseas_invoice/overseas_invoice.html" />
         <option value="$PROJECT_DIR$/branch/domestic_invoice/views.py" />
-        <option value="$PROJECT_DIR$/branch/domestic_invoice/forms.py" />
         <option value="$PROJECT_DIR$/headquarters/product/views.py" />
         <option value="$PROJECT_DIR$/branch/branch_sales/forms.py" />
         <option value="$PROJECT_DIR$/templates/branch_stock/stock_products.html" />
@@ -233,6 +222,8 @@
         <option value="$PROJECT_DIR$/branch/branch_warehousing/views.py" />
         <option value="$PROJECT_DIR$/templates/branch_warehousing/branch_warehousing_list.html" />
         <option value="$PROJECT_DIR$/branch/branch_stock/views.py" />
+        <option value="$PROJECT_DIR$/branch/domestic_invoice/models.py" />
+        <option value="$PROJECT_DIR$/branch/domestic_invoice/forms.py" />
       </list>
     </option>
   </component>
@@ -300,113 +291,19 @@
               <item name="ForeignTrade" type="b2602c69:ProjectViewProjectNode" />
               <item name="ForeignTrade" type="462c0819:PsiDirectoryNode" />
               <item name="branch" type="462c0819:PsiDirectoryNode" />
-              <item name="branch_client" type="462c0819:PsiDirectoryNode" />
+              <item name="domestic_invoice" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="ForeignTrade" type="b2602c69:ProjectViewProjectNode" />
               <item name="ForeignTrade" type="462c0819:PsiDirectoryNode" />
               <item name="branch" type="462c0819:PsiDirectoryNode" />
-              <item name="branch_finance" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ForeignTrade" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ForeignTrade" type="462c0819:PsiDirectoryNode" />
-              <item name="branch" type="462c0819:PsiDirectoryNode" />
-              <item name="branch_finance" type="462c0819:PsiDirectoryNode" />
+              <item name="domestic_invoice" type="462c0819:PsiDirectoryNode" />
               <item name="migrations" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="ForeignTrade" type="b2602c69:ProjectViewProjectNode" />
               <item name="ForeignTrade" type="462c0819:PsiDirectoryNode" />
-              <item name="branch" type="462c0819:PsiDirectoryNode" />
-              <item name="branch_inquiry" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ForeignTrade" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ForeignTrade" type="462c0819:PsiDirectoryNode" />
-              <item name="branch" type="462c0819:PsiDirectoryNode" />
-              <item name="branch_products" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ForeignTrade" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ForeignTrade" type="462c0819:PsiDirectoryNode" />
-              <item name="branch" type="462c0819:PsiDirectoryNode" />
-              <item name="branch_sales" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ForeignTrade" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ForeignTrade" type="462c0819:PsiDirectoryNode" />
-              <item name="branch" type="462c0819:PsiDirectoryNode" />
-              <item name="branch_stock" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ForeignTrade" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ForeignTrade" type="462c0819:PsiDirectoryNode" />
-              <item name="branch" type="462c0819:PsiDirectoryNode" />
-              <item name="branch_warehousing" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ForeignTrade" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ForeignTrade" type="462c0819:PsiDirectoryNode" />
-              <item name="branch" type="462c0819:PsiDirectoryNode" />
-              <item name="domestic_invoice" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ForeignTrade" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ForeignTrade" type="462c0819:PsiDirectoryNode" />
-              <item name="branch" type="462c0819:PsiDirectoryNode" />
-              <item name="overseas_invoice" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ForeignTrade" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ForeignTrade" type="462c0819:PsiDirectoryNode" />
-              <item name="ForeignTrade" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ForeignTrade" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ForeignTrade" type="462c0819:PsiDirectoryNode" />
-              <item name="headquarters" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ForeignTrade" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ForeignTrade" type="462c0819:PsiDirectoryNode" />
-              <item name="headquarters" type="462c0819:PsiDirectoryNode" />
-              <item name="client" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ForeignTrade" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ForeignTrade" type="462c0819:PsiDirectoryNode" />
-              <item name="headquarters" type="462c0819:PsiDirectoryNode" />
-              <item name="product" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ForeignTrade" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ForeignTrade" type="462c0819:PsiDirectoryNode" />
-              <item name="locale" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ForeignTrade" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ForeignTrade" type="462c0819:PsiDirectoryNode" />
-              <item name="locale" type="462c0819:PsiDirectoryNode" />
-              <item name="es" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ForeignTrade" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ForeignTrade" type="462c0819:PsiDirectoryNode" />
-              <item name="locale" type="462c0819:PsiDirectoryNode" />
-              <item name="es" type="462c0819:PsiDirectoryNode" />
-              <item name="LC_MESSAGES" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ForeignTrade" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ForeignTrade" type="462c0819:PsiDirectoryNode" />
               <item name="templates" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ForeignTrade" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ForeignTrade" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-              <item name="base" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="ForeignTrade" type="b2602c69:ProjectViewProjectNode" />
@@ -424,31 +321,7 @@
               <item name="ForeignTrade" type="b2602c69:ProjectViewProjectNode" />
               <item name="ForeignTrade" type="462c0819:PsiDirectoryNode" />
               <item name="templates" type="462c0819:PsiDirectoryNode" />
-              <item name="branch_warehousing" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ForeignTrade" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ForeignTrade" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
               <item name="domestic_invoice" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ForeignTrade" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ForeignTrade" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-              <item name="overseas_invoice" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ForeignTrade" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ForeignTrade" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-              <item name="stock" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ForeignTrade" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ForeignTrade" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-              <item name="storage" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -490,7 +363,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Unknown.ForeignTrade1773745128">
+  <component name="RunManager" selected="Unknown.ForeignTrade1571501777">
     <configuration name="serializer" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="ForeignTrade" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -672,56 +545,57 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1440" height="862" extended-state="0" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info anchor="bottom" id="TODO" order="6" weight="0.32871014" />
-      <window_info anchor="bottom" id="Event Log" order="13" sideWeight="0.49367976" side_tool="true" visible="true" weight="0.27053824" />
-      <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="8" />
-      <window_info anchor="bottom" id="Python Console" order="10" sideWeight="0.49856734" weight="0.34396672" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49641833" weight="0.32871014" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="11" sideWeight="0.50632024" visible="true" weight="0.27053824" />
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.61585367" visible="true" weight="0.22682585" />
-      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
-      <window_info anchor="right" id="Database" order="4" weight="0.3289855" />
-      <window_info anchor="right" id="SciView" order="3" weight="0.32853025" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.61585367" visible="true" weight="0.16754478" />
       <window_info id="Structure" order="1" sideWeight="0.174" side_tool="true" weight="0.26811594" />
       <window_info id="Favorites" order="2" sideWeight="0.38414633" side_tool="true" weight="0.2536023" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.4985591" weight="0.3263889" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49641833" weight="0.32871014" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49016854" weight="0.39093485" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.32871014" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="8" />
+      <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Python Console" order="10" sideWeight="0.49856734" weight="0.34396672" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="11" sideWeight="0.5052687" visible="true" weight="0.21149674" />
+      <window_info active="true" anchor="bottom" id="manage.py@ForeignTrade" order="12" weight="0.40915394" />
+      <window_info anchor="bottom" id="Event Log" order="13" sideWeight="0.4947313" side_tool="true" visible="true" weight="0.21149674" />
+      <window_info anchor="bottom" id="Concurrent Activities Diagram" order="14" weight="0.32871014" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info active="true" anchor="bottom" id="manage.py@ForeignTrade" order="12" weight="0.40915394" />
-      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.4985591" weight="0.3263889" />
-      <window_info anchor="bottom" id="Concurrent Activities Diagram" order="14" weight="0.32871014" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="SciView" order="3" weight="0.32853025" />
+      <window_info anchor="right" id="Database" order="4" weight="0.3289855" />
     </layout>
     <layout-to-restore>
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49641833" weight="0.32871014" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info id="Favorites" order="2" sideWeight="0.38414633" side_tool="true" weight="0.2536023" />
       <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.61585367" visible="true" weight="0.22430556" />
       <window_info id="Structure" order="1" sideWeight="0.174" side_tool="true" weight="0.26811594" />
+      <window_info id="Favorites" order="2" sideWeight="0.38414633" side_tool="true" weight="0.2536023" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.4985591" weight="0.3263889" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49641833" weight="0.32871014" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49166667" weight="0.39166668" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.32871014" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="8" />
+      <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Python Console" order="10" sideWeight="0.49856734" weight="0.34396672" />
+      <window_info anchor="bottom" id="Terminal" order="11" sideWeight="0.5083333" weight="0.26527777" />
+      <window_info active="true" anchor="bottom" id="manage.py@ForeignTrade" order="12" weight="0.40915394" />
+      <window_info anchor="bottom" id="Event Log" order="13" sideWeight="0.49166667" side_tool="true" weight="0.26527777" />
+      <window_info anchor="bottom" id="Concurrent Activities Diagram" order="14" weight="0.32871014" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="bottom" id="TODO" order="6" weight="0.32871014" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49166667" weight="0.39166668" />
-      <window_info anchor="right" id="Database" order="4" weight="0.3289855" />
-      <window_info anchor="bottom" id="Terminal" order="11" sideWeight="0.5083333" weight="0.26527777" />
-      <window_info anchor="bottom" id="Event Log" order="13" sideWeight="0.49166667" side_tool="true" weight="0.26527777" />
-      <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="8" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="SciView" order="3" weight="0.32853025" />
-      <window_info active="true" anchor="bottom" id="manage.py@ForeignTrade" order="12" weight="0.40915394" />
-      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.4985591" weight="0.3263889" />
-      <window_info anchor="bottom" id="Concurrent Activities Diagram" order="14" weight="0.32871014" />
-      <window_info anchor="bottom" id="Python Console" order="10" sideWeight="0.49856734" weight="0.34396672" />
+      <window_info anchor="right" id="Database" order="4" weight="0.3289855" />
     </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -753,20 +627,9 @@
           <option name="timeStamp" value="106" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="107" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/branch/branch_client/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="196">
-          <caret line="16" column="11" selection-start-line="16" selection-start-column="4" selection-end-line="16" selection-end-column="11" />
-          <folding>
-            <element signature="e#0#28#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/branch/branch_client/adminx.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="266">
@@ -778,9 +641,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="539">
           <caret line="30" lean-forward="true" selection-start-line="30" selection-end-line="30" />
-          <folding>
-            <element signature="e#0#54#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -788,9 +648,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="653">
           <caret line="108" column="54" selection-start-line="106" selection-start-column="8" selection-end-line="112" selection-end-column="75" />
-          <folding>
-            <element signature="e#0#66#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -808,9 +665,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="247">
           <caret line="13" column="1" lean-forward="true" selection-start-line="13" selection-start-column="1" selection-end-line="13" selection-end-column="1" />
-          <folding>
-            <element signature="e#0#32#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -825,9 +679,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="399">
           <caret line="39" selection-start-line="39" selection-end-line="39" />
-          <folding>
-            <element signature="e#0#69#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -835,9 +686,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="603">
           <caret line="101" lean-forward="true" selection-start-line="101" selection-end-line="101" />
-          <folding>
-            <element signature="e#0#35#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -845,9 +693,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="152">
           <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
-          <folding>
-            <element signature="e#0#36#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -865,9 +710,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="152">
           <caret line="8" column="1" lean-forward="true" selection-start-line="8" selection-start-column="1" selection-end-line="8" selection-end-column="1" />
-          <folding>
-            <element signature="e#0#28#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -882,19 +724,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="437">
           <caret line="32" selection-start-line="32" selection-end-line="32" />
-          <folding>
-            <element signature="e#0#35#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/branch/domestic_invoice/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="551">
-          <caret line="32" selection-start-line="32" selection-end-line="32" />
-          <folding>
-            <element signature="e#0#28#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -916,9 +745,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="324">
           <caret line="18" column="16" selection-start-line="18" selection-start-column="4" selection-end-line="18" selection-end-column="16" />
-          <folding>
-            <element signature="e#0#24#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -932,20 +758,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/branch/domestic_invoice/forms.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="38">
-          <caret line="3" column="43" selection-start-line="3" selection-start-column="43" selection-end-line="3" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python36-32/Lib/site-packages/django/forms/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="291">
-          <caret line="293" column="38" selection-start-line="293" selection-start-column="31" selection-end-line="293" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python36-32/Lib/site-packages/django/forms/models.py" />
     <entry file="file://$PROJECT_DIR$/headquarters/product/models.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="171">
@@ -957,9 +770,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-18">
           <caret line="46" column="21" lean-forward="true" selection-start-line="46" selection-start-column="21" selection-end-line="46" selection-end-column="21" />
-          <folding>
-            <element signature="e#0#48#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -967,9 +777,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="324">
           <caret line="22" lean-forward="true" selection-start-line="22" selection-end-line="22" />
-          <folding>
-            <element signature="e#0#28#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -987,9 +794,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="19">
           <caret line="15" column="10" selection-start-line="15" selection-start-column="10" selection-end-line="15" selection-end-column="10" />
-          <folding>
-            <element signature="e#0#28#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -997,9 +801,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="285">
           <caret line="15" column="60" lean-forward="true" selection-start-line="15" selection-start-column="60" selection-end-line="15" selection-end-column="60" />
-          <folding>
-            <element signature="e#0#24#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1007,16 +808,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="95">
           <caret line="5" column="56" selection-start-line="5" selection-start-column="41" selection-end-line="5" selection-end-column="56" />
-          <folding>
-            <element signature="e#0#54#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/domestic_invoice/domestic_invoice_list.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="15" column="29" lean-forward="true" selection-end-line="241" selection-end-column="14" />
         </state>
       </provider>
     </entry>
@@ -1024,9 +815,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="133">
           <caret line="7" column="1" lean-forward="true" selection-end-line="7" selection-end-column="1" />
-          <folding>
-            <element signature="e#0#28#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1034,21 +822,11 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="215">
           <caret line="56" column="4" selection-start-line="56" selection-start-column="4" selection-end-line="56" selection-end-column="4" />
-          <folding>
-            <element signature="e#636#668#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/branch/branch_products/urls.py">
       <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/branch_stock/stock_products.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="248">
-          <caret line="165" column="54" lean-forward="true" selection-start-line="165" selection-start-column="54" selection-end-line="165" selection-end-column="54" />
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/headquarters/finance/models.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -1057,27 +835,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python36-32/Lib/site-packages/django/template/loader.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="291">
-          <caret line="58" column="61" selection-start-line="58" selection-start-column="56" selection-end-line="58" selection-end-column="61" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python36-32/Lib/site-packages/django/shortcuts.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="253">
-          <caret line="35" column="33" selection-start-line="35" selection-start-column="33" selection-end-line="35" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python36-32/Lib/site-packages/django/template/loader.py" />
+    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python36-32/Lib/site-packages/django/shortcuts.py" />
     <entry file="file://$PROJECT_DIR$/branch/branch_stock/urls.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="95">
           <caret line="5" column="33" selection-start-line="5" selection-start-column="10" selection-end-line="5" selection-end-column="33" />
-          <folding>
-            <element signature="e#0#28#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1095,20 +858,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/branch_sales/branch_sales_list.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="173" column="30" lean-forward="true" selection-end-line="241" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/branch/branch_warehousing/models.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="154">
           <caret line="12" column="4" selection-start-line="12" selection-start-column="4" selection-end-line="12" selection-end-column="4" />
-          <folding>
-            <element signature="e#0#28#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1163,13 +916,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python36-32/Lib/site-packages/django/views/generic/base.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="88" selection-start-line="88" selection-end-line="88" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python36-32/Lib/site-packages/django/views/generic/base.py" />
     <entry file="file://$PROJECT_DIR$/branch/branch_stock/views.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="285">
@@ -1177,6 +924,47 @@
           <folding>
             <element signature="e#0#48#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/branch/domestic_invoice/migrations/0001_initial.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/branch_sales/branch_sales_list.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="173" column="51" selection-start-line="173" selection-start-column="51" selection-end-line="173" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/branch_stock/stock_products.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="226">
+          <caret line="164" column="31" lean-forward="true" selection-start-line="164" selection-start-column="31" selection-end-line="164" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/domestic_invoice/domestic_invoice_list.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="241">
+          <caret line="13" column="11" lean-forward="true" selection-start-line="13" selection-start-column="11" selection-end-line="13" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/branch/domestic_invoice/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="462">
+          <caret line="21" column="4" selection-start-line="21" selection-start-column="4" selection-end-line="21" selection-end-column="4" />
+          <folding>
+            <element signature="e#0#28#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/branch/domestic_invoice/forms.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="32" column="104" lean-forward="true" selection-start-line="32" selection-start-column="104" selection-end-line="32" selection-end-column="104" />
         </state>
       </provider>
     </entry>
