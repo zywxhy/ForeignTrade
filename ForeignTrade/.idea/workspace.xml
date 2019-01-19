@@ -6,6 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="7f87c24d-5d39-4830-8590-98c8da8ff610" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/branch/branch_warehousing/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/branch/branch_warehousing/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/branch_sales/branch_sales.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/branch_sales/branch_sales.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/branch_warehousing/branch_warehousing.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/branch_warehousing/branch_warehousing.html" afterDir="false" />
     </list>
@@ -45,22 +46,22 @@
     <session id="1917083093">
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="py" value="3" />
+          <entry key="py" value="4" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="Python" value="3" />
+          <entry key="Python" value="4" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="50" />
+          <entry key="py" value="53" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Python" value="50" />
+          <entry key="Python" value="53" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.lifecycle.project">
@@ -98,20 +99,29 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/branch/domestic_invoice/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="110" column="28" lean-forward="true" selection-start-line="110" selection-start-column="28" selection-end-line="110" selection-end-column="28" />
+            <state relative-caret-position="246">
+              <caret line="115" column="60" lean-forward="true" selection-start-line="115" selection-start-column="60" selection-end-line="115" selection-end-column="60" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/branch/domestic_invoice/serializer.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="66">
+              <caret line="45" column="83" selection-start-line="45" selection-start-column="83" selection-end-line="45" selection-end-column="83" />
+              <folding>
+                <element signature="e#0#69#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/branch/domestic_invoice/serializer.py">
+        <entry file="file://$PROJECT_DIR$/branch/branch_warehousing/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="132">
-              <caret line="45" column="83" selection-start-line="45" selection-start-column="83" selection-end-line="45" selection-end-column="83" />
-              <folding>
-                <element signature="e#0#69#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="154">
+              <caret line="33" column="41" selection-start-line="33" selection-start-column="41" selection-end-line="33" selection-end-column="41" />
             </state>
           </provider>
         </entry>
@@ -245,12 +255,12 @@
         <option value="$PROJECT_DIR$/branch/branch_warehousing/forms.py" />
         <option value="$PROJECT_DIR$/templates/branch_warehousing/branch_warehousing.html" />
         <option value="$PROJECT_DIR$/templates/base/AdminLTE_base.html" />
-        <option value="$PROJECT_DIR$/branch/branch_warehousing/views.py" />
         <option value="$PROJECT_DIR$/templates/branch_warehousing/branch_warehousing_list.html" />
         <option value="$PROJECT_DIR$/branch/branch_stock/views.py" />
         <option value="$PROJECT_DIR$/branch/domestic_invoice/models.py" />
         <option value="$PROJECT_DIR$/branch/domestic_invoice/forms.py" />
         <option value="$PROJECT_DIR$/branch/domestic_invoice/serializer.py" />
+        <option value="$PROJECT_DIR$/branch/branch_warehousing/views.py" />
       </list>
     </option>
   </component>
@@ -290,7 +300,7 @@
       <path value="$PROJECT_DIR$/static/bower_components/select2/package.json" />
     </packageJsonPaths>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="-8" />
     <option name="y" value="-8" />
     <option name="width" value="1440" />
@@ -314,6 +324,12 @@
               <item name="ForeignTrade" type="b2602c69:ProjectViewProjectNode" />
               <item name="ForeignTrade" type="462c0819:PsiDirectoryNode" />
               <item name="branch" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ForeignTrade" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ForeignTrade" type="462c0819:PsiDirectoryNode" />
+              <item name="branch" type="462c0819:PsiDirectoryNode" />
+              <item name="branch_warehousing" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="ForeignTrade" type="b2602c69:ProjectViewProjectNode" />
@@ -573,6 +589,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.61585367" visible="true" weight="0.16754478" />
       <window_info id="Structure" order="1" sideWeight="0.174" side_tool="true" weight="0.26811594" />
@@ -899,13 +916,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/branch/branch_warehousing/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-89">
-          <caret line="34" column="113" selection-start-line="34" selection-start-column="113" selection-end-line="34" selection-end-column="113" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/branch_warehousing/branch_warehousing_list.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="215">
@@ -967,18 +977,25 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/branch/domestic_invoice/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="110" column="28" lean-forward="true" selection-start-line="110" selection-start-column="28" selection-end-line="110" selection-end-column="28" />
+        <state relative-caret-position="246">
+          <caret line="115" column="60" lean-forward="true" selection-start-line="115" selection-start-column="60" selection-end-line="115" selection-end-column="60" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/branch/domestic_invoice/serializer.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="132">
+        <state relative-caret-position="66">
           <caret line="45" column="83" selection-start-line="45" selection-start-column="83" selection-end-line="45" selection-end-column="83" />
           <folding>
             <element signature="e#0#69#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/branch/branch_warehousing/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="154">
+          <caret line="33" column="41" selection-start-line="33" selection-start-column="41" selection-end-line="33" selection-end-column="41" />
         </state>
       </provider>
     </entry>

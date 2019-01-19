@@ -111,12 +111,15 @@
         </div>
     </div>
     <div class="pull-right">
-        <button class="layui-btn layui-btn-normal" data-method="submit"><i class="fa fa-save"></i> Save</button>
+        <button class="layui-btn layui-btn-primary" data-method="submit"><i class="fa fa-save"></i> Save</button>
     </div>
     <script type="text/html" id="toolbar">
         <div class="layui-btn-container">
-            <a type="button" data-method="add" href="javascript:void(0)" class="layui-btn layui-btn-sm" lay-event="add">添加</a>
-            <a type="button" data-method="delete" href="javascript:void(0)" class="layui-btn layui-btn-sm" lay-event="delete">删除</a>    
+            <div class="layui-btn-group">
+                <button data-method="add" href="javascript:void(0)" class="layui-btn layui-btn-primary layui-btn-sm" lay-event="add">增加</button>
+                <!-- <button class="layui-btn">编辑</button> -->
+                <button data-method="delete" href="javascript:void(0)" class="layui-btn layui-btn-primary layui-btn-sm" lay-event="delete">删除</button>
+            </div>   
         </div>
     </script>
     <div style="display:none" id="layui_layer">
@@ -125,12 +128,12 @@
             <div class="layui-inline">
                 <input class="layui-input" name="id" id="demoReload" autocomplete="off">
             </div>
-            <button class="layui-btn" data-method="reloadchild">搜索</button>
+            <button class="layui-btn layui-btn-primary" data-method="reloadchild">搜索</button>
         </div>
         <table class="layui-hide" id="child_table" lay-filter="demo"></table>
     </div>
     <script type="text/html" id="titleTpl">
-        <a class="layui-btn layui-btn-xs" data-id="{{d.product_id}}"  data-method="reload" lay-event="add">添加</a>
+        <button class="layui-btn layui-btn-primary layui-btn-xs" data-method="reload" lay-event="add">添加</button>
     </script>
 {% endblock %}
 
@@ -170,20 +173,22 @@
                     elem:'#invoice_add'
                     //,url:'/domestic_invoice/'+ val //应该是选中的某一个第一张表附带的数据domestic_invoice_product
                     ,data:[]
+                    , skin: 'nob' //行边框风格
+                    , even: true //开启隔行背景
                     ,page:true
                     ,toolbar:'#toolbar'
                     ,defaultToolbar:[]
                     ,id:'ftable'
                     ,cols:[[
-                        {type:'checkbox',align:"center"}
-                        ,{field:"product",title:"产品代码",align:"center"}
-                        ,{field:"name",title:"名字",align:"center"}
-                        ,{field:"product",title:"规格",align:"center"}
-                        ,{field:"remark",title:"备注",align:"center",edit: 'text'}
-                        ,{field:"mesu_unit",title:"单位",align:"center"}
-                        ,{field:"volume",title:"体积",align:"center"}
-                        ,{field:"count",title:"出库数量",align:"center",edit: 'text'}
-                        ,{field:"sales_count",title:"总数量",align:"center"}              // 字段名对不上,url无法连接
+                        {type:'checkbox',align:"left"}
+                        ,{field:"product_id",title:"产品代码",align:"left"}
+                        ,{field:"name",title:"名字",align:"left"}
+                        ,{field:"product",title:"规格",align:"left"}
+                        ,{field:"remark",title:"备注",align:"left",edit: 'text'}
+                        ,{field:"mesu_unit",title:"单位",align:"left"}
+                        ,{field:"volume",title:"体积",align:"left"}
+                        ,{field:"count",title:"出库数量",align:"left",edit: 'text'}
+                        ,{field:"sales_count",title:"总数量",align:"left"}              // 字段名对不上,url无法连接
                     ]]
                     ,parseData:function(res){
                         console.log(res);
@@ -208,21 +213,21 @@
                                 'mesu_unit':'{{ item.product.mesu_unit }}',
                                 'volume':'{{ item.product.volume }}',
                                 'sales_count':'{{ item.sales_count }}',
-
-
                             },
                         {% endfor %}
                     ]
-                    //,url: '/product/product_select'
+                    // ,url: '/product/product_select'
+                    , skin: 'nob' //行边框风格
+                    , even: true //开启隔行背景
                     ,defaultToolbar:[]
                     ,id:'ctable'
                     ,cols:[[
-                        {field: "product_id", title: "产品id", align: "center", width: 100}
-                        , {field: "name", title: "产品名称", align: "center", width: 100}
-                        , {field: "spec", title: "产品规格", align: "center", width: 200}
-                        , {field: "count", title: "数量", align: "center", width: 100}
-                        , {field: "volume", title: "体积", align: "center", width: 100}
-                        , {title: "操作", toolbar: '#titleTpl', align: "center", width: 100}
+                        {field: "id", title: "产品id", align: "left", width: 100}
+                        , {field: "name", title: "产品名称", align: "left", width: 100}
+                        , {field: "spec", title: "产品规格", align: "left", width: 200}
+                        , {field: "count", title: "数量", align: "left", width: 100}
+                        , {field: "volume", title: "体积", align: "left", width: 100}
+                        , {title: "操作", toolbar: '#titleTpl', align: "left", width: 100}
                     ]]
                     ,parseData:function(res){
                         return {
@@ -237,7 +242,6 @@
                     var checkStatus = table.checkStatus(obj.config.id);
                     switch(obj.event){
                         case 'add':
-                            
                             layer.open({
                                 type:1
                                 ,content:$('#layui_layer')
@@ -253,7 +257,7 @@
                                 }
                                 ,cancel: function(index, layero){
                                     layer.close(index);
-                                }    
+                                } 
                             });
                         break;
                         case 'delete':
@@ -269,7 +273,6 @@
                                     arr1.push(item);
                                 }
                             })
-
                             active.reload('ftable',arr1);
                         break;
                     }
@@ -291,27 +294,6 @@
                         active.reload('ftable',getdata);
                     }
                 });
-                // table.on('toolbar(demo)',function(obj){//头部工具行的操作，修改了页面的样式
-                //     var checkStatus = table.checkStatus(obj.config.id);
-                //     console.log(checkStatus);
-                //     switch(obj.event){
-                //         case 'add':
-                //             var arr = [],
-                //             arr1 = [],
-                //             data = table.cache.ftable;
-                //             $.each(data,function(index,item){
-                //                 arr.push(item.product_id)
-                //             })
-                //             $.each(checkStatus.data,function(index,item){
-                //                 if(arr.indexOf(item.product_id) === -1){
-                //                     arr1.push(item);
-                //                 }
-                //             })
-                //             var _total = $.merge($.merge([],data),arr1);
-                //             active.reload('ftable',_total);
-                //         break;
-                //     }
-                // });
                 table.on('edit(_table)',function(obj){
                     // var database = table.cache.ftable;
                     // $.each(database,function(index,item){
@@ -389,10 +371,13 @@
     
     $(function(){
         invoice.init();
-        $('.datepicker').datepicker({
-            autoclose: true,
-            format: 'yyyy-mm-dd',
-            orientation: 'bottom'
+        layui.use('laydate',function(){
+            var laydate = layui.laydate,
+            $ = layui.$;
+            laydate.render({
+                elem:'#id_invoice_date'
+                ,lang:'en'
+            })
         });
     })
 </script>
