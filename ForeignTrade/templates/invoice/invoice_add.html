@@ -263,7 +263,8 @@
                             arr1 = [],
                             data = table.cache.ftable;
                             $.each(data,function(index,item){
-                                arr.push(item.product_id)
+                                console.log(item);
+                                arr.push(item.product_id);
                             })
                             $.each(checkStatus.data,function(index,item){
                                 if(arr.indexOf(item.product_id) === -1){

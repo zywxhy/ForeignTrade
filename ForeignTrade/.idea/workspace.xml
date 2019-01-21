@@ -64,8 +64,8 @@
       <usages-collector id="statistics.lifecycle.project">
         <counts>
           <entry key="project.closed" value="1" />
-          <entry key="project.open.time.5" value="3" />
-          <entry key="project.opened" value="3" />
+          <entry key="project.open.time.5" value="4" />
+          <entry key="project.opened" value="4" />
         </counts>
       </usages-collector>
     </session>
@@ -117,8 +117,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/branch/branch_warehousing/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="154">
-              <caret line="33" column="41" selection-start-line="33" selection-start-column="41" selection-end-line="33" selection-end-column="41" />
+            <state relative-caret-position="286">
+              <caret line="39" column="40" lean-forward="true" selection-start-line="39" selection-start-column="40" selection-end-line="39" selection-end-column="40" />
             </state>
           </provider>
         </entry>
@@ -309,7 +309,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -368,6 +367,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -403,7 +403,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Unknown.ForeignTrade737704853">
+  <component name="RunManager" selected="Unknown.ForeignTrade139377396">
     <configuration name="serializer" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="ForeignTrade" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -586,6 +586,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.61585367" visible="true" weight="0.12328767" />
       <window_info id="Structure" order="1" sideWeight="0.174" side_tool="true" weight="0.26811594" />
@@ -601,9 +602,9 @@
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="Python Console" order="10" sideWeight="0.49856734" weight="0.34396672" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="11" sideWeight="0.5036881" visible="true" weight="0.5151844" />
+      <window_info anchor="bottom" id="Terminal" order="11" sideWeight="0.50316125" visible="true" weight="0.5151844" />
       <window_info active="true" anchor="bottom" id="manage.py@ForeignTrade" order="12" weight="0.40915394" />
-      <window_info anchor="bottom" id="Event Log" order="13" sideWeight="0.4963119" side_tool="true" visible="true" weight="0.5151844" />
+      <window_info active="true" anchor="bottom" id="Event Log" order="13" sideWeight="0.49683878" side_tool="true" visible="true" weight="0.5151844" />
       <window_info anchor="bottom" id="Concurrent Activities Diagram" order="14" weight="0.32871014" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -990,8 +991,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/branch/branch_warehousing/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="154">
-          <caret line="33" column="41" selection-start-line="33" selection-start-column="41" selection-end-line="33" selection-end-column="41" />
+        <state relative-caret-position="286">
+          <caret line="39" column="40" lean-forward="true" selection-start-line="39" selection-start-column="40" selection-end-line="39" selection-end-column="40" />
         </state>
       </provider>
     </entry>
