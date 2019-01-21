@@ -72,7 +72,12 @@
     </div>
 </div>
 <script type="text/html" id="titleTpl">
-    <a class="layui-btn layui-btn-danger layui-btn-xs" data-id="{{d.product_id}}"  data-method="reload" lay-event="add">详情</a>
+    <div class="layui-btn-group">
+        <button class="layui-btn layui-btn-danger layui-btn-xs" data-id="{{d.product_id}}" lay-event="add">
+            <i class="layui-icon">&#xe654;</i>详情
+        </button>
+    </div>
+    <a ></a>
 </script>
 {% endblock %}
 
@@ -132,7 +137,6 @@
                         }
                     })
                     console.log(node.id) //node即为当前点击的节点数据
-                    ///product/get_product where:{search:node.id}
                 }  
             });
         })
