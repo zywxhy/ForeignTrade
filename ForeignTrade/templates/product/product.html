@@ -73,7 +73,7 @@
 </div>
 <script type="text/html" id="titleTpl">
     <div class="layui-btn-group">
-        <button class="layui-btn layui-btn-danger layui-btn-xs" data-id="{{d.product_id}}" lay-event="add">
+        <button class="layui-btn layui-btn-primary layui-btn-xs" data-id="{{d.product_id}}" lay-event="add">
             <i class="layui-icon">&#xe654;</i>详情
         </button>
     </div>
@@ -96,21 +96,21 @@
                 ,page:true
                 ,id:'testchange'
                 ,cols:[[
-                    
-                     {field:"product_id",title:"产品id",align:"center"}
-                    , {field:"model",title:"产品型号",align:"center"}
-                    ,{field:"name",title:"产品名称",align:"center"}
-                    ,{field:"spec",title:"产品规格",align:"center"}
-                    ,{field:"mesu",title:"计量单位",align:"center"}
-                    ,{field:"volume",title:"体积",align:"center"}
-                    ,{title:"操作",toolbar:'#titleTpl',align:"center"}
+                    {field:"product_id",title:"产品id",align:"left",templet: '<div>{% verbatim %}{{ d.product.product_id }}{% endverbatim %}</div>'}
+                    ,{field:"model",title:"产品型号",align:"left",templet: '<div>{% verbatim %}{{ d.product.model }}{% endverbatim %}</div>'}
+                    ,{field:"name",title:"产品名称",align:"left",templet: '<div>{% verbatim %}{{ d.product.name }}{% endverbatim %}</div>'}
+                    ,{field:"spec",title:"产品规格",align:"left",templet: '<div>{% verbatim %}{{ d.product.spec }}{% endverbatim %}</div>'}
+                    ,{field:"mesu",title:"计量单位",align:"left",templet: '<div>{% verbatim %}{{ d.product.mesu_unit }}{% endverbatim %}</div>'}
+                    ,{field:"volume",title:"体积",align:"left",templet: '<div>{% verbatim %}{{ d.product.volume }}{% endverbatim %}</div>'}
+                    ,{title:"操作",toolbar:'#titleTpl',align:"left"}
                 ]]
                 ,parseData: function(res){ //res 即为原始返回的数据
+                console.log(res)
                     return {
-                    "code": res.status, //解析接口状态
-                    "msg": res.message, //解析提示文本
-                    "count": res.total, //解析数据长度
-                    "data": res.data //解析数据列表
+                        "code": res.status, //解析接口状态
+                        "msg": res.message, //解析提示文本
+                        "count": res.total, //解析数据长度
+                        "data": res.data //解析数据列表
                     };
                 },
             });

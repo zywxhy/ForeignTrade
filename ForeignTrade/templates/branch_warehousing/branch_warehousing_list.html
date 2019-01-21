@@ -24,7 +24,6 @@
         }
         tr th,
         tr td{
-            text-align: center;
             overflow: hidden;
             white-space: nowrap;
             text-overflow: ellipsis;
@@ -33,6 +32,9 @@
     		padding: 5px;
     		text-align: center;
 	    }
+        .layui-form-checkbox[lay-skin=primary] i {
+            top: -5px;
+        }
     </style>
 {% endblock %}
 
@@ -114,9 +116,9 @@
                         <div class="layui-inline">
                             <label class="layui-form-label">国际版</label>
                             <div class="layui-input-inline">
-                                <input type="text" class="layui-input" id="test-1" placeholder="开始 到 结束">
+                                <input type="text" class="layui-input" autocomplete="off" id="test-1" placeholder="开始 到 结束">
                             </div>
-                            <button class="layui-btn" data-method="reloadsearch">搜索</button>
+                            <button class="layui-btn layui-btn-primary" data-method="reloadsearch">搜索</button>
                         </div>
                     </div>
                     
@@ -182,18 +184,20 @@
                             },
                         {% endfor %}
                     ]
-                    ,elem:'#firstBlood'
+                    , elem:'#firstBlood'
                     //,url:'/product/product_select'
-                    ,page:true
+                    , page:true
                     ,id:'testchange'
-                    ,where:{search: demoReload.val()}
-                    ,cols:[[
-                        {type:'checkbox',align:"center"}
-                        ,{field:"warehousing_num",title:"入库单编号",align:"center"}
-                        ,{field:"warehousing_date",title:"入库时间",align:"center",edit: 'text'}
-                        ,{field:"cliebranch_stocknt",title:"仓库",align:"center",edit: 'text'}
-                        ,{field:"status",title:"状态",align:"center"}
-                        ,{title:"操作",toolbar:'#titleTpl',align:"center"}
+                    , skin: 'nob' //行边框风格
+                    , even: true //开启隔行背景
+                    , where:{search: demoReload.val()}
+                    , cols:[[
+                        {type:'checkbox',align:"left"}
+                        ,{field:"warehousing_num",title:"入库单编号",align:"left"}
+                        ,{field:"warehousing_date",title:"入库时间",align:"left",edit: 'text'}
+                        ,{field:"cliebranch_stocknt",title:"仓库",align:"left",edit: 'text'}
+                        ,{field:"status",title:"状态",align:"left"}
+                        ,{title:"操作",toolbar:'#titleTpl',align:"left"}
                     ]]
                     ,parseData: function(res){ //res 即为原始返回的数据
                         return {
