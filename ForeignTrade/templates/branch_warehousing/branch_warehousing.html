@@ -227,18 +227,20 @@
                         case 'add':
                             layer.open({
                                 type:1
-                                ,content:$('#layui_layer')
-                                ,title: ['请选择', 'font-size:18px;']
-                                ,area:'auto'
-                                ,maxWidth:1000
-                                ,shadeClose:true
-                                ,resize:false
-                                ,zIndex: layer.zIndex //重点1
-                                ,btn: ['关闭'] //只是为了演示
-                                ,yes: function(index){
+                                , content:$('#layui_layer')
+                                , title: ['请选择', 'font-size:18px;']
+                                , area:'auto'
+                                , maxWidth:1000
+                                , shadeClose:true
+                                , resize:false
+                                , zIndex: layer.zIndex //重点1
+                                , btn: ['关闭'] //只是为了演示 
+                                , offset: 't'
+                                , anim: 1
+                                , yes: function(index){
                                     layer.close(index);
                                 }
-                                ,cancel: function(index, layero){
+                                , cancel: function(index, layero){
                                     layer.close(index);
                                 }    
                             });

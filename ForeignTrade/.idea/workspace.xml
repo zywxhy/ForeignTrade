@@ -5,11 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7f87c24d-5d39-4830-8590-98c8da8ff610" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/branch_sales/branch_sales_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/branch_sales/branch_sales_list.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/branch_warehousing/branch_warehousing_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/branch_warehousing/branch_warehousing_list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/branch_warehousing/branch_warehousing.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/branch_warehousing/branch_warehousing.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/domestic_invoice/domestic_invoice.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/domestic_invoice/domestic_invoice.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/domestic_invoice/domestic_invoice_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/domestic_invoice/domestic_invoice_list.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/product/product.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/product/product.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -68,11 +66,11 @@
       <usages-collector id="statistics.lifecycle.project">
         <counts>
           <entry key="project.closed" value="3" />
-          <entry key="project.open.time.4" value="1" />
+          <entry key="project.open.time.4" value="2" />
           <entry key="project.open.time.5" value="4" />
           <entry key="project.open.time.6" value="1" />
           <entry key="project.open.time.7" value="1" />
-          <entry key="project.opened" value="7" />
+          <entry key="project.opened" value="8" />
         </counts>
       </usages-collector>
     </session>
@@ -85,8 +83,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/templates/domestic_invoice/domestic_invoice_list.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="286">
-              <caret line="13" column="11" selection-start-line="13" selection-start-column="11" selection-end-line="13" selection-end-column="11" />
+            <state relative-caret-position="-2068">
+              <caret line="11" column="9" selection-start-line="11" selection-start-column="9" selection-end-line="11" selection-end-column="9" />
             </state>
           </provider>
         </entry>
@@ -145,7 +143,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/headquarters/sales/views.py" />
         <option value="$PROJECT_DIR$/branch/domestic_invoice/urls.py" />
         <option value="$PROJECT_DIR$/ForeignTrade/my_class.py" />
         <option value="$PROJECT_DIR$/headquarters/users/middlewares.py" />
@@ -196,6 +193,7 @@
         <option value="$PROJECT_DIR$/branch/domestic_invoice/forms.py" />
         <option value="$PROJECT_DIR$/branch/domestic_invoice/serializer.py" />
         <option value="$PROJECT_DIR$/branch/branch_warehousing/views.py" />
+        <option value="$PROJECT_DIR$/templates/domestic_invoice/domestic_invoice_list.html" />
       </list>
     </option>
   </component>
@@ -529,6 +527,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.61585367" visible="true" weight="0.12328767" />
       <window_info id="Structure" order="1" sideWeight="0.174" side_tool="true" weight="0.26811594" />
@@ -544,9 +543,9 @@
       <window_info anchor="bottom" id="Version Control" order="8" sideWeight="0.49894625" weight="0.329718" />
       <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="Python Console" order="10" sideWeight="0.49683878" weight="0.3438178" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="11" sideWeight="0.49947312" visible="true" weight="0.2635575" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="11" sideWeight="0.49894625" visible="true" weight="0.2635575" />
       <window_info active="true" anchor="bottom" id="manage.py@ForeignTrade" order="12" weight="0.40915394" />
-      <window_info anchor="bottom" id="Event Log" order="13" sideWeight="0.50052685" side_tool="true" visible="true" weight="0.2635575" />
+      <window_info anchor="bottom" id="Event Log" order="13" sideWeight="0.50105375" side_tool="true" visible="true" weight="0.2635575" />
       <window_info anchor="bottom" id="Concurrent Activities Diagram" order="14" weight="0.32871014" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -927,9 +926,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="396">
           <caret line="21" column="4" selection-start-line="21" selection-start-column="4" selection-end-line="21" selection-end-column="4" />
-          <folding>
-            <element signature="e#0#28#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -944,9 +940,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="521">
           <caret line="45" column="83" selection-start-line="45" selection-start-column="83" selection-end-line="45" selection-end-column="83" />
-          <folding>
-            <element signature="e#0#69#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -959,8 +952,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/domestic_invoice/domestic_invoice_list.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="286">
-          <caret line="13" column="11" selection-start-line="13" selection-start-column="11" selection-end-line="13" selection-end-column="11" />
+        <state relative-caret-position="-2068">
+          <caret line="11" column="9" selection-start-line="11" selection-start-column="9" selection-end-line="11" selection-end-column="9" />
         </state>
       </provider>
     </entry>
