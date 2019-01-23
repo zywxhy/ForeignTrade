@@ -140,7 +140,7 @@
         </div>
     </div>
     <div class="pull-right">
-        <button class="layui-btn  layui-btn-primary" data-method="submit"><i class="fa fa-save"></i> Save</button>
+        <button class="layui-btn layui-btn-primary" data-method="submit"><i class="fa fa-save"></i> Save</button>
     </div>
     <script type="text/html" id="toolbar">
         <div class="layui-btn-container">
@@ -312,11 +312,10 @@
                     layEvent = obj.event; //获得 lay-event 对应的值
                     var getdata = table.cache.ftable;
                     $.each(getdata, function (index, item) {
-                        // console.log(item);
                         arr.push(item.product.product_id);
                     });
                     var number = arr.findIndex(function (value) {
-                        return value == data.product_id
+                        return value == data.product.product_id
                     });
                     if (number === -1) {
                         getdata.push(data);

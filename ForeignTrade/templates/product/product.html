@@ -6,7 +6,11 @@
 {% endblock %}
 {% block style %}
 <style type="text/css">
-    
+    .layui-table-tips-c:before {
+        position: relative;
+        right: 10%;
+        top: -20%;
+    }
 </style>
 {% endblock %}
 
@@ -19,7 +23,7 @@
 </ol>
 {% endblock %}
 {% block main_title %}
-111
+产品
 {% endblock %}
 
 {% block main_content %}
@@ -92,10 +96,12 @@
             $ = layui.$;
             table.render({             //子页面的table
                 elem:'#test'
-                ,url:'/product/product_select'
-                ,page:true
-                ,id:'testchange'
-                ,cols:[[
+                , url:'/product/product_select'
+                , page:true
+                , skin: 'nob' //行边框风格
+                , even: true //开启隔行背景
+                , id:'testchange'
+                , cols:[[
                     {field:"product_id",title:"产品id",align:"left",templet: '<div>{% verbatim %}{{ d.product.product_id }}{% endverbatim %}</div>'}
                     ,{field:"model",title:"产品型号",align:"left",templet: '<div>{% verbatim %}{{ d.product.model }}{% endverbatim %}</div>'}
                     ,{field:"name",title:"产品名称",align:"left",templet: '<div>{% verbatim %}{{ d.product.name }}{% endverbatim %}</div>'}
@@ -104,8 +110,8 @@
                     ,{field:"volume",title:"体积",align:"left",templet: '<div>{% verbatim %}{{ d.product.volume }}{% endverbatim %}</div>'}
                     ,{title:"操作",toolbar:'#titleTpl',align:"left"}
                 ]]
-                ,parseData: function(res){ //res 即为原始返回的数据
-                console.log(res)
+                , parseData: function(res){ //res 即为原始返回的数据
+                    // console.log(res)
                     return {
                         "code": res.status, //解析接口状态
                         "msg": res.message, //解析提示文本

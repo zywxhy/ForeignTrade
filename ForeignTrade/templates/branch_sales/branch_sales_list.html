@@ -117,7 +117,7 @@
                         <div class="layui-input-inline">
                             <input type="text" class="layui-input" autocomplete="off" id="test-1" placeholder="开始 到 结束">
                         </div>
-                        <button class="layui-btn" data-method="reloadsearch">搜索</button>
+                        <button class="layui-btn layui-btn-primary" data-method="reloadsearch">搜索</button>
                     </div>
                 </div>
                 
@@ -196,7 +196,7 @@
                         ,{field:"salesman",title:"业务员",align:"left",edit: 'text'}
                         ,{field:"client",title:"客户",align:"left",edit: 'text'}
                         ,{field:"status",title:"状态",align:"left"}
-                        ,{title:"操作", fixed: 'right', width:300, toolbar:'#titleTpl',align:"left"}
+                        ,{title:"操作", fixed: 'right', width:250, toolbar:'#titleTpl',align:"left"}
                     ]]
                     ,parseData: function(res){ //res 即为原始返回的数据
                         return {
