@@ -13,6 +13,9 @@
         .padmar{
             margin:10px;
         }
+        #_order tr td{
+            width: 25%;
+        }
     </style>
 {% endblock %}
 
@@ -188,7 +191,7 @@
                         ,{field:"mesu_unit",title:"单位",align:"left"}
                         ,{field:"volume",title:"体积",align:"left"}
                         ,{field:"count",title:"出库数量",align:"left",edit: 'text'}
-                        ,{field:"sales_count",title:"总数量",align:"left"}              // 字段名对不上,url无法连接
+                        ,{field:"sales_count",title:"总数量",align:"left"}
                     ]]
                     ,parseData:function(res){
                         console.log(res);
@@ -244,14 +247,16 @@
                         case 'add':
                             layer.open({
                                 type:1
-                                ,content:$('#layui_layer')
-                                ,title: ['请选择', 'font-size:18px;']
-                                ,area:'auto'
-                                ,maxWidth:1000
-                                ,shadeClose:true
-                                ,resize:false
-                                ,zIndex: layer.zIndex //重点1
-                                ,btn: ['关闭'] //只是为了演示
+                                , content:$('#layui_layer')
+                                , title: ['请选择', 'font-size:18px;']
+                                , area:'auto'
+                                , offset: 't'
+                                , anim: 1
+                                , maxWidth:1000
+                                , shadeClose:true
+                                , resize:false
+                                , zIndex: layer.zIndex //重点1
+                                , btn: ['关闭'] //只是为了演示
                                 ,yes: function(index){
                                     layer.close(index);
                                 }

@@ -3,7 +3,9 @@
 
 {% block style %}
     <style>
-        
+        #_order tr td{
+            width: 25%;
+        }
         
     </style>
 {% endblock %}
@@ -119,13 +121,13 @@
     </div>
     <script type="text/html" id="toolbar">
         <div class="layui-btn-container">
-            <a type="button" data-method="add" href="javascript:void(0)" class="layui-btn layui-btn-sm" lay-event="add">添加</a>
-            <a type="button" data-method="delete" href="javascript:void(0)" class="layui-btn layui-btn-sm" lay-event="delete">删除</a>    
+            <a type="button" data-method="add" href="javascript:void(0)" class="layui-btn layui-btn-primary layui-btn-sm" lay-event="add">添加</a>
+            <a type="button" data-method="delete" href="javascript:void(0)" class="layui-btn layui-btn-primary layui-btn-sm" lay-event="delete">删除</a>    
         </div>
     </script>
     <script type="text/html" id="childbar">
         <div class="layui-btn-container">
-            <a type="button" data-method="add" href="javascript:void(0)" class="layui-btn layui-btn-sm" lay-event="add">添加</a>
+            <a type="button" data-method="add" href="javascript:void(0)" class="layui-btn layui-btn-primary layui-btn-sm" lay-event="add">添加</a>
         </div>
     </script>
     <div style="display:none" id="layui_layer">
@@ -237,7 +239,7 @@
                             });
                         break;
                         case 'delete':
-                            console.log(checkStatus);
+                            // console.log(checkStatus);
                             var arr = [],
                             arr1 = [],
                             data = table.cache.ftable;
@@ -256,14 +258,14 @@
                 });
                 table.on('toolbar(demo)',function(obj){
                     var checkStatus = table.checkStatus(obj.config.id);
-                    console.log(checkStatus);
+                    // console.log(checkStatus);
                     switch(obj.event){
                         case 'add':
                             var arr = [],
                             arr1 = [],
                             data = table.cache.ftable;
                             $.each(data,function(index,item){
-                                console.log(item);
+                                // console.log(item);
                                 arr.push(item.product_id);
                             })
                             $.each(checkStatus.data,function(index,item){
@@ -277,7 +279,7 @@
                     }
                 });
                 table.on('edit(_table)',function(obj){
-                    console.log(obj);
+                    // console.log(obj);
                     var count = obj.data.total_count - obj.data.outbound_count;
                     var data = table.cache.ftable;
                     if(obj.value > count){

@@ -104,17 +104,19 @@
         </div>
     </div>
     <div class="pull-right">
-        <button class="layui-btn layui-btn-normal" data-method="submit"><i class="fa fa-save"></i> Save</button>
+        <button class="layui-btn layui-btn-primary" data-method="submit"><i class="fa fa-save"></i> Save</button>
     </div>
     <script type="text/html" id="toolbar">
         <div class="layui-btn-container">
-            <a type="button" data-method="add" href="javascript:void(0)" class="layui-btn layui-btn-sm" lay-event="add">添加</a>
-            <a type="button" data-method="delete" href="javascript:void(0)" class="layui-btn layui-btn-sm" lay-event="delete">删除</a>    
+            <div class="layui-btn-group">
+                <button type="button" data-method="add" href="javascript:void(0)" class="layui-btn layui-btn-primary layui-btn-sm" lay-event="add">增加</button>
+                <!-- <button class="layui-btn">编辑</button> -->
+                <button type="button" data-method="delete" href="javascript:void(0)" class="layui-btn layui-btn-primary layui-btn-sm" lay-event="delete">删除</button>
+            </div>
         </div>
     </script>
-
     <script type="text/html" id="titleTpl">
-        <a class="layui-btn layui-btn-xs" data-id="{{d.product_id}}"  data-method="reload" lay-event="add">添加</a>
+        <a class="layui-btn layui-btn-primary layui-btn-xs" data-id="{{d.product_id}}"  data-method="reload" lay-event="add">添加</a>
     </script>
 {% endblock %}
 
@@ -153,37 +155,29 @@
                 table.render({
                     elem:'#invoice_add'
                     //,url:'/domestic_invoice/'+ val //应该是选中的某一个第一张表附带的数据domestic_invoice_product
-                    ,data:{{ warehousing_products_data|safe }}
-                    ,page:true
-                    ,toolbar:'#toolbar'
-                    ,defaultToolbar:[]
-                    ,id:'ftable'
-                    ,cols:[[
-                        {type:'checkbox',align:"center"}
-                        ,{field:"product",title:"产品代码",align:"center"}
-                        ,{field:"name",title:"名字",align:"center"}
-                        ,{field:"spec",title:"规格",align:"center"}
-                        ,{field:"remark",title:"备注",align:"center",}
-                        ,{field:"mesu_unit",title:"单位",align:"center"}
-                        ,{field:"volume",title:"体积",align:"center"}
-                        ,{field:"count",title:"入库数量",align:"center",}
+                    , data:{{ warehousing_products_data|safe }}
+                    , page:true
+                    , skin: 'nob' //行边框风格
+                    , even: true //开启隔行背景
+                    , toolbar:'#toolbar'
+                    , defaultToolbar:[]
+                    , id:'ftable'
+                    , cols:[[
+                        {type:'checkbox',align:"left"}
+                        ,{field:"product",title:"产品代码",align:"left"}
+                        ,{field:"name",title:"名字",align:"left"}
+                        ,{field:"spec",title:"规格",align:"left"}
+                        ,{field:"remark",title:"备注",align:"left",}
+                        ,{field:"mesu_unit",title:"单位",align:"left"}
+                        ,{field:"volume",title:"体积",align:"left"}
+                        ,{field:"count",title:"入库数量",align:"left",}
                     ]]
-                    ,parseData:function(res){
-                        console.log(res);
-                        return {
-                            "code": res.status, //解析接口状态
-                            // "msg": res.message, //解析提示文本
-                            // "count": res.total, //解析数据长度
-                            "data": res.data[0].domestic_invoice_product //解析数据列表
-                        };
-                    }
                 });
 
                 table.on('toolbar(_table)',function(obj){
                     var checkStatus = table.checkStatus(obj.config.id);
                     switch(obj.event){
                         case 'add':
-                            
                             layer.open({
                                 type:1
                                 ,content:$('#layui_layer')

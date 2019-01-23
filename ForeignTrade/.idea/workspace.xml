@@ -5,7 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7f87c24d-5d39-4830-8590-98c8da8ff610" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/templates/invoice/invoice_add.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/invoice/invoice_add.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/branch_sales/branch_sales_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/branch_sales/branch_sales_list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/branch_stock/branch_stock_warehousing.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/branch_stock/branch_stock_warehousing.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/branch_warehousing/branch_warehousing_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/branch_warehousing/branch_warehousing_list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/product/product.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/product/product.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -78,8 +82,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/branch_sales/branch_sales_list.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3806">
-              <caret line="173" column="51" selection-start-line="173" selection-start-column="51" selection-end-line="173" selection-end-column="51" />
+            <state relative-caret-position="3740">
+              <caret line="170" column="51" selection-start-line="170" selection-start-column="51" selection-end-line="170" selection-end-column="51" />
             </state>
           </provider>
         </entry>
@@ -936,8 +940,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/branch_sales/branch_sales_list.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3806">
-          <caret line="173" column="51" selection-start-line="173" selection-start-column="51" selection-end-line="173" selection-end-column="51" />
+        <state relative-caret-position="3740">
+          <caret line="170" column="51" selection-start-line="170" selection-start-column="51" selection-end-line="170" selection-end-column="51" />
         </state>
       </provider>
     </entry>
