@@ -28,21 +28,16 @@ class SalesContractView(View):
         return render(request,'branch_sales/branch_sales.html',{'form':form,'products_data':products_data})
 
 
-
 class SalesContractListView(View):
     def get(self,request):
         branch_sales = BranchSalesContract.objects.all()
         return render(request,'branch_sales/branch_sales_list.html',locals())
 
 
-
 class SalesContractModelViewSet(ModelViewSet):
-
     serializer_class = BranchSalesContractModelSerializer
     pagination_class = None
     queryset = BranchSalesContract.objects.all()
-
-
 
     def list(self, request, *args, **kwargs):
         queryset = self.filter_queryset(self.get_queryset())
@@ -66,33 +61,35 @@ class SalesContractModelViewSet(ModelViewSet):
 
     # 产品的添加和修改
     def create(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
-        branch_sales_product = request.data.get('branch_sales_product')
-        branch_sales_product = json.loads(branch_sales_product)
-        serializer.is_valid()
-        data = serializer.data  # 这里嵌套的product信息会自动在key值上加[]，如：'id' 变成 '[id]' 后续处理要注意
+        data = json.loads(request.data.get('data'))
         print(data)
-        salesman_id = data.pop('salesman')
-        client_id = data.pop('client')
-        sales_num = data['sales_num']
-        existed = BranchSalesContract.objects.filter(sales_num=sales_num)
-        if existed:
-            existed.update(salesman_id=salesman_id,client_id=client_id, **data)
-            branch_sales = existed[0]
-            branch_sales.branch_sales_product.all().delete()
-        else:
-            branch_sales = BranchSalesContract.objects.create(salesman_id=salesman_id,client_id=client_id, **data)
-        for product_item in branch_sales_product:
-            print(product_item)
-            product_data = {
-                'product_id': product_item.get('id'),
-                'sales_count': product_item.get('sales_count'),
-                'unit_price': product_item.get('unit_price'),
-                'amount': product_item.get('amount'),
-                'remark': product_item.get('remark', ''),
-            }
-            BranchSalesProduct.objects.create(branch_sales=branch_sales, **product_data)
-        return Response('success')
+        serializer = self.get_serializer(data=data)
+        result = serializer.is_valid()
+        if not result:
+            print(serializer.errors)
+            return Response({'result': 'failure', 'msg': serializer.errors})
+        product_data = data.get('branch_sales_product', '')
+        if not product_data:
+            return Response({'result': 'failure', 'msg': 'ERROR:No products'})
+        branch_sales = serializer.save()
+        if not branch_sales:
+            return Response({'result': 'failure', 'msg': 'Has been audited and no modification is allowed.'})
+        for product in product_data:
+            try:
+                product.pop('branch_sales')
+            except:
+                pass
+            id = product['product']['id']
+            product_serializer = BranchSalesProductModelSerializer(data=product, )
+            product_serializer.is_valid()
+            errors = product_serializer.errors
+            errors.pop('branch_sales')
+            if bool(errors):
+                branch_sales.branch_sales_product.all().delete()
+                print(product_serializer.errors)
+                return Response({'result': 'failure', 'msg': product_serializer.errors})
+            product_serializer.save(branch_sales=branch_sales, product_id=id)
+        return Response({'result': 'success', 'msg': 'success'})
 
 
 
