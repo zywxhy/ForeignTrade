@@ -5,8 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7f87c24d-5d39-4830-8590-98c8da8ff610" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/templates/branch_warehousing/branch_warehousing.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/branch_warehousing/branch_warehousing.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/domestic_invoice/domestic_invoice.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/domestic_invoice/domestic_invoice.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/branch_sales/branch_sales.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/branch_sales/branch_sales.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/domestic_invoice/domestic_invoice_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/domestic_invoice/domestic_invoice_list.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -83,8 +82,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/templates/domestic_invoice/domestic_invoice_list.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2068">
-              <caret line="11" column="9" selection-start-line="11" selection-start-column="9" selection-end-line="11" selection-end-column="9" />
+            <state relative-caret-position="528">
+              <caret line="227" column="27" lean-forward="true" selection-start-line="227" selection-start-column="27" selection-end-line="227" selection-end-column="27" />
             </state>
           </provider>
         </entry>
@@ -344,7 +343,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Unknown.ForeignTrade254653208">
+  <component name="RunManager" selected="Unknown.ForeignTrade1278234592">
     <configuration name="serializer" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="ForeignTrade" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -527,7 +526,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.61585367" visible="true" weight="0.12328767" />
       <window_info id="Structure" order="1" sideWeight="0.174" side_tool="true" weight="0.26811594" />
@@ -543,9 +541,9 @@
       <window_info anchor="bottom" id="Version Control" order="8" sideWeight="0.49894625" weight="0.329718" />
       <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="Python Console" order="10" sideWeight="0.49683878" weight="0.3438178" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="11" sideWeight="0.49894625" visible="true" weight="0.2635575" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="11" sideWeight="0.49894625" visible="true" weight="0.19956616" />
       <window_info active="true" anchor="bottom" id="manage.py@ForeignTrade" order="12" weight="0.40915394" />
-      <window_info anchor="bottom" id="Event Log" order="13" sideWeight="0.50105375" side_tool="true" visible="true" weight="0.2635575" />
+      <window_info anchor="bottom" id="Event Log" order="13" sideWeight="0.50105375" side_tool="true" visible="true" weight="0.19956616" />
       <window_info anchor="bottom" id="Concurrent Activities Diagram" order="14" weight="0.32871014" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -952,8 +950,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/domestic_invoice/domestic_invoice_list.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2068">
-          <caret line="11" column="9" selection-start-line="11" selection-start-column="9" selection-end-line="11" selection-end-column="9" />
+        <state relative-caret-position="528">
+          <caret line="227" column="27" lean-forward="true" selection-start-line="227" selection-start-column="27" selection-end-line="227" selection-end-column="27" />
         </state>
       </provider>
     </entry>

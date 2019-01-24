@@ -379,7 +379,7 @@
                         arr.push(item.product.product_id);
                     });
                     var number = arr.findIndex(function (value) {
-                        return value == data.product_id
+                        return value == data.product.product_id
                     });
                     if (number === -1) {
                         getdata.push(data);
