@@ -8,6 +8,8 @@ from .forms import OverseasInvoicePlanForm
 from branch_sales.models import BranchSalesContract
 from django.views import View
 import json
+from branch_sales.serializer import BranchSalesProductModelSerializer
+from django.db.models import Q,F
 
 # Create your views here.
 class OverseasInvoiceView(View):
@@ -22,15 +24,14 @@ class OverseasInvoiceView(View):
                 initial[key] = getattr(overseas_invoice, key)
             form = OverseasInvoicePlanForm(request,initial=initial)
         branch_sales_id = request.GET.get('branch_sales')
-
         sales_products = BranchSalesContract.objects.get(id= branch_sales_id).branch_sales_product.all()
+        sales_products_data = json.dumps(BranchSalesProductModelSerializer(instance=sales_products,many=True).data)
         products_data = OverseasInvoiceProductModelSerializer(instance=invoice_products, many=True, ).data
         for item in products_data:
             product = item.pop('product')
             item.update(product)
         invoice_products_data = json.dumps(products_data)
         return render(request,'overseas_invoice/overseas_invoice.html',locals())
-
 
 
 class OverseasInvoiceViewReview(View):
@@ -46,7 +47,7 @@ class OverseasInvoiceViewReview(View):
             form = OverseasInvoicePlanForm(request,initial=initial)
         branch_sales_id = request.GET.get('branch_sales')
 
-        sales_products = BranchSalesContract.objects.get(id= branch_sales_id).branch_sales_product.all()
+        sales_products = BranchSalesContract.objects.get(id= branch_sales_id).branch_sales_product.filter()
         products_data = OverseasInvoiceProductModelSerializer(instance=invoice_products, many=True, ).data
         for item in products_data:
             product = item.pop('product')
@@ -59,9 +60,6 @@ class OverseasInvoiceListView(View):
     def get(self,request):
         overseas_invoice = OverseasInvoice.objects.all()
         return render(request,'overseas_invoice/overseas_invoice_list.html',locals())
-
-
-
 
 
 class OverseasInvoiceModelViewSet(ModelViewSet):
@@ -79,7 +77,6 @@ class OverseasInvoiceModelViewSet(ModelViewSet):
         }
         return Response(data)
 
-
     def retrieve(self, request, *args, **kwargs):
         instance = self.get_object()
         serializer = self.get_serializer(instance)
@@ -95,38 +92,37 @@ class OverseasInvoiceModelViewSet(ModelViewSet):
         }
         return Response(data)
 
-
     # 产品的添加和修改
     def create(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data = request.data)
-        serializer.is_valid()
-        data = serializer.data    # 这里嵌套的product信息会自动在key值上加[]，如：'id' 变成 '[id]' 后续处理要注意
-        overseas_invoice_product = data.pop('overseas_invoice_product')
-        sales_num = data.pop('branch_sales')
-        branch_sales_id = BranchSalesContract.objects.get(sales_num=sales_num).id
-        overseas_invoice_num = data['overseas_invoice_num']
-        existed = OverseasInvoice.objects.filter(overseas_invoice_num=overseas_invoice_num)
-        if existed:
-            existed.update(branch_sales_id=branch_sales_id,**data)
-            overseas_invoice = existed[0]
-            overseas_invoice.overseas_invoice_product.all().delete()
-        else:
-            overseas_invoice = OverseasInvoice.objects.create(branch_sales_id=branch_sales_id,**data)
-        for product_item in overseas_invoice_product:
-            print(product_item)
-            product_data = {
-                'product_id':product_item.get('[id]'),
-                'count':product_item.get('[count]'),
-
-            }
-            print(product_data)
-            OverseasInvoiceProduct.objects.create(overseas_invoice=overseas_invoice,**product_data)
-        return Response('success')
-
-
-
-
-
+        data = json.loads(request.data.get('data'))
+        print(data)
+        serializer = self.get_serializer(data=data)
+        result = serializer.is_valid()
+        if not result:
+            print(serializer.errors)
+            return Response({'result': 'failure', 'msg': serializer.errors})
+        product_data = data.get('domestic_invoice_product', '')
+        if not product_data:
+            return Response({'result': 'failure', 'msg': 'ERROR:No products'})
+        domestic_invoice = serializer.save()
+        if not domestic_invoice:
+            return Response({'result': 'failure', 'msg': 'Has been audited and no modification is allowed.'})
+        for product in product_data:
+            try:
+                product.pop('domestic_invoice')
+            except:
+                pass
+            id = product['product']['id']
+            product_serializer = OverseasInvoiceProductModelSerializer(data=product, )
+            product_serializer.is_valid()
+            errors = product_serializer.errors
+            errors.pop('domestic_invoice')
+            if bool(errors):
+                domestic_invoice.domestic_invoice_product.all().delete()
+                print(product_serializer.errors)
+                return Response({'result': 'failure', 'msg': product_serializer.errors})
+            product_serializer.save(domestic_invoice=domestic_invoice, product_id=id)
+        return Response({'result': 'success', 'msg': 'success'})
 
 
 router = SimpleRouter()
