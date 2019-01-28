@@ -13,9 +13,6 @@
         .padmar{
             margin:10px;
         }
-        #_order tr td{
-            width: 25%;
-        }
     </style>
 {% endblock %}
 
@@ -184,14 +181,14 @@
                     ,id:'ftable'
                     ,cols:[[
                         {type:'checkbox',align:"left"}
-                        ,{field:"product_id",title:"产品代码",align:"left"}
-                        ,{field:"name",title:"名字",align:"left"}
-                        ,{field:"product",title:"规格",align:"left"}
+                        ,{field:"product_id",title:"产品代码",align:"left",templet: '<div>{% verbatim %}{{ d.product.product_id }}{% endverbatim %}</div>'}
+                        ,{field:"name",title:"名字",align:"left",templet: '<div>{% verbatim %}{{ d.product.name }}{% endverbatim %}</div>'}
+                        ,{field:"spec",title:"规格",align:"left",templet: '<div>{% verbatim %}{{ d.product.spec }}{% endverbatim %}</div>'}
                         ,{field:"remark",title:"备注",align:"left",edit: 'text'}
-                        ,{field:"mesu_unit",title:"单位",align:"left"}
-                        ,{field:"volume",title:"体积",align:"left"}
-                        ,{field:"count",title:"出库数量",align:"left",edit: 'text'}
-                        ,{field:"sales_count",title:"总数量",align:"left"}
+                        ,{field:"mesu_unit",title:"单位",align:"left",templet: '<div>{% verbatim %}{{ d.product.mesu_unit }}{% endverbatim %}</div>'}
+                        ,{field:"count",title:"出库数量",align:"left",edit: 'text',}
+                        ,{field:"outbound_count",title:"已出库数量",align:"left",}
+                        ,{field:"sales_count",title:"总数量",align:"left",}              // 字段名对不上,url无法连接
                     ]]
                     ,parseData:function(res){
                         console.log(res);
@@ -206,31 +203,20 @@
                 table.render({
                     elem:'#child_table'
                     ,page:true
-                    ,data:[
-                        {% for item in sales_products %}
-                            {
-                                'id':'{{ item.id }}',
-                                'name':'{{ item.product.name }}',
-                                'product':'{{ item.product.product_id }}',
-                                'remark':'{{ item.remark }}',
-                                'mesu_unit':'{{ item.product.mesu_unit }}',
-                                'volume':'{{ item.product.volume }}',
-                                'sales_count':'{{ item.sales_count }}',
-                            },
-                        {% endfor %}
-                    ]
+                    ,data:{{ sales_products_data|safe }}
                     // ,url: '/product/product_select'
                     , skin: 'nob' //行边框风格
                     , even: true //开启隔行背景
                     ,defaultToolbar:[]
                     ,id:'ctable'
                     ,cols:[[
-                        {field: "id", title: "产品id", align: "left", width: 100}
-                        , {field: "name", title: "产品名称", align: "left", width: 100}
-                        , {field: "spec", title: "产品规格", align: "left", width: 200}
-                        , {field: "count", title: "数量", align: "left", width: 100}
-                        , {field: "volume", title: "体积", align: "left", width: 100}
-                        , {title: "操作", toolbar: '#titleTpl', align: "left", width: 100}
+                        {field: "product_id", title: "产品id", align: "left", width: 100,templet: '<div>{% verbatim %}{{ d.product.product_id }}{% endverbatim %}</div>'}
+                        , {field: "name", title: "产品名称", align: "left", width: 100,templet: '<div>{% verbatim %}{{ d.product.name }}{% endverbatim %}</div>'}
+                        , {field: "spec", title: "产品规格", align: "left", width: 200,templet: '<div>{% verbatim %}{{ d.product.spec }}{% endverbatim %}</div>'}
+                        , {field: "model", title: "产品型号", align: "left", width: 200,templet: '<div>{% verbatim %}{{ d.product.model }}{% endverbatim %}</div>'}
+                        ,{field:"outbound_count",title:"已出库数量",align:"left",width: 100,}
+                        , {field: "sales_count", title: "销售数量", align: "left", width: 100,}
+                        , {title: "操作", toolbar: '#titleTpl', align: "left", width: 100,}
                     ]]
                     ,parseData:function(res){
                         return {
@@ -247,16 +233,14 @@
                         case 'add':
                             layer.open({
                                 type:1
-                                , content:$('#layui_layer')
-                                , title: ['请选择', 'font-size:18px;']
-                                , area:'auto'
-                                , offset: 't'
-                                , anim: 1
-                                , maxWidth:1000
-                                , shadeClose:true
-                                , resize:false
-                                , zIndex: layer.zIndex //重点1
-                                , btn: ['关闭'] //只是为了演示
+                                ,content:$('#layui_layer')
+                                ,title: ['请选择', 'font-size:18px;']
+                                ,area:'auto'
+                                ,maxWidth:1000
+                                ,shadeClose:true
+                                ,resize:false
+                                ,zIndex: layer.zIndex //重点1
+                                ,btn: ['关闭'] //只是为了演示
                                 ,yes: function(index){
                                     layer.close(index);
                                 }
@@ -338,10 +322,13 @@
 
                         var _data = table.cache.ftable;
                         //second table
-                        data.csrfmiddlewaretoken = '{{ csrf_token }}';
+
                         data.overseas_invoice_product = _data;
+                        var new_data = {};
+                        new_data.csrfmiddlewaretoken = '{{ csrf_token }}';
+                        new_data.data = JSON.stringify(data);
                         console.log(JSON.stringify(data));
-                        $.post("/overseas_invoice/", data, function (a, b) {
+                        $.post("/overseas_invoice/", new_data, function (a, b) {
                             alert(a);
                         });
                     },
