@@ -230,6 +230,18 @@
                             "data": res.data[0].domestic_invoice_product //解析数据列表
                         };
                     }
+                    ,done:function(res,curr,count){
+                        var data = res.data;
+                        $.each(data,function(index,item){
+                            item.unit_cost = (item.count||0)*(item.unit_price);
+                        })
+                        // table.reload("ftable",{
+                        //     page: {
+                        //         curr: 1 //重新从第 1 页开始
+                        //     }
+                        //     ,data:data
+                        // })
+                    }
                 });
                 table.render({
                     elem:'#child_table'
@@ -437,6 +449,7 @@
                         var unit_price = data.unit_price||0,
                         sales_count = data.count||0;
                         var total = table.cache.ftable;
+                        console.log(total);
                         $.each(total, function (index, item) {
                             
                             if (item.product.product_id === data.product.product_id) {
