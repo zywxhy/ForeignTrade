@@ -284,24 +284,24 @@
                     }
                 });
                 table.on('edit(_table)',function(obj){
-                    // var database = table.cache.ftable;
-                    // $.each(database,function(index,item){
-                    //     var count = item.sales_count - item.outbound_count;
-                    //     if(item.plan_count > count){
-                    //         item.plan_count = count;
-                    //         obj.value = count;
-                    //     }
-                    // });
-                    // active.reload('ftable',database);//计算可出库数量的剩余
-                    var count = obj.data.count||0,
-                    unit_price = obj.data.unit_price||0;
-                    var data = table.cache.ftable;
-                    $.each(data,function(index,item){
-                        if(item.id === obj.data.id){
-                            item.sales_count = count * unit_price;
+                    var database = table.cache.ftable;
+                    $.each(database,function(index,item){
+                        var count = item.sales_count - item.outbound_count;
+                        if(item.count > count){
+                            item.count = count;
+                            obj.value = count;
                         }
                     });
-                    active.reload('ftable',data);//计算每一行的总量
+                    active.reload('ftable',database);//计算可出库数量的剩余
+                    // var count = obj.data.count||0,
+                    // unit_price = obj.data.unit_price||0;
+                    // var data = table.cache.ftable;
+                    // $.each(data,function(index,item){
+                    //     if(item.id === obj.data.id){
+                    //         item.sales_count = count * unit_price;
+                    //     }
+                    // });
+                    // active.reload('ftable',data);//计算每一行的总量
                 });
                 var active = {
                     reload:function(id,dt){
