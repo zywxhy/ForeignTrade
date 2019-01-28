@@ -231,10 +231,23 @@
                         };
                     }
                     ,done:function(res,curr,count){
+                        var count_num = 0;
                         var data = res.data;
                         $.each(data,function(index,item){
                             item.unit_cost = (item.count||0)*(item.unit_price);
-                        })
+                            count_num += Number(item.unit_cost||0);
+                        });
+                        // active.calculat(data);
+
+                        // var unit_price = data.unit_price||0,
+                        // sales_count = data.count||0;
+                        
+                        var data1 = $("#_order input.changeable");
+                        $.each(data1, function (index, item) {
+                            count_num = count_num + Number($(item).val());
+                        });
+
+                        $("#id_total_amount").val(count_num.toFixed(2));
                         // table.reload("ftable",{
                         //     page: {
                         //         curr: 1 //重新从第 1 页开始
