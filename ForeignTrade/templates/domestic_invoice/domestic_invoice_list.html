@@ -113,7 +113,7 @@
                         <div class="layui-input-inline">
                             <input type="text" class="layui-input" autocomplete="off" id="test-1" placeholder="开始 到 结束">
                         </div>
-                        <button class="layui-btn" data-method="reloadsearch">搜索</button>
+                        <button class="layui-btn" type="button" data-method="reloadsearch">搜索</button>
                     </div>
                 </div>
                 
@@ -154,6 +154,7 @@
                 laydate = layui.laydate,
                 form = layui.form;
                 var $ = layui.$;
+                var globalvalue = '';
                 var demoReload = $('#demoReload');
 
                 laydate.render({
@@ -161,14 +162,15 @@
                     ,lang: 'en'
                     ,range: true
                     ,done: function(value, date, endDate){
-                        console.log($('#test-1').val())
+                        console.log(value);
+                        globalvalue = value;
                     }
                 });
                 form.on('select(test)',function(){
                     var demoReload = $('#demoReload').val();
                     console.log($('#select1').val());
                     console.log($('#select2').val());
-                    console.log($('#test-1').val())
+                    console.log(globalvalue)
                 });
                 table.render({             //子页面的table
                     data:[
@@ -222,7 +224,10 @@
                     reloadsearch: function(data){               //子页面搜索
                         //执行重载
                         table.reload('testchange', {
-                            where: {
+                            page: {
+                                curr: 1 //重新从第 1 页开始
+                            }
+                            ,where: {
                                 search: data
                             }
                         });
@@ -231,11 +236,12 @@
                 $('.infoDemo .layui-btn').on('click', function(){               //子页面的搜索按钮
                     var othis = $(this), method = othis.data('method');
                     var data = {
-                        demoReload : $('#demoReload').val(),
-                        demoReload :$('#select1').val(),
-                        demoReload :$('#select2').val(),
-                        demoReload :$('#test-1').val()
+                        demoReload1 : $('#demoReload').val(),
+                        demoReload2 :$('#select1').val(),
+                        demoReload3 :$('#select2').val(),
+                        demoReload4 :$('#test-1').val()
                     }
+                    console.log(data);
                     active[method] ? active[method].call(this,data) : '';
                 });
                 
